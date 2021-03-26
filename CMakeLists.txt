@@ -1,18 +1,17 @@
 cmake_minimum_required(VERSION 3.20)
 
+project(Kt-Serial LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(sandbox sandbox.cpp)
+option(KTSERIAL_BUILD_TESTS "Build tests" ON)
 
-target_include_directories(
-    sandbox PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
+add_subdirectory(src)
 
-if(MSVC)
-    target_compile_options(sandbox PRIVATE /W4 /WX)
+if(KTSERIAL_BUILD_TESTS)
+    add_subdirectory(tests)
+    message("build kt-serial tests")
 else()
-    target_compile_options(
-        sandbox PRIVATE -Wall -Wextra -pedantic -Werror -Wsign-conversion
-    )
+    message("skip kt-serial tests")
 endif()
