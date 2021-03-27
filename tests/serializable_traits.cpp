@@ -103,8 +103,6 @@ TEST(SerializableClasses, ChecksSaveFunction)
     bool archiveAcceptedByValueSavable = HasSaveFunction<ArchiveAcceptedByValueSavable, Archive>::value;
     EXPECT_FALSE(archiveAcceptedByValueSavable);
 
-    // TODO: рассмотреть изменение поведения и сделать доступным перегрузки SAVE_FUNCTION,
-    // принимающие T по значению
     bool acceptedByValueSavable = HasSerializeFunction<AcceptedByValueSavable, Archive>::value;
     EXPECT_FALSE(acceptedByValueSavable);
 
@@ -165,7 +163,6 @@ TEST(SerializableClasses, ChecksLoadFunction)
     bool archiveAcceptedByValueLoadable = HasLoadFunction<ArchiveAcceptedByValueLoadable, Archive>::value;
     EXPECT_FALSE(archiveAcceptedByValueLoadable);
 
-    // TODO: рассмотреть изменение поведения и запретить принимать T по значению (непонятно, как это сделать)
     bool acceptedByValueLoadable = HasSerializeFunction<AcceptedByValueLoadable, Archive>::value;
     EXPECT_FALSE(acceptedByValueLoadable);
 
