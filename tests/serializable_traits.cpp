@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "kt-serial/details/traits.h"
+#include "kt-serial/details/serializable_traits.h"
 #include "serializable_checks/serialize_method_checks.h"
 #include "serializable_checks/serialize_function_checks.h"
 #include "serializable_checks/save_method_checks.h"
