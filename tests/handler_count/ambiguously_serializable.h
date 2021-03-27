@@ -1,0 +1,54 @@
+#pragma once
+
+#include "kt-serial/macros.h"
+
+namespace AmbiguouslySerializable
+{
+class Archive { Archive(const Archive&) = delete; };
+
+class MethodFunctionSerializable
+{
+public:
+    template <class Ar>
+    void SERIALIZE_METHOD(Ar&);
+};
+
+template <class Ar>
+void SERIALIZE_FUNCTION(Ar&, MethodFunctionSerializable&);
+
+class MethodSerializableSavable
+{
+public:
+    template <class Ar>
+    void SERIALIZE_METHOD(Ar&);
+
+    template <class Ar>
+    void SAVE_METHOD(Ar&) const;
+};
+
+class FunctionSerializableSavable {};
+
+template <class Ar>
+void SERIALIZE_FUNCTION(Ar&, FunctionSerializableSavable&);
+
+template <class Ar>
+void SAVE_FUNCTION(Ar&, const FunctionSerializableSavable&);
+
+class TwoFunctionSerializable {};
+
+template <class Ar>
+void SERIALIZE_FUNCTION(Ar&, TwoFunctionSerializable&);
+
+template <class Ar>
+int SERIALIZE_FUNCTION(Ar&, TwoFunctionSerializable&);
+
+class TwoFunctionSavable {};
+
+template <class Ar>
+void SAVE_FUNCTION(Ar&, const TwoFunctionSavable&) {}
+
+template <class Ar>
+int SAVE_FUNCTION(Ar&, const TwoFunctionSavable&) {}
+
+
+} // namespace AmbiguouslySerializable
