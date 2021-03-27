@@ -12,6 +12,9 @@ namespace Traits
 template <bool Expr>
 using BoolConstant = std::integral_constant<bool, Expr>;
 
+template <int Expr>
+using IntConstant = std::integral_constant<int, Expr>;
+
 // ###########################################################################
 
 template <bool Head, bool ... Tail>
