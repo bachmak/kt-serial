@@ -3,6 +3,7 @@
 #include <type_traits>
 
 #include "kt-serial/access.h"
+#include "kt-serial/details/basic_traits.h"
 
 namespace KtSerial
 {
@@ -17,7 +18,8 @@ namespace Traits
  * (определено в macros.h)
  * @tparam Type сериализуемый/десериализуемый класс, для которого
  * осуществляется проверка на наличие метода
- * @tparam Archive класс архива, принимаемый в метод по неконстантной ссылке 
+ * @tparam Archive класс архива, принимаемый в метод по неконстантной ссылке
+ * @returns value – статическое поле с результатом проверки
  */
 template <class Type, class Archive>
 struct HasSerializeMethod
@@ -43,7 +45,8 @@ public:
  * (определено в macros.h)
  * @tparam Type сериализуемый класс, для которого осуществляется проверка на
  * наличие метода
- * @tparam Archive класс архива, принимаемый в метод по неконстантной ссылке 
+ * @tparam Archive класс архива, принимаемый в метод по неконстантной ссылке
+ * @returns value – статическое поле с результатом проверки
  */
 template <class Type, class Archive>
 struct HasSaveMethod
@@ -70,6 +73,7 @@ public:
  * @tparam Type десериализуемый класс, для которого осуществляется проверка на
  * наличие метода
  * @tparam Archive класс архива, принимаемый в метод по неконстантной ссылке
+ * @returns value – статическое поле с результатом проверки
  */
 template <class Type, class Archive>
 struct HasLoadMethod
@@ -100,6 +104,7 @@ public:
  * неконстантной ссылке вторым параметром
  * @tparam Archive класс архива, принимаемый в функцию по неконстантной ссылке
  * первым параметром
+ * @returns value – статическое поле с результатом проверки
  */
 template <class Type, class Archive>
 struct HasSerializeFunction
@@ -127,6 +132,7 @@ public:
  * ссылке вторым параметром
  * @tparam Archive класс архива, принимаемый в функцию по неконстантной ссылке
  * первым параметром
+ * @returns value – статическое поле с результатом проверки
  */
 template <class Type, class Archive>
 struct HasSaveFunction
@@ -154,6 +160,7 @@ public:
  * ссылке вторым параметром
  * @tparam Archive класс архива, принимаемый в функцию по неконстантной ссылке
  * первым параметром
+ * @returns value – статическое поле с результатом проверки
  */
 template <class Type, class Archive>
 struct HasLoadFunction
@@ -173,6 +180,93 @@ private:
 public:
     static const bool value = std::is_same<check_type, std::true_type>::value;
 };
+
+//                            Проверки на однозначность процедуры сериализации
+// ###########################################################################
+
+/**
+ * Структура для вычисления количества доступных функций/методов для 
+ * описания процедуры сериализации, соответствующих заданным типу и архиву
+ * @extends std::integral_constant
+ * @tparam Type сериализуемый тип
+ * @tparam OutputArchive класс архива, осуществляющего сериализацию
+ * @returns value – статическое поле с вычисленным количеством
+ */
+template <class Type, class OutputArchive>
+struct OutputHandlerCount : IntConstant<
+    HasSerializeMethod<Type, OutputArchive>::value +
+    HasSerializeFunction<Type, OutputArchive>::value +
+    HasSaveMethod<Type, OutputArchive>::value +
+    HasSaveFunction<Type, OutputArchive>::value
+> {};
+
+/**
+ * Структура для вычисления количества доступных функций/методов для 
+ * описания процедуры десериализации, соответствующих заданным типу и архиву
+ * @extends std::integral_constant
+ * @tparam Type десериализуемый тип
+ * @tparam InputArchive класс архива, осуществляющего десериализацию
+ * @returns value – статическое поле с вычисленным количеством
+ */
+template <class Type, class InputArchive>
+struct InputHandlerCount : IntConstant<
+    HasSerializeMethod<Type, InputArchive>::value +
+    HasSerializeFunction<Type, InputArchive>::value +
+    HasLoadMethod<Type, InputArchive>::value +
+    HasLoadFunction<Type, InputArchive>::value
+> {};
+
+/**
+ * Структура для проверки наличия для заданных типа и архива хотя бы одной
+ * описанной процедуры сериализации
+ * @extends std::integral_constant
+ * @tparam Type сериализуемый тип
+ * @tparam OutputArchive класс архива, осуществляющего сериализацию
+ * @returns value – статическое поле с результатом проверки
+ */
+template <class Type, class OutputArchive>
+struct HasAtLeastOneOutputHandler : BoolConstant<
+    (OutputHandlerCount<Type, OutputArchive>::value > 0)
+> {};
+
+/**
+ * Структура для проверки наличия для заданных типа и архива хотя бы одной
+ * описанной процедуры десериализации
+ * @extends std::integral_constant
+ * @tparam Type десериализуемый тип
+ * @tparam InputArchive класс архива, осуществляющего десериализацию
+ * @returns value – статическое поле с результатом проверки
+ */
+template <class Type, class InputArchive>
+struct HasAtLeastOneInputHandler : BoolConstant<
+    (InputHandlerCount<Type, InputArchive>::value > 0)
+> {};
+
+/**
+ * Структура для проверки наличия для заданных типа и архива ровно одной
+ * описанной процедуры сериализации
+ * @extends std::integral_constant
+ * @tparam Type сериализуемый тип
+ * @tparam OutputArchive класс архива, осуществляющего сериализацию
+ * @returns value – статическое поле с результатом проверки
+ */
+template <class Type, class OutputArchive>
+struct HasExactlyOneOutputHandler : BoolConstant<
+    OutputHandlerCount<Type, OutputArchive>::value == 1
+> {};
+
+/**
+ * Структура для проверки наличия для заданных типа и архива ровно одной
+ * описанной процедуры десериализации
+ * @extends std::integral_constant
+ * @tparam Type десериализуемый тип
+ * @tparam InputArchive класс архива, осуществляющего десериализацию
+ * @returns value – статическое поле с результатом проверки
+ */
+template <class Type, class InputArchive>
+struct HasExactlyOneInputHandler : BoolConstant<
+    InputHandlerCount<Type, InputArchive>::value == 1
+> {};
 
 } // namespace Traits
 } // namespace KtSerial
