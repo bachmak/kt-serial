@@ -31,8 +31,7 @@ add_subdirectory(
     EXCLUDE_FROM_ALL
 )
 
-include(GoogleTest)
-enable_testing()
+
 
 file(GLOB test_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
@@ -40,5 +39,6 @@ foreach(test_source ${test_sources})
     get_filename_component(test_name ${test_source} NAME_WE)
     add_executable(${test_name} ${test_source})
     target_link_libraries(${test_name} gtest_main kt_serial)
+    target_include_directories(${test_name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
     gtest_discover_tests(${test_name})
 endforeach()

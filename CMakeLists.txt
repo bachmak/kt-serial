@@ -10,6 +10,8 @@ option(KTSERIAL_BUILD_TESTS "Build tests" ON)
 add_subdirectory(src)
 
 if(KTSERIAL_BUILD_TESTS)
+    include(GoogleTest)
+    enable_testing()
     add_subdirectory(tests)
     message("build kt-serial tests")
 else()
