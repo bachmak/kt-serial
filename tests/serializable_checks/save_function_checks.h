@@ -17,32 +17,32 @@ class SwappedNonConstSavable {};
 class MultipleSavable {};
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, const Savable&);
+void KTSERIAL_SAVE_FUNCTION(Ar&, const Savable&);
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, NonConstSavable&);
+void KTSERIAL_SAVE_FUNCTION(Ar&, NonConstSavable&);
 
 template <class Ar>
-void SAVE_FUNCTION(Ar, const ArchiveAcceptedByValueSavable&);
+void KTSERIAL_SAVE_FUNCTION(Ar, const ArchiveAcceptedByValueSavable&);
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, AcceptedByValueSavable);
+void KTSERIAL_SAVE_FUNCTION(Ar&, AcceptedByValueSavable);
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, const WrongSignatureSavable&, int);
+void KTSERIAL_SAVE_FUNCTION(Ar&, const WrongSignatureSavable&, int);
 
 template <class Ar>
-void SAVE_FUNCTION(const SwappedSavable&, Ar&);
+void KTSERIAL_SAVE_FUNCTION(const SwappedSavable&, Ar&);
 
 template <class Ar>
-void SAVE_FUNCTION(const SwappedConstArchiveSavable&, const Ar&);
+void KTSERIAL_SAVE_FUNCTION(const SwappedConstArchiveSavable&, const Ar&);
 
 template <class Ar>
-void SAVE_FUNCTION(SwappedNonConstSavable&, Ar&);
+void KTSERIAL_SAVE_FUNCTION(SwappedNonConstSavable&, Ar&);
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, const MultipleSavable&);
+void KTSERIAL_SAVE_FUNCTION(Ar&, const MultipleSavable&);
 
 template <class Ar>
-int SAVE_FUNCTION(Ar&, const MultipleSavable&);
+int KTSERIAL_SAVE_FUNCTION(Ar&, const MultipleSavable&);
 } // namespace SerializeFunctionChecks

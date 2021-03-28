@@ -13,20 +13,20 @@ class AcceptedByValue {};
 class ArchiveAcceptedByValue {};
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, Serializable&);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, Serializable&);
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, MultipleSerializable&);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, MultipleSerializable&);
 
 template <class Ar>
-int SERIALIZE_FUNCTION(Ar&, MultipleSerializable&);
+int KTSERIAL_SERIALIZE_FUNCTION(Ar&, MultipleSerializable&);
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, SerializeFunctionWrongSignature&, int);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, SerializeFunctionWrongSignature&, int);
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar, ArchiveAcceptedByValue&);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar, ArchiveAcceptedByValue&);
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, AcceptedByValue);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, AcceptedByValue);
 } // namespace SerializeFunctionChecks

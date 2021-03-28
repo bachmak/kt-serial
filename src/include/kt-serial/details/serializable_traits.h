@@ -112,7 +112,7 @@ struct HasSerializeFunction
 private:
     template <class T, class A> static auto
     check(int) -> decltype(
-        SERIALIZE_FUNCTION(std::declval<A&>(), std::declval<T&>()),
+        KTSERIAL_SERIALIZE_FUNCTION(std::declval<A&>(), std::declval<T&>()),
         std::true_type{}
     );
 
@@ -140,7 +140,7 @@ struct HasSaveFunction
 private:
     template <class T, class A> static auto
     check(int) -> decltype(
-        SAVE_FUNCTION(std::declval<A&>(), std::declval<const T&>()),
+        KTSERIAL_SAVE_FUNCTION(std::declval<A&>(), std::declval<const T&>()),
         std::true_type{}
     );
 
@@ -168,7 +168,7 @@ struct HasLoadFunction
 private:
     template <class T, class A> static auto
     check(int) -> decltype(
-        LOAD_FUNCTION(std::declval<A&>(), std::declval<T&>()),
+        KTSERIAL_LOAD_FUNCTION(std::declval<A&>(), std::declval<T&>()),
         std::true_type{}
     );
 

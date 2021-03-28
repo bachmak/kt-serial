@@ -11,7 +11,7 @@ class PublicSerializable
 {
 public:
     template <class Ar>
-    void SERIALIZE_METHOD(Ar&);
+    void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 class PrivateSerializable
@@ -19,7 +19,7 @@ class PrivateSerializable
 private:
     friend struct KtSerial::Access;
     template <class Ar>
-    void SERIALIZE_METHOD(Ar&);
+    void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 class NotSerializable {};
@@ -28,23 +28,23 @@ class NoAccessPrivateSerializable
 {
 private:
     template <class Ar>
-    void SERIALIZE_METHOD(Ar&);
+    void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 class StaticSerializable
 {
 public:
     template <class Ar> 
-    static void SERIALIZE_METHOD(Ar& ar);
+    static void KTSERIAL_SERIALIZE_METHOD(Ar& ar);
 };
 
 class MultipleSerializable
 {
 public:
     template <class Ar>
-    void SERIALIZE_METHOD(Ar& ar);
+    void KTSERIAL_SERIALIZE_METHOD(Ar& ar);
 
     template <class Ar>
-    int SERIALIZE_METHOD(Ar& ar);
+    int KTSERIAL_SERIALIZE_METHOD(Ar& ar);
 };
 } // namespace SerializeMethodChecks

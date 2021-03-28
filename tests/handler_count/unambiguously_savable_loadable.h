@@ -10,37 +10,37 @@ class MethodSavableLoadable
 {
 public:
     template <class Ar>
-    void SAVE_METHOD(Ar&) const;
+    void KTSERIAL_SAVE_METHOD(Ar&) const;
 
     template <class Ar>
-    void LOAD_METHOD(Ar&) const;
+    void KTSERIAL_LOAD_METHOD(Ar&) const;
 };
 
 class FunctionSavableLoadable {};
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, const FunctionSavableLoadable&);
+void KTSERIAL_SAVE_FUNCTION(Ar&, const FunctionSavableLoadable&);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, FunctionSavableLoadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar&, FunctionSavableLoadable&);
 
 class MethodSavableFunctionLoadable
 {
 public:
     template <class Ar>
-    void SAVE_METHOD(Ar&) const;
+    void KTSERIAL_SAVE_METHOD(Ar&) const;
 };
 
 class FunctionSavableMethodLoadable
 {
 public:
     template <class Ar>
-    void LOAD_METHOD(Ar&) const;
+    void KTSERIAL_LOAD_METHOD(Ar&) const;
 };
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, const FunctionSavableMethodLoadable&);
+void KTSERIAL_SAVE_FUNCTION(Ar&, const FunctionSavableMethodLoadable&);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, MethodSavableFunctionLoadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar&, MethodSavableFunctionLoadable&);
 } // namespace UnambiguouslySavableLoadable

@@ -11,7 +11,7 @@ class PublicSavable
 {
 public:
     template <class Ar>
-    void SAVE_METHOD(Ar&) const;
+    void KTSERIAL_SAVE_METHOD(Ar&) const;
 };
 
 class PrivateSavable
@@ -19,7 +19,7 @@ class PrivateSavable
 private:
     friend struct KtSerial::Access;
     template <class Ar>
-    int SAVE_METHOD(Ar&) const;
+    int KTSERIAL_SAVE_METHOD(Ar&) const;
 };
 
 class NotSavable {};
@@ -28,23 +28,23 @@ class NoAccessPrivateSavable
 {
 private:
     template <class Ar>
-    void SAVE_METHOD(Ar&) const;
+    void KTSERIAL_SAVE_METHOD(Ar&) const;
 };
 
 class NonConstSavable
 {
 public:
     template <class Ar> 
-    void SAVE_METHOD(Ar& ar);
+    void KTSERIAL_SAVE_METHOD(Ar& ar);
 };
 
 class MultipleSavable
 {
 public:
     template <class Ar>
-    void SAVE_METHOD(Ar& ar);
+    void KTSERIAL_SAVE_METHOD(Ar& ar);
 
     template <class Ar>
-    int SAVE_METHOD(Ar& ar);
+    int KTSERIAL_SAVE_METHOD(Ar& ar);
 };
 } // namespace SaveMethodChecks

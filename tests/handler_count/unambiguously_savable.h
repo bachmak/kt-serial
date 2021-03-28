@@ -10,13 +10,13 @@ class OnlyMethodSavable
 {
 public:
     template <class Ar>
-    void SAVE_METHOD(Ar&) const;
+    void KTSERIAL_SAVE_METHOD(Ar&) const;
 };
 
 class OnlyFunctionSavable {};
 
 template <class Ar>
-void SAVE_FUNCTION(Ar&, const OnlyFunctionSavable&);
+void KTSERIAL_SAVE_FUNCTION(Ar&, const OnlyFunctionSavable&);
 
 class NotSavable {};
 } // namespace UnambiguouslySavable

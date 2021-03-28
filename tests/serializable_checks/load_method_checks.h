@@ -11,7 +11,7 @@ class PublicLoadable
 {
 public:
     template <class Ar>
-    void LOAD_METHOD(Ar&);
+    void KTSERIAL_LOAD_METHOD(Ar&);
 };
 
 class PrivateLoadable
@@ -19,7 +19,7 @@ class PrivateLoadable
 private:
     friend struct KtSerial::Access;
     template <class Ar>
-    int LOAD_METHOD(Ar&);
+    int KTSERIAL_LOAD_METHOD(Ar&);
 };
 
 class NotLoadable {};
@@ -28,23 +28,23 @@ class NoAccessPrivateLoadable
 {
 private:
     template <class Ar>
-    void LOAD_METHOD(Ar&);
+    void KTSERIAL_LOAD_METHOD(Ar&);
 };
 
 class ConstLoadable
 {
 public:
     template <class Ar> 
-    void LOAD_METHOD(Ar& ar) const;
+    void KTSERIAL_LOAD_METHOD(Ar& ar) const;
 };
 
 class MultipleLoadable
 {
 public:
     template <class Ar>
-    void LOAD_METHOD(Ar& ar);
+    void KTSERIAL_LOAD_METHOD(Ar& ar);
 
     template <class Ar>
-    int LOAD_METHOD(Ar& ar);
+    int KTSERIAL_LOAD_METHOD(Ar& ar);
 };
 } // namespace LoadMethodChecks

@@ -17,32 +17,32 @@ class SwappedConstLoadable {};
 class MultipleLoadable {};
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, Loadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar&, Loadable&);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, const ConstLoadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar&, const ConstLoadable&);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar, ArchiveAcceptedByValueLoadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar, ArchiveAcceptedByValueLoadable&);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, AcceptedByValueLoadable);
+void KTSERIAL_LOAD_FUNCTION(Ar&, AcceptedByValueLoadable);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, WrongSignatureLoadable&, int);
+void KTSERIAL_LOAD_FUNCTION(Ar&, WrongSignatureLoadable&, int);
 
 template <class Ar>
-void LOAD_FUNCTION(SwappedLoadable&, Ar&);
+void KTSERIAL_LOAD_FUNCTION(SwappedLoadable&, Ar&);
 
 template <class Ar>
-void LOAD_FUNCTION(SwappedConstArchiveLoadable&, const Ar&);
+void KTSERIAL_LOAD_FUNCTION(SwappedConstArchiveLoadable&, const Ar&);
 
 template <class Ar>
-void LOAD_FUNCTION(const SwappedConstLoadable&, Ar&);
+void KTSERIAL_LOAD_FUNCTION(const SwappedConstLoadable&, Ar&);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, MultipleLoadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar&, MultipleLoadable&);
 
 template <class Ar>
-int LOAD_FUNCTION(Ar&, MultipleLoadable&);
+int KTSERIAL_LOAD_FUNCTION(Ar&, MultipleLoadable&);
 } // namespace SerializeFunctionChecks

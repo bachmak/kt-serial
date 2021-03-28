@@ -10,13 +10,13 @@ class OnlyMethodSerializable
 {
 public:
     template <class Ar>
-    void SERIALIZE_METHOD(Ar&);
+    void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 class OnlyFunctionSerializable {};
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, OnlyFunctionSerializable&);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, OnlyFunctionSerializable&);
 
 class NotSerializable {};
 } // namespace UnambiguouslySerializable

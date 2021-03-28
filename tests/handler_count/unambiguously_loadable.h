@@ -10,13 +10,13 @@ class OnlyMethodLoadable
 {
 public:
     template <class Ar>
-    void LOAD_METHOD(Ar&);
+    void KTSERIAL_LOAD_METHOD(Ar&);
 };
 
 class OnlyFunctionLoadable {};
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, OnlyFunctionLoadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar&, OnlyFunctionLoadable&);
 
 class NotLoadable {};
 } // namespace UnambiguouslySerializable

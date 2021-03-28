@@ -10,45 +10,45 @@ class MethodFunctionSerializable
 {
 public:
     template <class Ar>
-    void SERIALIZE_METHOD(Ar&);
+    void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, MethodFunctionSerializable&);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, MethodFunctionSerializable&);
 
 class MethodSerializableLoadable
 {
 public:
     template <class Ar>
-    void SERIALIZE_METHOD(Ar&);
+    void KTSERIAL_SERIALIZE_METHOD(Ar&);
 
     template <class Ar>
-    void LOAD_METHOD(Ar&);
+    void KTSERIAL_LOAD_METHOD(Ar&);
 };
 
 class FunctionSerializableLoadable {};
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, FunctionSerializableLoadable&);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, FunctionSerializableLoadable&);
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, FunctionSerializableLoadable&);
+void KTSERIAL_LOAD_FUNCTION(Ar&, FunctionSerializableLoadable&);
 
 class TwoFunctionSerializable {};
 
 template <class Ar>
-void SERIALIZE_FUNCTION(Ar&, TwoFunctionSerializable&);
+void KTSERIAL_SERIALIZE_FUNCTION(Ar&, TwoFunctionSerializable&);
 
 template <class Ar>
-int SERIALIZE_FUNCTION(Ar&, TwoFunctionSerializable&);
+int KTSERIAL_SERIALIZE_FUNCTION(Ar&, TwoFunctionSerializable&);
 
 class TwoFunctionLoadable {};
 
 template <class Ar>
-void LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) {}
+void KTSERIAL_LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) {}
 
 template <class Ar>
-int LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) {}
+int KTSERIAL_LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) { return 0; }
 
 
 } // namespace AmbiguouslyDeserializable
