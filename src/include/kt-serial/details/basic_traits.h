@@ -31,5 +31,19 @@ struct Disjunction : BoolConstant<Head || Disjunction<Tail...>::value> {};
 template <bool Head>
 struct Disjunction<Head> : BoolConstant<Head> {};
 
+// ###########################################################################
+
+template <bool ... Args>
+struct AndEnabler : std::enable_if<Conjunction<Args...>::value, bool> {};
+
+template <bool ... Args>
+struct OrEnabler : std::enable_if<Disjunction<Args...>::value, bool> {};
+
+template <bool ... Args>
+using ConjunctiveEnableIf = typename AndEnabler<Args...>::type;
+
+template <bool ... Args>
+using DisjunctiveEnableIf = typename OrEnabler<Args...>::type;
+
 } // namespace Traits
 } // namespace KtSerial
