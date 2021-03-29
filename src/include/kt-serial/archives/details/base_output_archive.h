@@ -31,6 +31,21 @@ public:
      */
     BaseOutputArchive(DerivedArchive& derived) : archive(derived) {}
 
+    /* Перемещающий конструктор*/
+    BaseOutputArchive(BaseOutputArchive&&) = default;
+
+    /* Перемещающий оператор присваивания*/
+    BaseOutputArchive& operator=(BaseOutputArchive&&) = default;
+
+    /* Копирующий конструктор*/
+    BaseOutputArchive(const BaseOutputArchive&) = delete;
+
+    /* Копирующий оператор присваивания*/
+    BaseOutputArchive& operator=(const BaseOutputArchive&) = delete;
+
+    /* Виртуальный деструктор*/
+    virtual ~BaseOutputArchive() = default;
+
     /**
      * Интерфейсный оператор сериализации. Перенаправляет вызов на 
      * соответствующий аргументу обработчик.
