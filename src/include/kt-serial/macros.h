@@ -1,8 +1,9 @@
 #pragma once
 
-#ifndef KTSERIAL_SIZE_TYPE
-#define KTSERIAL_SIZE_TYPE uint64_t
-#endif
+/**
+ * Пользовательские макросы для переопределения названий ключевых
+ * методов/функций и типов
+ */
 
 #ifndef KTSERIAL_SERIALIZE_METHOD
 #define KTSERIAL_SERIALIZE_METHOD serialize

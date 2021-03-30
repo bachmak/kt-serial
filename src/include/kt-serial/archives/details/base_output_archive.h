@@ -124,6 +124,7 @@ private:
     > = true>
     DerivedArchive& handle(const Type&)
     {
+        /* В тестовом режиме бросаем исключения*/
         #if defined(KTSERIAL_TEST_MODE)
         if (!Traits::HasAtLeastOneOutputHandler<Type, DerivedArchive>::value)
         {
@@ -134,6 +135,7 @@ private:
             throw std::invalid_argument(KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
         }
         #else
+        /* В обычном режиме - ошибки компиляции*/
         static_assert(
             Traits::HasAtLeastOneOutputHandler<Type, DerivedArchive>::value,
             KTSERIAL_ERROR_NO_HANDLERS_FOUND
