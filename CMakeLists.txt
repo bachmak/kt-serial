@@ -1,19 +1,18 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(Kt-Serial LANGUAGES CXX)
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(KTSERIAL_BUILD_TESTS "Build tests" ON)
+add_executable(sandbox sandbox.cpp)
 
-add_subdirectory(src)
+target_include_directories(
+    sandbox PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
-if(KTSERIAL_BUILD_TESTS)
-    include(GoogleTest)
-    enable_testing()
-    add_subdirectory(tests)
-    message("build kt-serial tests")
+if(MSVC)
+    target_compile_options(sandbox PRIVATE /W4 /WX)
 else()
-    message("skip kt-serial tests")
+    target_compile_options(
+        sandbox PRIVATE -Wall -Wextra -pedantic -Werror -Wsign-conversion
+    )
 endif()
