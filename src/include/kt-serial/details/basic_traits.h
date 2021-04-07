@@ -104,5 +104,41 @@ using ConjunctiveEnableIf = typename AndEnabler<Args...>::type;
 template <bool ... Args>
 using DisjunctiveEnableIf = typename OrEnabler<Args...>::type;
 
+// ###########################################################################
+
+/**
+ * Вспомогательня структура для упрощения использования стандартных 
+ * метафункций std::remove_pointer и std::remove_reference
+ * (https://en.cppreference.com/w/cpp/types/remove_pointer,
+ * https://en.cppreference.com/w/cpp/types/remove_reference).
+ * @tparam Ptr тип указателя
+ */
+template <class Ptr>
+struct RemovePointer : std::remove_pointer<
+    typename std::remove_reference<Ptr>::type
+> {};
+
+/**
+ * Вспомогательная структура для упрощения использования стандартной
+ * метафункции std::is_const
+ * (https://en.cppreference.com/w/cpp/types/is_const).
+ * Для константного указателя IsConstPointer<>::value принимает истинное
+ * значение.
+ * @tparam Ptr тип указателя.
+ */
+template <class Ptr>
+struct IsConstPointer : std::is_const<
+    typename RemovePointer<Ptr>::type
+> {};
+
+/**
+ * Сокращение для преобразования указателя произвольного типа к указателю
+ * на тип void (с сохранением константности/неконстантности).
+ */
+template <class Ptr>
+using VoidPointerKeepingConst = typename std::conditional<
+    IsConstPointer<Ptr>::value, const void*, void*
+>::type;
+
 } // namespace Traits
 } // namespace KtSerial
