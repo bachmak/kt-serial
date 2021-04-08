@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "kt-serial/archives/details/base_output_archive.h"
+#include "kt-serial/details/wrappers.h"
 #include "kt-serial/details/basic_traits.h"
 #include "kt-serial/macros.h"
 
@@ -55,7 +56,7 @@ private:
  * Перегрузка функции для сериализации арифметических типов 
  * (https://en.cppreference.com/w/cpp/types/is_arithmetic) с использованием
  * бинарного выходного архива
- * @tparam Type тип сериализуемых данные
+ * @tparam Type тип сериализуемых данных
  * @param ar ссылка на бинарный выходной архив
  * @param t сериализуемые данные
  */
@@ -68,4 +69,29 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar, const Type& t)
     ar.writeData(reinterpret_cast<const void*>(std::addressof(t)), sizeof(t));
 }
 
+/**
+ * Перегрузка функции для сериализации непрерывной последовательности байтов
+ * с использованием бинарного выходного архива
+ * @tparam Type тип сериализуемых данных
+ * @param ar ссылка на бинарный выходной архив
+ * @param data объект-обертка над сериализуемыми данными
+ */
+template <class Type>
+void KTSERIAL_SAVE_FUNCTION(
+    BinaryOstreamArchive& ar, const DataWrapper<Type>& data
+)
+{
+    ar.writeData(data.data, static_cast<std::streamsize>(data.size));
+}
+
+/**
+ * Перегрузка функции для сериализации размера контейнеров с использованием
+ * бинарного выходного архива
+ * @param ar ссылка на бинарный выходной архив
+ * @param size объект-обертка над размером контейнера
+ */
+void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar, const SizeWrapper& size)
+{
+    ar.writeData(reinterpret_cast<const void*>(&size.size), sizeof(size.size));
+}
 } // namespace KtSerial
