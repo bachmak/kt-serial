@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cstdint>
 #include <utility>
 
+#include "kt-serial/details/common.h"
 #include "kt-serial/details/basic_traits.h"
 
 namespace KtSerial
@@ -17,14 +17,20 @@ namespace KtSerial
 template <class Type>
 struct DataWrapper
 {
-    using type = Traits::VoidPointerKeepingConst<Type>;
+    using PointerType = Traits::VoidPointerKeepingConst<Type>;
 
-    type data;
-    uint64_t size;
+    PointerType data;
+    SizeType size;
 };
 
+/**
+ * Функция для создания объектов DataWrapper без явного указания шаблонного
+ * типа.
+ * @param data указатель на начало байтовой последовательности
+ * @param size размер байтовой последовательности
+ */
 template <class Type>
-DataWrapper<Type> makeDataWrapper(Type&& data, uint64_t size)
+DataWrapper<Type> makeDataWrapper(Type&& data, SizeType size)
 {
     return { std::forward<Type>(data), size };
 }
@@ -37,10 +43,16 @@ DataWrapper<Type> makeDataWrapper(Type&& data, uint64_t size)
  */
 struct SizeWrapper
 {
-    uint64_t size;
+    SizeType size;
 };
 
-SizeWrapper makeSizeWrapper(uint64_t size)
+/**
+ * Функция для создания объектов SizeWrapper. Не имеет непосредственной
+ * необходимости, но введена для однообразия создания оберток (по аналогии с 
+ * makeDataWrapper).
+ * @param size размер контейнера
+ */
+SizeWrapper makeSizeWrapper(SizeType size)
 {
     return { size };
 }
