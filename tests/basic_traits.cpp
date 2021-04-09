@@ -2,8 +2,7 @@
 
 #include "kt-serial/details/basic_traits.h"
 
-TEST(BasicTraits, ChecksConstants)
-{
+TEST(BasicTraits, ChecksConstants) {
     using namespace KtSerial::Traits;
 
     EXPECT_TRUE(BoolConstant<true>::value);
@@ -17,10 +16,9 @@ TEST(BasicTraits, ChecksConstants)
     EXPECT_EQ(IntConstant<std::false_type::value>::value, 0);
 }
 
-TEST(BasicTraits, LogicalOperations)
-{
+TEST(BasicTraits, LogicalOperations) {
     using namespace KtSerial::Traits;
-    
+
     const bool conjunction1 = Conjunction<1, 1, 1, 1, 1>::value;
     EXPECT_TRUE(conjunction1);
 
@@ -46,40 +44,48 @@ TEST(BasicTraits, LogicalOperations)
     EXPECT_TRUE(disjunction4);
 }
 
-TEST(BasicTraits, PoinerTypes)
-{
+TEST(BasicTraits, PoinerTypes) {
     using namespace KtSerial::Traits;
 
-    const bool sameType = std::is_same<typename RemovePointer<int>::type, int>::value;
+    const bool sameType =
+        std::is_same<typename RemovePointer<int>::type, int>::value;
     EXPECT_TRUE(sameType);
 
-    const bool ptrRemoved = std::is_same<typename RemovePointer<int*>::type, int>::value;
+    const bool ptrRemoved =
+        std::is_same<typename RemovePointer<int*>::type, int>::value;
     EXPECT_TRUE(ptrRemoved);
 
-    const bool refRemoved = std::is_same<typename RemovePointer<int&>::type, int>::value;
+    const bool refRemoved =
+        std::is_same<typename RemovePointer<int&>::type, int>::value;
     EXPECT_TRUE(refRemoved);
 
-    const bool refPtrRemoved = std::is_same<typename RemovePointer<int*&>::type, int>::value;
+    const bool refPtrRemoved =
+        std::is_same<typename RemovePointer<int*&>::type, int>::value;
     EXPECT_TRUE(refPtrRemoved);
 
-    const bool constTypePtrRemoved = std::is_same<typename RemovePointer<const int*>::type, const int>::value;
+    const bool constTypePtrRemoved =
+        std::is_same<typename RemovePointer<const int*>::type,
+                     const int>::value;
     EXPECT_TRUE(constTypePtrRemoved);
 
-    const bool constPtrRemoved = std::is_same<typename RemovePointer<int* const>::type, int>::value;
+    const bool constPtrRemoved =
+        std::is_same<typename RemovePointer<int* const>::type, int>::value;
     EXPECT_TRUE(constPtrRemoved);
 
-    const bool constPtrConstTypeRemoved = std::is_same<
-        typename RemovePointer<const int* const>::type, const int
-    >::value;
+    const bool constPtrConstTypeRemoved =
+        std::is_same<typename RemovePointer<const int* const>::type,
+                     const int>::value;
     EXPECT_TRUE(constPtrConstTypeRemoved);
 
-    const bool constIntToVoid = std::is_same<VoidPointerKeepingConst<const int*>, const void*>::value;
+    const bool constIntToVoid =
+        std::is_same<VoidPointerKeepingConst<const int*>, const void*>::value;
     EXPECT_TRUE(constIntToVoid);
 
-    const bool intToVoid = std::is_same<VoidPointerKeepingConst<int*>, void*>::value;
+    const bool intToVoid =
+        std::is_same<VoidPointerKeepingConst<int*>, void*>::value;
     EXPECT_TRUE(intToVoid);
 
-    const bool voidToVoid = std::is_same<VoidPointerKeepingConst<void*>, void*>::value;
+    const bool voidToVoid =
+        std::is_same<VoidPointerKeepingConst<void*>, void*>::value;
     EXPECT_TRUE(voidToVoid);
 }
-

@@ -1,11 +1,9 @@
-#include <sstream>
 #include <gtest/gtest.h>
+#include <sstream>
 
 #include "kt-serial/archives/binary_ostream_archive.h"
 
-
-TEST(BinaryOstreamArchive, BasicTest)
-{
+TEST(BinaryOstreamArchive, BasicTest) {
     using namespace KtSerial;
 
     {

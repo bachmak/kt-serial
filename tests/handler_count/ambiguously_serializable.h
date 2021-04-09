@@ -2,28 +2,24 @@
 
 #include "kt-serial/macros.h"
 
-namespace AmbiguouslySerializable
-{
-class Archive { Archive(const Archive&) = delete; };
+namespace AmbiguouslySerializable {
+class Archive {
+    Archive(const Archive&) = delete;
+};
 
-class MethodFunctionSerializable
-{
-public:
-    template <class Ar>
-    void KTSERIAL_SERIALIZE_METHOD(Ar&);
+class MethodFunctionSerializable {
+  public:
+    template <class Ar> void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 template <class Ar>
 void KTSERIAL_SERIALIZE_FUNCTION(Ar&, MethodFunctionSerializable&);
 
-class MethodSerializableSavable
-{
-public:
-    template <class Ar>
-    void KTSERIAL_SERIALIZE_METHOD(Ar&);
+class MethodSerializableSavable {
+  public:
+    template <class Ar> void KTSERIAL_SERIALIZE_METHOD(Ar&);
 
-    template <class Ar>
-    void KTSERIAL_SAVE_METHOD(Ar&) const;
+    template <class Ar> void KTSERIAL_SAVE_METHOD(Ar&) const;
 };
 
 class FunctionSerializableSavable {};
@@ -47,8 +43,8 @@ class TwoFunctionSavable {};
 template <class Ar>
 void KTSERIAL_SAVE_FUNCTION(Ar&, const TwoFunctionSavable&) {}
 
-template <class Ar>
-int KTSERIAL_SAVE_FUNCTION(Ar&, const TwoFunctionSavable&) { return 0; }
-
+template <class Ar> int KTSERIAL_SAVE_FUNCTION(Ar&, const TwoFunctionSavable&) {
+    return 0;
+}
 
 } // namespace AmbiguouslySerializable

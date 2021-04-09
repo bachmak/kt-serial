@@ -2,12 +2,11 @@
 
 #include <string>
 
-#include "kt-serial/macros.h"
 #include "kt-serial/details/serializable_traits.h"
 #include "kt-serial/details/wrappers.h"
+#include "kt-serial/macros.h"
 
-namespace KtSerial
-{
+namespace KtSerial {
 using namespace Traits;
 
 /**
@@ -17,18 +16,12 @@ using namespace Traits;
  * @param ar класс архива для сериализации
  * @param str сериализуемая строка
  */
-template <
-    class CharT, class TraitsT, class AllocT, class Archive,
-    EnableIf<
-        HasExactlyOneOutputHandler<DataWrapper<CharT>, Archive>::value
-    > = true
->
+template <class CharT, class TraitsT, class AllocT, class Archive,
+          EnableIf<HasExactlyOneOutputHandler<DataWrapper<CharT>,
+                                              Archive>::value> = true>
 void KTSERIAL_SAVE_FUNCTION(
-    Archive& ar,
-    const std::basic_string<CharT, TraitsT, AllocT>& str
-)
-{
-    ar << makeSizeWrapper(str.size()) 
+    Archive& ar, const std::basic_string<CharT, TraitsT, AllocT>& str) {
+    ar << makeSizeWrapper(str.size())
        << makeDataWrapper(str.data(), str.size() * sizeof(CharT));
 }
 } // namespace KtSerial

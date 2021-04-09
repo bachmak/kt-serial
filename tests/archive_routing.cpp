@@ -2,28 +2,24 @@
 
 #include "kt-serial/archives/details/base_output_archive.h"
 
-#include "base_output_archive_routing/serialize_method_handled.h"
-#include "base_output_archive_routing/serialize_function_handled.h"
-#include "base_output_archive_routing/save_method_handled.h"
-#include "base_output_archive_routing/save_function_handled.h"
 #include "base_output_archive_routing/ambiguously_handled.h"
+#include "base_output_archive_routing/save_function_handled.h"
+#include "base_output_archive_routing/save_method_handled.h"
+#include "base_output_archive_routing/serialize_function_handled.h"
+#include "base_output_archive_routing/serialize_method_handled.h"
 
-#define EXPECT_THROW_MESSAGE(tryBlock, exceptionMessage)                     \
-{                                                                            \
-    std::string message;                                                     \
-    try                                                                      \
-    {                                                                        \
-        tryBlock                                                             \
-    }                                                                        \
-    catch(const std::exception& e)                                           \
-    {                                                                        \
-        message = e.what();                                                  \
-    }                                                                        \
-    EXPECT_EQ(message, exceptionMessage);                                    \
-}
+#define EXPECT_THROW_MESSAGE(tryBlock, exceptionMessage)                       \
+    {                                                                          \
+        std::string message;                                                   \
+        try {                                                                  \
+            tryBlock                                                           \
+        } catch (const std::exception& e) {                                    \
+            message = e.what();                                                \
+        }                                                                      \
+        EXPECT_EQ(message, exceptionMessage);                                  \
+    }
 
-TEST(BaseOutputArchiveRouting, SerializeMethodHandled)
-{
+TEST(BaseOutputArchiveRouting, SerializeMethodHandled) {
     using namespace KtSerial;
     using namespace SerializeMethodHandled;
 
@@ -85,8 +81,7 @@ TEST(BaseOutputArchiveRouting, SerializeMethodHandled)
     }
 }
 
-TEST(BaseOutputArchiveRouting, SerializeFunctionHandled)
-{
+TEST(BaseOutputArchiveRouting, SerializeFunctionHandled) {
     using namespace KtSerial;
     using namespace SerializeFunctionHandled;
 
@@ -124,8 +119,7 @@ TEST(BaseOutputArchiveRouting, SerializeFunctionHandled)
     }
 }
 
-TEST(BaseOutputArchiveRouting, SaveMethodHandled)
-{
+TEST(BaseOutputArchiveRouting, SaveMethodHandled) {
     using namespace KtSerial;
     using namespace SaveMethodHandled;
 
@@ -175,8 +169,7 @@ TEST(BaseOutputArchiveRouting, SaveMethodHandled)
     }
 }
 
-TEST(BaseOutputArchiveRouting, SaveFunctionHandled)
-{
+TEST(BaseOutputArchiveRouting, SaveFunctionHandled) {
     using namespace KtSerial;
     using namespace SaveFunctionHandled;
 
@@ -211,17 +204,18 @@ TEST(BaseOutputArchiveRouting, SaveFunctionHandled)
     }
 }
 
-TEST(BaseOutputArchiveRouting, AmbiguouslyHandled)
-{
+TEST(BaseOutputArchiveRouting, AmbiguouslyHandled) {
     using namespace KtSerial;
     using namespace AmbiguouslyHandled;
 
     Archive a;
-    
+
     {
         SerializableSavable ss;
-        EXPECT_THROW_MESSAGE({ a << ss; }, KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
-        EXPECT_THROW_MESSAGE({ a & ss; }, KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
+        EXPECT_THROW_MESSAGE({ a << ss; },
+                             KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
+        EXPECT_THROW_MESSAGE({ a & ss; },
+                             KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
     }
     {
         NotSerializable ns;
@@ -240,12 +234,16 @@ TEST(BaseOutputArchiveRouting, AmbiguouslyHandled)
     }
     {
         SavableSavable ss;
-        EXPECT_THROW_MESSAGE({ a << ss; }, KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
-        EXPECT_THROW_MESSAGE({ a & ss; }, KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
+        EXPECT_THROW_MESSAGE({ a << ss; },
+                             KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
+        EXPECT_THROW_MESSAGE({ a & ss; },
+                             KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
     }
     {
         SerializableSerializable ss;
-        EXPECT_THROW_MESSAGE({ a << ss; }, KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
-        EXPECT_THROW_MESSAGE({ a & ss; }, KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
+        EXPECT_THROW_MESSAGE({ a << ss; },
+                             KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
+        EXPECT_THROW_MESSAGE({ a & ss; },
+                             KTSERIAL_ERROR_AMBIGUOUS_HANDLERS_FOUND);
     }
 }

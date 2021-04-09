@@ -2,15 +2,14 @@
 
 #include "kt-serial/macros.h"
 
-namespace UnambiguouslySerializable
-{
-class Archive { Archive(const Archive&) = delete; };
+namespace UnambiguouslySerializable {
+class Archive {
+    Archive(const Archive&) = delete;
+};
 
-class OnlyMethodSerializable
-{
-public:
-    template <class Ar>
-    void KTSERIAL_SERIALIZE_METHOD(Ar&);
+class OnlyMethodSerializable {
+  public:
+    template <class Ar> void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 class OnlyFunctionSerializable {};

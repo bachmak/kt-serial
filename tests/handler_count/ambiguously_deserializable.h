@@ -2,28 +2,24 @@
 
 #include "kt-serial/macros.h"
 
-namespace AmbiguouslyDeserializable
-{
-class Archive { Archive(const Archive&) = delete; };
+namespace AmbiguouslyDeserializable {
+class Archive {
+    Archive(const Archive&) = delete;
+};
 
-class MethodFunctionSerializable
-{
-public:
-    template <class Ar>
-    void KTSERIAL_SERIALIZE_METHOD(Ar&);
+class MethodFunctionSerializable {
+  public:
+    template <class Ar> void KTSERIAL_SERIALIZE_METHOD(Ar&);
 };
 
 template <class Ar>
 void KTSERIAL_SERIALIZE_FUNCTION(Ar&, MethodFunctionSerializable&);
 
-class MethodSerializableLoadable
-{
-public:
-    template <class Ar>
-    void KTSERIAL_SERIALIZE_METHOD(Ar&);
+class MethodSerializableLoadable {
+  public:
+    template <class Ar> void KTSERIAL_SERIALIZE_METHOD(Ar&);
 
-    template <class Ar>
-    void KTSERIAL_LOAD_METHOD(Ar&);
+    template <class Ar> void KTSERIAL_LOAD_METHOD(Ar&);
 };
 
 class FunctionSerializableLoadable {};
@@ -44,11 +40,10 @@ int KTSERIAL_SERIALIZE_FUNCTION(Ar&, TwoFunctionSerializable&);
 
 class TwoFunctionLoadable {};
 
-template <class Ar>
-void KTSERIAL_LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) {}
+template <class Ar> void KTSERIAL_LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) {}
 
-template <class Ar>
-int KTSERIAL_LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) { return 0; }
-
+template <class Ar> int KTSERIAL_LOAD_FUNCTION(Ar&, TwoFunctionLoadable&) {
+    return 0;
+}
 
 } // namespace AmbiguouslyDeserializable
