@@ -35,17 +35,19 @@ DataWrapper<Type> makeDataWrapper(Type&& data, SizeType size) {
  * Класс-обертка над значением размера сериализуемых контейнеров. Используется
  * для унификации передачи данных о размере контейнера из функций, описывающих
  * процедуру сериализации стандартных типов, в методы различных архивов
- * (по-разному реализующих сериализацю).
+ * (по-разному реализующих сериализацю). При использовании с lvalue-ссылкой
+ * сохраняет ссылку на переменную, иначе - копирует значение.
  */
-struct SizeWrapper {
+template <class Type> struct SizeWrapper {
+    using SizeType = Traits::DecayIfNotLvalueReference<Type>;
     SizeType size;
 };
 
 /**
- * Функция для создания объектов SizeWrapper. Не имеет непосредственной
- * необходимости, но введена для однообразия создания оберток (по аналогии с
- * makeDataWrapper).
+ * Функция для создания объектов SizeWrapper без явного указания шаблонного типа.
  * @param size размер контейнера
  */
-SizeWrapper makeSizeWrapper(SizeType size) { return {size}; }
+template <class Type> SizeWrapper<Type> makeSizeWrapper(Type&& size) {
+    return {std::forward<Type>(size)};
+}
 } // namespace KtSerial
