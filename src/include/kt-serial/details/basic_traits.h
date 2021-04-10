@@ -128,5 +128,14 @@ using VoidPointerKeepingConst =
     typename std::conditional<IsConstPointer<Ptr>::value, const void*,
                               void*>::type;
 
+/**
+ * Сокращение для выбора типа переменной: если переменная является
+ * lvalue-ссылкой, ее тип сохраняется. Иначе преобразуется к исходному типу
+ * (например int& -> int&, int&& -> int, int -> int).
+ */
+template <class Type>
+using DecayIfNotLvalueReference =
+    typename std::conditional<std::is_lvalue_reference<Type>::value, Type,
+                              typename std::decay<Type>::type>::type;
 } // namespace Traits
 } // namespace KtSerial
