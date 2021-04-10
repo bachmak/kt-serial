@@ -1,34 +1,27 @@
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <algorithm>
 #include <sstream>
 #include <string>
 
+#include "kt-serial/archives/binary_istream_archive.h"
 #include "kt-serial/archives/binary_ostream_archive.h"
 #include "kt-serial/types/std/string.h"
 
-template <class CharT>
-bool hasSubstring(const std::basic_string<CharT>& str,
-                  const std::basic_string<CharT>& sub) {
-    auto it = std::search(str.begin(), str.end(), sub.begin(), sub.end());
-    return it != str.end();
-}
-
-template <class CharT>
-KtSerial::SizeType getSize(const std::basic_ostringstream<CharT>& os) {
-    auto str = os.str();
-    const KtSerial::SizeType* size_ptr;
-    size_ptr = reinterpret_cast<const KtSerial::SizeType*>(str.data());
-    return *size_ptr;
-}
-
 template <class CharT> void testString(const std::basic_string<CharT>& str) {
-    std::basic_ostringstream<CharT> os;
-    KtSerial::BasicBinaryOstreamArchive<CharT> oa(os);
-    oa << str;
-    EXPECT_EQ(getSize(os), str.size());
-    EXPECT_TRUE(hasSubstring(os.str(), str));
+    std::stringstream stream;
+    {
+        KtSerial::BinaryOstreamArchive oa(stream);
+        oa << str;
+    }
+
+    std::basic_string<CharT> newStr;
+    {
+        KtSerial::BinaryIstreamArchive ia(stream);
+        ia >> newStr;
+    }
+
+    EXPECT_EQ(str, newStr);
 }
 
 TEST(StdStringSerialization, CharString) {
