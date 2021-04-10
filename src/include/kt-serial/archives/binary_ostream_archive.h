@@ -16,20 +16,17 @@ namespace KtSerial {
  * @tparam CharT шаблонный тип символа потока std::basic_ostream
  * @tparam TraitsT шаблонный тип, определяющий операции с типом CharT
  */
-template <class CharT, class TraitsT = std::char_traits<CharT>>
-class BasicBinaryOstreamArchive
-    : public BaseOutputArchive<BasicBinaryOstreamArchive<CharT, TraitsT>> {
+class BinaryOstreamArchive : public BaseOutputArchive<BinaryOstreamArchive> {
   public:
     /**
      * Конструктор класса
      * @param os ссылка на выходной поток для сериализации данных
      */
-    BasicBinaryOstreamArchive(std::basic_ostream<CharT, TraitsT>& os)
-        : BaseOutputArchive<BasicBinaryOstreamArchive<CharT, TraitsT>>(*this),
-          stream(os) {}
+    BinaryOstreamArchive(std::ostream& os)
+        : BaseOutputArchive<BinaryOstreamArchive>(*this), stream(os) {}
 
     /* Деструктор по умолчанию*/
-    ~BasicBinaryOstreamArchive() = default;
+    ~BinaryOstreamArchive() = default;
 
     /**
      * Метод для побайтовой записи данных в поток.
@@ -40,7 +37,7 @@ class BasicBinaryOstreamArchive
         /* Записываем данные (напрямую через .rdbuf()->sputn() быстрее, чем
         через .write()) и сохраняем количество записанных байт в переменную*/
         std::streamsize writtenSize =
-            stream.rdbuf()->sputn(reinterpret_cast<const CharT*>(data), size);
+            stream.rdbuf()->sputn(reinterpret_cast<const char*>(data), size);
 
         /* Если запрошенное количество байт не было записано, бросаем
         исключение */
@@ -50,11 +47,8 @@ class BasicBinaryOstreamArchive
     }
 
   private:
-    std::basic_ostream<CharT, TraitsT>&
-        stream; /** ссылка на выходной поток для записи */
+    std::ostream& stream; /** ссылка на выходной поток для записи */
 };
-
-using BinaryOstreamArchive = BasicBinaryOstreamArchive<char>;
 
 /**
  * Перегрузка функции для сериализации арифметических типов
@@ -64,10 +58,8 @@ using BinaryOstreamArchive = BasicBinaryOstreamArchive<char>;
  * @param ar ссылка на бинарный выходной архив
  * @param t сериализуемые данные
  */
-template <class Type, class CharT, class TraitsT,
-          Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
-void KTSERIAL_SAVE_FUNCTION(BasicBinaryOstreamArchive<CharT, TraitsT>& ar,
-                            const Type& t) {
+template <class Type, Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
+void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar, const Type& t) {
     ar.writeData(reinterpret_cast<const void*>(std::addressof(t)), sizeof(t));
 }
 
@@ -78,8 +70,8 @@ void KTSERIAL_SAVE_FUNCTION(BasicBinaryOstreamArchive<CharT, TraitsT>& ar,
  * @param ar ссылка на бинарный выходной архив
  * @param data объект-обертка над сериализуемыми данными
  */
-template <class Type, class CharT, class TraitsT>
-void KTSERIAL_SAVE_FUNCTION(BasicBinaryOstreamArchive<CharT, TraitsT>& ar,
+template <class Type>
+void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
                             const DataWrapper<Type>& data) {
     ar.writeData(data.data, static_cast<std::streamsize>(data.size));
 }
@@ -90,9 +82,9 @@ void KTSERIAL_SAVE_FUNCTION(BasicBinaryOstreamArchive<CharT, TraitsT>& ar,
  * @param ar ссылка на бинарный выходной архив
  * @param size объект-обертка над размером контейнера
  */
-template <class CharT, class TraitsT>
-void KTSERIAL_SAVE_FUNCTION(BasicBinaryOstreamArchive<CharT, TraitsT>& ar,
-                            const SizeWrapper& size) {
+template <class SizeT>
+void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
+                            const SizeWrapper<SizeT>& size) {
     ar.writeData(reinterpret_cast<const void*>(&size.size), sizeof(size.size));
 }
 } // namespace KtSerial
