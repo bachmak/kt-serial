@@ -10,26 +10,26 @@
 
 namespace KtSerial {
 /**
- * Класс архива, реализующий сериализацию данных в выходной поток в
+ * @brief Класс архива, реализующий сериализацию данных в выходной поток в
  * бинарном виде.
- * @extends BaseOutputArchive
- * @tparam CharT шаблонный тип символа потока std::basic_ostream
- * @tparam TraitsT шаблонный тип, определяющий операции с типом CharT
  */
 class BinaryOstreamArchive : public BaseOutputArchive<BinaryOstreamArchive> {
   public:
     /**
-     * Конструктор класса
+     * @brief Конструктор класса
      * @param os ссылка на выходной поток для сериализации данных
      */
-    BinaryOstreamArchive(std::ostream& os)
+    explicit BinaryOstreamArchive(std::ostream& os)
         : BaseOutputArchive<BinaryOstreamArchive>(*this), stream(os) {}
 
-    /* Деструктор по умолчанию*/
-    ~BinaryOstreamArchive() = default;
+    /**
+     * @brief Деструктор класса
+     */
+    ~BinaryOstreamArchive() override = default;
 
     /**
-     * Метод для побайтовой записи данных в поток.
+     * @brief Метод для побайтовой записи данных в поток.
+     *
      * @param data указатель на начало участка памяти с данными
      * @param size размера участка памяти в байтах
      */
@@ -51,9 +51,10 @@ class BinaryOstreamArchive : public BaseOutputArchive<BinaryOstreamArchive> {
 };
 
 /**
- * Перегрузка функции для сериализации арифметических типов
+ * @brief Перегрузка функции для сериализации арифметических типов
  * (https://en.cppreference.com/w/cpp/types/is_arithmetic) с использованием
- * бинарного выходного архива
+ * бинарного выходного архива.
+ *
  * @tparam Type тип сериализуемых данных
  * @param ar ссылка на бинарный выходной архив
  * @param t сериализуемые данные
@@ -64,8 +65,9 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar, const Type& t) {
 }
 
 /**
- * Перегрузка функции для сериализации непрерывной последовательности байтов
- * с использованием бинарного выходного архива
+ * @brief Перегрузка функции для сериализации непрерывной последовательности
+ * байтов с использованием бинарного выходного архива.
+ *
  * @tparam Type тип сериализуемых данных
  * @param ar ссылка на бинарный выходной архив
  * @param data объект-обертка над сериализуемыми данными
@@ -77,8 +79,11 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
 }
 
 /**
- * Перегрузка функции для сериализации размера контейнеров с использованием
- * бинарного выходного архива
+ * @brief Перегрузка функции для сериализации размера контейнеров с
+ * использованием бинарного выходного архива.
+ *
+ * @tparam SizeT тип для хранения размера контейнера в SizeWrapper (ссылка или
+ * значение)
  * @param ar ссылка на бинарный выходной архив
  * @param size объект-обертка над размером контейнера
  */

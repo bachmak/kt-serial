@@ -10,25 +10,27 @@
 
 namespace KtSerial {
 /**
- * Класс архива, реализующий десериализацию данных из входного потока в
+ * @brief Класс архива, реализующий десериализацию данных из входного потока в
  * бинарном виде.
- * @extends BaseInputArchive
  */
 class BinaryIstreamArchive : public BaseInputArchive<BinaryIstreamArchive> {
   public:
     /**
-     * Конструктор класса
+     * @brief Конструктор класса
      * @param is ссылка на входной поток для десериализации данных
      */
-    BinaryIstreamArchive(std::istream& is)
+    explicit BinaryIstreamArchive(std::istream& is)
         : BaseInputArchive<BinaryIstreamArchive>(*this), stream(is) {}
 
-    /* Деструктор по умолчанию*/
-    ~BinaryIstreamArchive() = default;
+    /**
+     * @brief Деструктор класса
+     */
+    ~BinaryIstreamArchive() override = default;
 
     /**
-     * Метод для побайтового чтения данных из потока.
-     * @param data указатель на начало участка памяти с данными
+     * @brief Метод для побайтового чтения данных из потока.
+     *
+     * @param data указатель на начало участка памяти
      * @param size размера участка памяти в байтах
      */
     void readData(void* data, std::streamsize size) {
@@ -49,9 +51,10 @@ class BinaryIstreamArchive : public BaseInputArchive<BinaryIstreamArchive> {
 };
 
 /**
- * Перегрузка функции для десериализации арифметических типов
+ * @brief Перегрузка функции для десериализации арифметических типов
  * (https://en.cppreference.com/w/cpp/types/is_arithmetic) с использованием
- * бинарного входного архива
+ * бинарного входного архива.
+ *
  * @tparam Type тип десериализуемых данных
  * @param ar ссылка на бинарный входной архив
  * @param t десериализуемые данные
@@ -62,8 +65,11 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Type& t) {
 }
 
 /**
- * Перегрузка функции для десериализации непрерывной последовательности байтов
- * с использованием бинарного входного архива
+ * @brief Перегрузка функции для десериализации непрерывной последовательности
+ * байтов с использованием бинарного входного архива. DataWrapper передается по
+ * значению для возможности использования move-семантики (ar >>
+ * makeDataWrapper(...)).
+ *
  * @tparam Type тип десериализуемых данных
  * @param ar ссылка на бинарный входной архив
  * @param data объект-обертка над десериализуемыми данными
@@ -74,8 +80,12 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, DataWrapper<Type> data) {
 }
 
 /**
- * Перегрузка функции для десериализации размера контейнеров с использованием
- * бинарного входного архива
+ * @brief Перегрузка функции для десериализации размеров контейнеров с
+ * использованием бинарного входного архива. SizeWrapper передается по значению
+ * для возможности использования move-семантики (ar >> makeSizeWrapper(...);).
+ *
+ * @tparam SizeT тип для хранения размера контейнера в SizeWrapper (ссылка или
+ * значение)
  * @param ar ссылка на бинарный входной архив
  * @param size объект-обертка над размером контейнера
  */
