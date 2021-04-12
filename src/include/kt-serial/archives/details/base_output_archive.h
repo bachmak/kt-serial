@@ -11,7 +11,7 @@
 
 namespace KtSerial {
 /**
- * Базовый класс архива для выходной сериализации. Осуществляет проверки
+ * @brief Базовый класс архива для сериализации. Осуществляет проверки
  * сериализуемых типов на возможность сериализации, передает управление
  * в соответствующие функции/методы и сообщает об ошибках при их наличии.
  *
@@ -24,81 +24,124 @@ template <class DerivedArchive> class BaseOutputArchive {
   public:
     /**
      * Конструктор класса
+     *
      * @param derived ссылка на экземпляр класса наследника
      */
-    BaseOutputArchive(DerivedArchive& derived) : archive(derived) {}
+    explicit BaseOutputArchive(DerivedArchive& derived) : archive(derived) {}
 
-    /* Перемещающий конструктор*/
+    /**
+     * @brief Перемещающий конструктор
+     */
     BaseOutputArchive(BaseOutputArchive&&) = default;
 
-    /* Перемещающий оператор присваивания*/
+    /**
+     * @brief Перемещающий оператор присваивания
+     *
+     * @return BaseOutputArchive& текущий экзмепляр
+     */
     BaseOutputArchive& operator=(BaseOutputArchive&&) = default;
 
-    /* Копирующий конструктор*/
+    /**
+     * @brief Копирующий конструктор
+     */
     BaseOutputArchive(const BaseOutputArchive&) = delete;
 
-    /* Копирующий оператор присваивания*/
+    /**
+     * @brief Копирующий оператор присваивания
+     */
     BaseOutputArchive& operator=(const BaseOutputArchive&) = delete;
 
-    /* Виртуальный деструктор*/
+    /**
+     * @brief Виртуальный деструктор
+     */
     virtual ~BaseOutputArchive() = default;
 
     /**
-     * Интерфейсный оператор сериализации. Перенаправляет вызов на
+     * @brief Интерфейсный оператор сериализации. Перенаправляет вызов на
      * соответствующий аргументу обработчик.
+     *
+     * @tparam Type тип сериализуемого объекта
      * @param t сериализуемый объект
-     * @returns ссылка на архив наследника
+     * @return DerivedArchive& ссылка на архив наследника
      */
     template <class Type> DerivedArchive& operator<<(Type&& t) {
         return archive.handle(std::forward<Type>(t));
     }
 
     /**
-     * Интерфейсный оператор сериализации. Перенаправляет вызов на
+     * @brief Интерфейсный оператор сериализации. Перенаправляет вызов на
      * соответствующий аргументу обработчик.
+     *
+     * @tparam Type тип сериализуемого объекта
      * @param t сериализуемый объект
-     * @returns ссылка на архив наследника
+     * @return DerivedArchive& ссылка на архив-наследник
      */
     template <class Type> DerivedArchive& operator&(Type&& t) {
         return archive.handle(std::forward<Type>(t));
     }
 
   private:
-/* Макрос для выбора перегрузок метода для перенаправления вызова.
-Перегрузка метода подставляется, если для типа Type существует
-однозначная конфигурация методов/функций для сериализации*/
+/**
+ * @brief Макрос для выбора перегрузок метода для перенаправления вызова.
+ * Перегрузка метода подставляется, если для типа Type существует
+ * однозначная конфигурация методов/функций для сериализации.
+ */
 #define SERIALIZATION_CASE(HandlerName)                                        \
     Traits::ConjunctiveEnableIf<                                               \
         Traits::Has##HandlerName<Type, DerivedArchive>::value,                 \
         Traits::HasExactlyOneOutputHandler<Type, DerivedArchive>::value> =     \
         true
 
-    /* Метод, обрабатывающий случай сериализации типа, для которого
-    существует метод KTSERIAL_SERIALIZE_METHOD (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай сериализации типа, для которого
+     * существует метод KTSERIAL_SERIALIZE_METHOD (определено в macros.h)
+     *
+     * @tparam Type тип сериализуемого объекта
+     * @param t сериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(SerializeMethod)>
     inline DerivedArchive& handle(Type& t) {
         Access::serialize(archive, t);
         return archive;
     }
 
-    /* Метод, обрабатывающий случай сериализации типа, для которого
-    существует функция KTSERIAL_SERIALIZE_FUNCTION (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай сериализации типа, для которого
+     * существует функция KTSERIAL_SERIALIZE_FUNCTION (определено в macros.h)
+     *
+     * @tparam Type тип сериализуемого объекта
+     * @param t сериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(SerializeFunction)>
     inline DerivedArchive& handle(Type& t) {
         KTSERIAL_SERIALIZE_FUNCTION(archive, t);
         return archive;
     }
 
-    /* Метод, обрабатывающий случай сериализации типа, для которого
-    существует метод KTSERIAL_SAVE_METHOD (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай сериализации типа, для которого
+     * существует метод KTSERIAL_SAVE_METHOD (определено в macros.h)
+     *
+     * @tparam Type тип сериализуемого объекта
+     * @param t сериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(SaveMethod)>
     inline DerivedArchive& handle(const Type& t) {
         Access::save(archive, t);
         return archive;
     }
 
-    /* Метод, обрабатывающий случай сериализации типа, для которого
-    существует функция KTSERIAL_SAVE_FUNCTION (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай сериализации типа, для которого
+     * существует функция KTSERIAL_SAVE_FUNCTION (определено в macros.h)
+     *
+     * @tparam Type тип сериализуемого объекта
+     * @param t сериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(SaveFunction)>
     inline DerivedArchive& handle(const Type& t) {
         KTSERIAL_SAVE_FUNCTION(archive, t);
@@ -106,8 +149,13 @@ template <class DerivedArchive> class BaseOutputArchive {
     }
 #undef SERIALIZATION_CASE
 
-    /* Метод, обрабатывающий случай сериализации типа, для которого не
-    подошла ни одна из прочих перегрузок*/
+    /**
+     * @brief Метод, обрабатывающий случай сериализации типа, для которого не
+     * подошла ни одна из прочих перегрузок.
+     *
+     * @tparam Type тип сериализуемого объекта
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type,
               Traits::ConjunctiveEnableIf<!Traits::HasExactlyOneOutputHandler<
                   Type, DerivedArchive>::value> = true>

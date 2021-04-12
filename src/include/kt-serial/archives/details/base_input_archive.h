@@ -11,8 +11,8 @@
 
 namespace KtSerial {
 /**
- * Базовый класс архива для десериализации. Осуществляет проверки
- * сериализуемых типов на возможность десериализации, передает управление
+ * @brief Базовый класс архива для десериализации. Осуществляет проверки
+ * десериализуемых типов на возможность десериализации, передает управление
  * в соответствующие функции/методы и сообщает об ошибках при их наличии.
  *
  * Классы архивов, реализующих конкретные способы десериализации, должны
@@ -23,81 +23,124 @@ namespace KtSerial {
 template <class DerivedArchive> class BaseInputArchive {
   public:
     /**
-     * Конструктор класса
-     * @param derived ссылка на экземпляр класса наследника
+     * @brief Конструктор класса
+     *
+     * @param derived ссылка на экзмепляр класса наследника
      */
-    BaseInputArchive(DerivedArchive& derived) : archive(derived) {}
+    explicit BaseInputArchive(DerivedArchive& derived) : archive(derived) {}
 
-    /* Перемещающий конструктор*/
+    /**
+     * @brief Перемещающий конструктор
+     */
     BaseInputArchive(BaseInputArchive&&) = default;
 
-    /* Перемещающий оператор присваивания*/
+    /**
+     * @brief Перемещающий оператор присваивания
+     *
+     * @return BaseInputArchive& текущий экземпляр
+     */
     BaseInputArchive& operator=(BaseInputArchive&&) = default;
 
-    /* Копирующий конструктор*/
+    /**
+     * @brief Копирующий конструктор
+     */
     BaseInputArchive(const BaseInputArchive&) = delete;
 
-    /* Копирующий оператор присваивания*/
+    /**
+     * @brief Копирующий оператор присваивания
+     */
     BaseInputArchive& operator=(const BaseInputArchive&) = delete;
 
-    /* Виртуальный деструктор*/
+    /**
+     * @brief Виртуальный деструктор
+     */
     virtual ~BaseInputArchive() = default;
 
     /**
-     * Интерфейсный оператор десериализации. Перенаправляет вызов на
+     * @brief Интерфейсный оператор десериализации. Перенаправляет вызов на
      * соответствующий аргументу обработчик.
+     *
+     * @tparam Type тип десериализуемого объекта
      * @param t десериализуемый объект
-     * @returns ссылка на архив наследника
+     * @return DerivedArchive& ссылка на архив-наследник
      */
     template <class Type> DerivedArchive& operator>>(Type&& t) {
         return archive.handle(std::forward<Type>(t));
     }
 
     /**
-     * Интерфейсный оператор десериализации. Перенаправляет вызов на
+     * @brief Интерфейсный оператор десериализации. Перенаправляет вызов на
      * соответствующий аргументу обработчик.
+     *
+     * @tparam Type тип десериализуемого объекта
      * @param t десериализуемый объект
-     * @returns ссылка на архив наследника
+     * @return DerivedArchive& ссылка на архив-наследник
      */
     template <class Type> DerivedArchive& operator&(Type&& t) {
         return archive.handle(std::forward<Type>(t));
     }
 
   private:
-/* Макрос для выбора перегрузок метода для перенаправления вызова.
-Перегрузка метода подставляется, если для типа Type существует
-однозначная конфигурация методов/функций для десериализации*/
+/**
+ * @brief Макрос для выбора перегрузок метода для перенаправления вызова.
+ * Перегрузка метода подставляется, если для типа Type существует
+ * однозначная конфигурация методов/функций для десериализации.
+ */
 #define SERIALIZATION_CASE(HandlerName)                                        \
     Traits::ConjunctiveEnableIf<                                               \
         Traits::Has##HandlerName<Type, DerivedArchive>::value,                 \
         Traits::HasExactlyOneInputHandler<Type, DerivedArchive>::value> = true
 
-    /* Метод, обрабатывающий случай десериализации типа, для которого
-    существует метод KTSERIAL_SERIALIZE_METHOD (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого
+     * существует метод KTSERIAL_SERIALIZE_METHOD (определено в macros.h)
+     *
+     * @tparam Type тип десериализуемого объекта
+     * @param t десериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(SerializeMethod)>
     inline DerivedArchive& handle(Type& t) {
         Access::serialize(archive, t);
         return archive;
     }
 
-    /* Метод, обрабатывающий случай десериализации типа, для которого
-    существует функция KTSERIAL_SERIALIZE_FUNCTION (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого
+     * существует функция KTSERIAL_SERIALIZE_FUNCTION (определено в macros.h)
+     * 
+     * @tparam Type тип десериализуемого объекта
+     * @param t десериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(SerializeFunction)>
     inline DerivedArchive& handle(Type&& t) {
         KTSERIAL_SERIALIZE_FUNCTION(archive, std::forward<Type>(t));
         return archive;
     }
 
-    /* Метод, обрабатывающий случай десериализации типа, для которого
-    существует метод KTSERIAL_LOAD_METHOD (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого 
+     * существует метод KTSERIAL_LOAD_METHOD (определено в macros.h)
+     * 
+     * @tparam Type тип десериализуемого объекта
+     * @param t десериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(LoadMethod)>
     inline DerivedArchive& handle(Type& t) {
         Access::load(archive, t);
         return archive;
     }
 
-    /* Метод, обрабатывающий случай десериализации типа, для которого
-    существует функция KTSERIAL_LOAD_FUNCTION (определено в macros.h)*/
+    /**
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого 
+     * существует функция KTSERIAL_LOAD_FUNCTION (определено в macros.h)
+     * 
+     * @tparam Type тип десериализуемого объекта
+     * @param t десериализуемый объект
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type, SERIALIZATION_CASE(LoadFunction)>
     inline DerivedArchive& handle(Type&& t) {
         KTSERIAL_LOAD_FUNCTION(archive, std::forward<Type>(t));
@@ -105,8 +148,13 @@ template <class DerivedArchive> class BaseInputArchive {
     }
 #undef SERIALIZATION_CASE
 
-    /* Метод, обрабатывающий случай десериализации типа, для которого не
-    подошла ни одна из прочих перегрузок*/
+    /**
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого не 
+     * подошла ни одна из прочих перегрузок.
+     * 
+     * @tparam Type тип десериализуемого объекта
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
     template <class Type,
               Traits::ConjunctiveEnableIf<!Traits::HasExactlyOneInputHandler<
                   Type, DerivedArchive>::value> = true>
