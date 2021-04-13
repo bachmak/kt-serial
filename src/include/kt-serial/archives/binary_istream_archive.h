@@ -90,7 +90,10 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, DataWrapper<Type> data) {
  * @param size объект-обертка над размером контейнера
  */
 template <class SizeT>
-void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, SizeWrapper<SizeT> size) {
-    ar.readData(reinterpret_cast<void*>(&size.size), sizeof(size.size));
+void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar,
+                            SizeWrapper<SizeT> sizeWrapper) {
+    SizeType size;
+    ar.readData(reinterpret_cast<void*>(&size), sizeof(size));
+    sizeWrapper.size = static_cast<typename SizeWrapper<SizeT>::SizeType>(size);
 }
 } // namespace KtSerial

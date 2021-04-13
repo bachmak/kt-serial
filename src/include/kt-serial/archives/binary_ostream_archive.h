@@ -89,7 +89,8 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
  */
 template <class SizeT>
 void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
-                            const SizeWrapper<SizeT>& size) {
-    ar.writeData(reinterpret_cast<const void*>(&size.size), sizeof(size.size));
+                            const SizeWrapper<SizeT>& sizeWrapper) {
+    SizeType size = static_cast<SizeType>(sizeWrapper.size);
+    ar.writeData(reinterpret_cast<const void*>(&size), sizeof(size));
 }
 } // namespace KtSerial
