@@ -20,12 +20,11 @@ namespace KtSerial {
  * @param ar ссылка на архив
  * @param vec сериализуемый контейнер
  */
-template <
-    class T, class Alloc, class Archive,
-    Traits::ConjunctiveEnableIf<
-        std::is_arithmetic<T>::value,
-        Traits::HasExactlyOneOutputHandler<DataWrapper<T>, Archive>::value,
-        !std::is_same<T, bool>::value> = true>
+template <class T, class Alloc, class Archive,
+          Traits::ConjunctiveEnableIf<std::is_arithmetic<T>::value,
+                                      Traits::HasExactlyOneOutputHandler<
+                                          DataWrapper<T>, Archive>::value,
+                                      !std::is_same<T, bool>::value> = true>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::vector<T, Alloc>& vec) {
     ar << makeSizeWrapper(vec.size())
        << makeDataWrapper(vec.data(), vec.size());
@@ -46,9 +45,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::vector<T, Alloc>& vec) {
 template <class T, class Alloc, class Archive,
           Traits::ConjunctiveEnableIf<
               !std::is_arithmetic<T>::value,
-              Traits::HasExactlyOneOutputHandler<T, Archive>::value,
-              !Traits::HasExactlyOneOutputHandler<DataWrapper<T>,
-                                                  Archive>::value> = true>
+              Traits::HasExactlyOneOutputHandler<T, Archive>::value> = true>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::vector<T, Alloc>& vec) {
     ar << makeSizeWrapper(vec.size());
 
@@ -78,8 +75,8 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::vector<bool, Alloc>& vec) {
 /**
  * @brief Перегрузка функции для десериализации контейнера std::vector, элементы
  * которого удовлетворяют условию std::is_arithmetic (при условии, что для
- * данного архива определена функция десериализации класса-обертки DataWrapper над
- * элементами типа T).
+ * данного архива определена функция десериализации класса-обертки DataWrapper
+ * над элементами типа T).
  *
  * @tparam T тип элементов контейнера
  * @tparam Alloc аллокатор
@@ -140,7 +137,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::vector<bool, Alloc>& vec) {
     ar >> makeSizeWrapper(size);
     vec.resize(size);
 
-    for (auto& value : vec) {
+    for (auto&& value : vec) {
         bool boolValue;
         ar >> boolValue;
         value = boolValue;
