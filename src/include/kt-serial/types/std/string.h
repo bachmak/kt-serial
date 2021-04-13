@@ -27,7 +27,7 @@ template <
 void KTSERIAL_SAVE_FUNCTION(
     Archive& ar, const std::basic_string<CharT, TraitsT, AllocT>& str) {
     ar << makeSizeWrapper(str.size())
-       << makeDataWrapper(str.data(), str.size() * sizeof(CharT));
+       << makeDataWrapper(str.data(), str.size());
 }
 
 /**
@@ -52,6 +52,6 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar,
     SizeType size;
     ar >> makeSizeWrapper(size);
     str.resize(size);
-    ar >> makeDataWrapper(const_cast<CharT*>(str.data()), size * sizeof(CharT));
+    ar >> makeDataWrapper(const_cast<CharT*>(str.data()), str.size());
 }
 } // namespace KtSerial
