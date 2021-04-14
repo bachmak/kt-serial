@@ -80,7 +80,47 @@ template <class DerivedArchive> class BaseOutputArchive {
         return archive.handle(std::forward<Type>(t));
     }
 
+    /**
+     * @brief Интерфейсный оператор сериализации для обработки произвольного
+     * количества аргументов. Перенаправляет вызов на обработчик сериализации
+     * последовательности объектов.
+     *
+     * @tparam Types типы сериализуемых объектов
+     * @param t сериализуемые объекты
+     */
+    template <class... Types> void operator()(Types&&... t) {
+        return archive.handleSequence(std::forward<Types>(t)...);
+    }
+
   private:
+    /**
+     * @brief Метод, перенаправляющий сериализацию одного объекта на
+     * соответствующий обработчик.
+     *
+     * @tparam Type тип сериализуемого объекта
+     * @param t сериализуемый объект
+     */
+    template <class Type> void handleSequence(Type&& t) {
+        archive.handle(std::forward<Type>(t));
+    }
+
+    /**
+     * @brief Метод, перенаправляющий сериализацию объектов на соответствующие
+     * типам объектов обработчики. Перенаправляет вызов на конкретные
+     * обработчики только для первого элемента последовательности. Для остальных
+     * - вызывается рекурсивно.
+     *
+     * @tparam Type тип первого объекта последовательности
+     * @tparam Types остальные типы
+     * @param t первый объект
+     * @param ts остальные объекты
+     */
+    template <class Type, class... Types>
+    void handleSequence(Type&& t, Types&&... ts) {
+        archive.handleSequence(std::forward<Type>(t));
+        archive.handleSequence(std::forward<Types>(ts)...);
+    }
+
 /**
  * @brief Макрос для выбора перегрузок метода для перенаправления вызова.
  * Перегрузка метода подставляется, если для типа Type существует

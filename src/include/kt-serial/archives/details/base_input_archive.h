@@ -80,7 +80,47 @@ template <class DerivedArchive> class BaseInputArchive {
         return archive.handle(std::forward<Type>(t));
     }
 
+    /**
+     * @brief Интерфейсный оператор десериализации для обработки произвольного
+     * количества аргументов. Перенаправляет вызов на обработчик десериализации
+     * последовательности объектов.
+     *
+     * @tparam Types типы десериализуемых объектов
+     * @param t десериализуемые объекты
+     */
+    template <class... Types> void operator()(Types&&... t) {
+        return archive.handleSequence(std::forward<Types>(t)...);
+    }
+
   private:
+    /**
+     * @brief Метод, перенаправляющий десериализацию одного объекта на
+     * соответствующий обработчик.
+     *
+     * @tparam Type тип десериализуемого объекта
+     * @param t десериализуемый объект
+     */
+    template <class Type> void handleSequence(Type&& t) {
+        archive.handle(std::forward<Type>(t));
+    }
+
+    /**
+     * @brief Метод, перенаправляющий десериализацию объектов на соответствующие
+     * типам объектов обработчики. Перенаправляет вызов на конкретные
+     * обработчики только для первого элемента последовательности. Для остальных
+     * - вызывается рекурсивно.
+     *
+     * @tparam Type тип первого объекта последовательности
+     * @tparam Types остальные типы
+     * @param t первый объект
+     * @param ts остальные объекты
+     */
+    template <class Type, class... Types>
+    void handleSequence(Type&& t, Types&&... ts) {
+        archive.handleSequence(std::forward<Type>(t));
+        archive.handleSequence(std::forward<Types>(ts)...);
+    }
+
 /**
  * @brief Макрос для выбора перегрузок метода для перенаправления вызова.
  * Перегрузка метода подставляется, если для типа Type существует
@@ -108,7 +148,7 @@ template <class DerivedArchive> class BaseInputArchive {
     /**
      * @brief Метод, обрабатывающий случай десериализации типа, для которого
      * существует функция KTSERIAL_SERIALIZE_FUNCTION (определено в macros.h)
-     * 
+     *
      * @tparam Type тип десериализуемого объекта
      * @param t десериализуемый объект
      * @return DerivedArchive& ссылка на архив-наследник
@@ -120,9 +160,9 @@ template <class DerivedArchive> class BaseInputArchive {
     }
 
     /**
-     * @brief Метод, обрабатывающий случай десериализации типа, для которого 
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого
      * существует метод KTSERIAL_LOAD_METHOD (определено в macros.h)
-     * 
+     *
      * @tparam Type тип десериализуемого объекта
      * @param t десериализуемый объект
      * @return DerivedArchive& ссылка на архив-наследник
@@ -134,9 +174,9 @@ template <class DerivedArchive> class BaseInputArchive {
     }
 
     /**
-     * @brief Метод, обрабатывающий случай десериализации типа, для которого 
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого
      * существует функция KTSERIAL_LOAD_FUNCTION (определено в macros.h)
-     * 
+     *
      * @tparam Type тип десериализуемого объекта
      * @param t десериализуемый объект
      * @return DerivedArchive& ссылка на архив-наследник
@@ -149,9 +189,9 @@ template <class DerivedArchive> class BaseInputArchive {
 #undef SERIALIZATION_CASE
 
     /**
-     * @brief Метод, обрабатывающий случай десериализации типа, для которого не 
+     * @brief Метод, обрабатывающий случай десериализации типа, для которого не
      * подошла ни одна из прочих перегрузок.
-     * 
+     *
      * @tparam Type тип десериализуемого объекта
      * @return DerivedArchive& ссылка на архив-наследник
      */
