@@ -1,6 +1,7 @@
 #include "kt-serial/archives/binary_istream_archive.h"
 #include "kt-serial/archives/binary_ostream_archive.h"
 #include "kt-serial/types/std/vector.h"
+#include "test_helpers/struct_generator.h"
 #include <gtest/gtest.h>
 #include <limits>
 #include <sstream>
@@ -86,38 +87,14 @@ TEST(StdVectorSerialization, Bool) {
     testVector(std::vector<bool>({0, 0, 1, 0, 0, 0, 1, 1}));
 }
 
-#define GENERATE_STRUCT(structName, t1, t2, t3, t4, t5, t6)                    \
-    struct structName {                                                        \
-        t1 a;                                                                  \
-        t2 b;                                                                  \
-        t3 c;                                                                  \
-        t4 d;                                                                  \
-        t5 e;                                                                  \
-        t6 f;                                                                  \
-                                                                               \
-        bool operator==(const structName& sn) const {                          \
-            return std::tie(a, b, c, d, e, f) ==                               \
-                   std::tie(sn.a, sn.b, sn.c, sn.d, sn.e, sn.f);               \
-        }                                                                      \
-                                                                               \
-        template <class Archive>                                               \
-        void KTSERIAL_SAVE_METHOD(Archive& ar) const {                         \
-            ar << a << b << c << d << e << f;                                  \
-        }                                                                      \
-                                                                               \
-        template <class Archive> void KTSERIAL_LOAD_METHOD(Archive& ar) {      \
-            ar >> a >> b >> c >> d >> e >> f;                                  \
-        }                                                                      \
-    };
+GENERATE_STRUCT(BoolStruct, bool, bool, bool, bool, bool, bool)
 
 GENERATE_STRUCT(SimpleStruct, int, unsigned, char, float, double, bool)
 
 GENERATE_STRUCT(VectorStruct, std::vector<int>, std::vector<uint>,
                 std::vector<SimpleStruct>, std::vector<bool>, char, double)
 
-GENERATE_STRUCT(BoolStruct, bool, bool, bool, bool, bool, bool)
-
-TEST(StdVectorSerialization, UserDefinedStruct) {
+TEST(StdVectorSerialization, UserDefinedStructs) {
     SimpleStruct ss{1, 2u, 'c', 2.28f, 2.71, true};
     testVector(std::vector<SimpleStruct>(10, ss));
     testVector(std::vector<VectorStruct>(10, {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},

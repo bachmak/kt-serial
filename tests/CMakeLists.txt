@@ -31,7 +31,7 @@ add_subdirectory(
     EXCLUDE_FROM_ALL
 )
 
-
+find_package(Boost 1.75 REQUIRED)
 
 file(GLOB test_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
@@ -40,6 +40,6 @@ foreach(test_source ${test_sources})
     add_executable(${test_name} ${test_source})
     target_link_libraries(${test_name} gtest_main kt_serial)
     add_compile_definitions(${test_name} KTSERIAL_TEST_MODE)
-    target_include_directories(${test_name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_include_directories(${test_name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
     gtest_discover_tests(${test_name})
 endforeach()
