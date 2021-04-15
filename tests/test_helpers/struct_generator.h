@@ -8,9 +8,11 @@
 #include <boost/preprocessor/tuple/push_back.hpp>
 #include <boost/preprocessor/tuple/remove.hpp>
 #include <boost/preprocessor/variadic/to_seq.hpp>
+#include <random>
 #include <tuple>
 
 #include "kt-serial/macros.h"
+#include "test_helpers/test_functions.h"
 
 #define GENERATE_FIELD(r, _, typeAndName)                                      \
     BOOST_PP_TUPLE_ELEM(2, 0, typeAndName)                                     \
@@ -67,6 +69,11 @@
                                                                                \
         template <class Archive> void KTSERIAL_LOAD_METHOD(Archive& ar) {      \
             ar(COMMA_SEPARATED(GET_NAMES(typesAndNames)));                     \
+        }                                                                      \
+                                                                               \
+        void fillRandom(std::mt19937& gen) {                                   \
+            TestFunctions::fillWithRandomValues(                               \
+                gen, COMMA_SEPARATED(GET_NAMES(typesAndNames)));               \
         }                                                                      \
     };
 
