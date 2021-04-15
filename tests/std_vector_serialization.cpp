@@ -9,44 +9,19 @@
 const std::size_t maxSize = 100;
 
 TEST(StdVectorSerialization, IntTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, intmax_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, intptr_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_INT_TYPES(std::vector, maxSize);
 }
 
 TEST(StdVectorSerialization, UintTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uintmax_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uintptr_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_UINT_TYPES(std::vector, maxSize);
 }
 
 TEST(StdVectorSerialization, CharTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, char, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, wchar_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, char16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, char32_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_CHAR_TYPES(std::vector, maxSize);
 }
 
 TEST(StdVectorSerialization, FloatTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, float, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, double, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, long double, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_FLOAT_TYPES(std::vector, maxSize);
 }
 
 TEST(StdVectorSerialization, Bool) {

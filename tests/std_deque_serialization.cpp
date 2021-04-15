@@ -9,44 +9,19 @@
 const std::size_t maxSize = 100;
 
 TEST(StdDequeSerialization, IntTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int_fast8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int_fast16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int_fast32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, int_fast64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, intmax_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, intptr_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_INT_TYPES(std::deque, maxSize);
 }
 
 TEST(StdDequeSerialization, UintTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint_fast8_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint_fast16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint_fast32_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uint_fast64_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uintmax_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, uintptr_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_UINT_TYPES(std::deque, maxSize);
 }
 
 TEST(StdDequeSerialization, CharTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, char, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, wchar_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, char16_t, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, char32_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_CHAR_TYPES(std::deque, maxSize);
 }
 
 TEST(StdDequeSerialization, FloatTypes) {
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, float, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, double, maxSize);
-    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::deque, long double, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_FLOAT_TYPES(std::deque, maxSize);
 }
 
 TEST(StdDequeSerialization, Bool) {

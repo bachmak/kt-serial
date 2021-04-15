@@ -195,4 +195,57 @@ fillWithRandomValues(FwdIt begin, FwdIt end) {
         TestFunctions::binaryIOSerialization(container<valueType>(             \
             0, std::numeric_limits<valueType>::lowest()));                     \
     }
+
+#define TEST_BINARY_IO_SERIALIZATION_INT_TYPES(container, size)                \
+    {                                                                          \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int, size);            \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int8_t, size);         \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int16_t, size);        \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int32_t, size);        \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int64_t, size);        \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_fast8_t, size);    \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_fast16_t, size);   \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_fast32_t, size);   \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_fast64_t, size);   \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_least8_t, size);   \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_least16_t, size);  \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_least32_t, size);  \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, int_least64_t, size);  \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, intmax_t, size);       \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, intptr_t, size);       \
+    }
+
+#define TEST_BINARY_IO_SERIALIZATION_UINT_TYPES(container, size)               \
+    {                                                                          \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint, size);           \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint8_t, size);        \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint16_t, size);       \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint32_t, size);       \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint64_t, size);       \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_fast8_t, size);   \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_fast16_t, size);  \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_fast32_t, size);  \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_fast64_t, size);  \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_least8_t, size);  \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_least16_t, size); \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_least32_t, size); \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint_least64_t, size); \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uintmax_t, size);      \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uintptr_t, size);      \
+    }
+
+#define TEST_BINARY_IO_SERIALIZATION_CHAR_TYPES(container, size)               \
+    {                                                                          \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, char, size);           \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, wchar_t, size);        \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, char16_t, size);       \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, char32_t, size);       \
+    }
+
+#define TEST_BINARY_IO_SERIALIZATION_FLOAT_TYPES(container, size)              \
+    {                                                                          \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, float, size);          \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, double, size);         \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, long double, size);    \
+    }
 } // namespace TestFunctions
