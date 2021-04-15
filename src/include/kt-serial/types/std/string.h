@@ -2,9 +2,7 @@
 
 #include <string>
 
-#include "kt-serial/details/serializable_traits.h"
-#include "kt-serial/details/wrappers.h"
-#include "kt-serial/macros.h"
+#include "kt-serial/types/common.h"
 
 namespace KtSerial {
 /**

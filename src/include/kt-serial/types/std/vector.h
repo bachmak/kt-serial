@@ -1,11 +1,8 @@
 #pragma once
 
-#include <type_traits>
 #include <vector>
 
-#include "kt-serial/details/basic_traits.h"
-#include "kt-serial/details/wrappers.h"
-#include "kt-serial/macros.h"
+#include "kt-serial/types/common.h"
 
 namespace KtSerial {
 /**
