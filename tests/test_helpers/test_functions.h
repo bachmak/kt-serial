@@ -37,9 +37,9 @@ template <class Type> void binaryIOSerialization(const Type& t) {
     EXPECT_EQ(t3, t);
 }
 
-void randomSize(std::size_t& size, std::size_t maxSize, std::mt19937& gen) {
+std::size_t randomSize(std::size_t maxSize, std::mt19937& gen) {
     std::uniform_int_distribution<std::size_t> distr(0, maxSize);
-    size = distr(gen);
+    return distr(gen);
 }
 
 template <class T, typename std::enable_if<std::is_integral<T>::value &&
@@ -72,47 +72,51 @@ auto randomValue(T& t, std::mt19937& gen)
     t.fillRandom(gen);
 }
 
-template <
-    class T, std::size_t Size,
-    typename std::enable_if<!std::is_same<T, bool>::value, bool>::type = true>
-void randomValue(std::array<T, Size>& arr, std::mt19937& gen) {
+template <class T, typename std::enable_if<
+                       std::is_same<typename T::value_type, bool>::value,
+                       bool>::type = true>
+auto randomValue(T& arr, std::mt19937& gen)
+    -> decltype(arr.fill(std::declval<typename T::value_type>())) {
+    for (auto&& item : arr) {
+        bool val;
+        randomValue(val, gen);
+        item = val;
+    }
+}
+
+template <class T, typename std::enable_if<
+                       !std::is_same<typename T::value_type, bool>::value,
+                       bool>::type = true>
+auto randomValue(T& arr, std::mt19937& gen)
+    -> decltype(arr.fill(std::declval<typename T::value_type>())) {
     for (auto& value : arr) {
         randomValue(value, gen);
     }
 }
 
-template <std::size_t Size>
-void randomValue(std::array<bool, Size>& arr, std::mt19937& gen) {
-    for (size_t i = 0; i < arr.size(); i++) {
-        bool val = arr[i];
+template <class T, typename std::enable_if<
+                       std::is_same<typename T::value_type, bool>::value,
+                       bool>::type = true>
+auto randomValue(T& seq, std::mt19937& gen)
+    -> decltype(seq.resize(std::declval<std::size_t>())) {
+    seq.clear();
+    seq.resize(randomSize(maxSize, gen));
+    for (auto&& item : seq) {
+        bool val;
         randomValue(val, gen);
-        arr[i] = val;
+        item = val;
     }
 }
 
-template <
-    class T, class Alloc,
-    typename std::enable_if<!std::is_same<T, bool>::value, bool>::type = true>
-void randomValue(std::vector<T, Alloc>& vec, std::mt19937& gen) {
-    size_t vecSize;
-    randomSize(vecSize, maxSize, gen);
-    vec.resize(vecSize);
-
-    for (auto& value : vec) {
+template <class T, typename std::enable_if<
+                       !std::is_same<typename T::value_type, bool>::value,
+                       bool>::type = true>
+auto randomValue(T& seq, std::mt19937& gen)
+    -> decltype(seq.resize(std::declval<std::size_t>())) {
+    seq.clear();
+    seq.resize(randomSize(maxSize, gen));
+    for (auto& value : seq) {
         randomValue(value, gen);
-    }
-}
-
-template <class Alloc>
-void randomValue(std::vector<bool, Alloc>& vec, std::mt19937& gen) {
-    size_t vecSize;
-    randomSize(vecSize, maxSize, gen);
-    vec.resize(vecSize);
-
-    for (size_t i = 0; i < vec.size(); i++) {
-        bool val = vec[i];
-        randomValue(val, gen);
-        vec[i] = val;
     }
 }
 

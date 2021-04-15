@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <random>
-#include <type_traits>
 #include <vector>
 
 #include "kt-serial/types/std/vector.h"
