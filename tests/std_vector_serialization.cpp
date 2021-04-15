@@ -1,90 +1,61 @@
-#include "kt-serial/archives/binary_istream_archive.h"
-#include "kt-serial/archives/binary_ostream_archive.h"
+#include <gtest/gtest.h>
+#include <random>
+#include <type_traits>
+#include <vector>
+
 #include "kt-serial/types/std/vector.h"
 #include "test_helpers/struct_generator.h"
-#include <gtest/gtest.h>
-#include <limits>
-#include <sstream>
-#include <tuple>
+#include "test_helpers/test_functions.h"
 
-template <class T> void testVector(const std::vector<T>& vec) {
-    std::stringstream stream;
-
-    {
-        KtSerial::BinaryOstreamArchive oa(stream);
-        oa << vec;
-    }
-
-    std::vector<T> newVec;
-
-    {
-        KtSerial::BinaryIstreamArchive ia(stream);
-        ia >> newVec;
-    }
-
-    EXPECT_EQ(newVec, vec);
-}
-
-#define TEST_VECTOR(typeName, value)                                           \
-    {                                                                          \
-        testVector(std::vector<typeName>(1000, value));                        \
-        testVector(std::vector<typeName>(0, value));                           \
-        testVector(std::vector<typeName>({value}));                            \
-    }
-
-#define TEST_VECTOR_MIN_MAX(typeName)                                          \
-    {                                                                          \
-        TEST_VECTOR(typeName, std::numeric_limits<typeName>::min());           \
-        TEST_VECTOR(typeName, std::numeric_limits<typeName>::max());           \
-        TEST_VECTOR(typeName, std::numeric_limits<typeName>::lowest());        \
-    }
+const std::size_t maxSize = 100;
 
 TEST(StdVectorSerialization, IntTypes) {
-    TEST_VECTOR_MIN_MAX(int);
-    TEST_VECTOR_MIN_MAX(int8_t);
-    TEST_VECTOR_MIN_MAX(int16_t);
-    TEST_VECTOR_MIN_MAX(int32_t);
-    TEST_VECTOR_MIN_MAX(int64_t);
-    TEST_VECTOR_MIN_MAX(int_fast8_t);
-    TEST_VECTOR_MIN_MAX(int_fast16_t);
-    TEST_VECTOR_MIN_MAX(int_fast32_t);
-    TEST_VECTOR_MIN_MAX(int_fast64_t);
-    TEST_VECTOR_MIN_MAX(intmax_t);
-    TEST_VECTOR_MIN_MAX(intptr_t);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int8_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int16_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int32_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int64_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast8_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast16_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast32_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, int_fast64_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, intmax_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, intptr_t, maxSize);
 }
 
 TEST(StdVectorSerialization, UintTypes) {
-    TEST_VECTOR_MIN_MAX(uint);
-    TEST_VECTOR_MIN_MAX(uint8_t);
-    TEST_VECTOR_MIN_MAX(uint16_t);
-    TEST_VECTOR_MIN_MAX(uint32_t);
-    TEST_VECTOR_MIN_MAX(uint64_t);
-    TEST_VECTOR_MIN_MAX(uint_fast8_t);
-    TEST_VECTOR_MIN_MAX(uint_fast16_t);
-    TEST_VECTOR_MIN_MAX(uint_fast32_t);
-    TEST_VECTOR_MIN_MAX(uint_fast64_t);
-    TEST_VECTOR_MIN_MAX(uintmax_t);
-    TEST_VECTOR_MIN_MAX(uintptr_t);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint8_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint16_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint32_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint64_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast8_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast16_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast32_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uint_fast64_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uintmax_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, uintptr_t, maxSize);
 }
 
 TEST(StdVectorSerialization, CharTypes) {
-    TEST_VECTOR_MIN_MAX(char);
-    TEST_VECTOR_MIN_MAX(wchar_t);
-    TEST_VECTOR_MIN_MAX(char16_t);
-    TEST_VECTOR_MIN_MAX(char32_t);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, char, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, wchar_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, char16_t, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, char32_t, maxSize);
 }
 
 TEST(StdVectorSerialization, FloatTypes) {
-    TEST_VECTOR_MIN_MAX(float);
-    TEST_VECTOR_MIN_MAX(double);
-    TEST_VECTOR_MIN_MAX(long double);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, float, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, double, maxSize);
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, long double, maxSize);
 }
 
 TEST(StdVectorSerialization, Bool) {
-    TEST_VECTOR(bool, 1);
-    TEST_VECTOR(bool, 0);
-    testVector(std::vector<bool>({1, 1, 1, 0, 0, 1, 0, 0}));
-    testVector(std::vector<bool>({0, 0, 1, 0, 0, 0, 1, 1}));
+    TEST_BINARY_IO_SERIALIZATION_MIN_MAX(std::vector, bool, maxSize);
+    TestFunctions::binaryIOSerialization(
+        std::vector<bool>({1, 1, 1, 0, 0, 1, 0, 0}));
+    TestFunctions::binaryIOSerialization(
+        std::vector<bool>({0, 0, 1, 0, 0, 0, 1, 1}));
 }
 
 GENERATE_STRUCT(BoolStruct, bool, bool, bool, bool, bool, bool)
@@ -95,13 +66,28 @@ GENERATE_STRUCT(VectorStruct, std::vector<int>, std::vector<uint>,
                 std::vector<SimpleStruct>, std::vector<bool>, char, double)
 
 TEST(StdVectorSerialization, UserDefinedStructs) {
-    SimpleStruct ss{1, 2u, 'c', 2.28f, 2.71, true};
-    testVector(std::vector<SimpleStruct>(10, ss));
-    testVector(std::vector<VectorStruct>(10, {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-                                              {0u, 3u, 7u, 19u, 143u},
-                                              {10, ss},
-                                              {1, 0, 0, 1, 0, 0, 1},
-                                              'j',
-                                              3123.3}));
-    testVector(std::vector<BoolStruct>(10, {1, 0, 0, 1, 0, 1}));
+    std::mt19937 gen;
+    {
+        BoolStruct bs;
+        bs.fillRandom(gen);
+        TestFunctions::binaryIOSerialization(bs);
+    }
+
+    {
+        SimpleStruct ss;
+        ss.fillRandom(gen);
+        TestFunctions::binaryIOSerialization(ss);
+    }
+
+    {
+        VectorStruct vs;
+        vs.fillRandom(gen);
+        TestFunctions::binaryIOSerialization(vs);
+    }
+
+    {
+        std::vector<VectorStruct> vec;
+        TestFunctions::randomValue(vec, gen);
+        TestFunctions::binaryIOSerialization(vec);
+    }
 }
