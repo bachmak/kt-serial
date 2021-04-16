@@ -44,17 +44,17 @@ TEST(StdForwardListSerialization, UserDefinedStructs) {
     std::mt19937 gen;
     {
         std::forward_list<SimpleStruct> flss;
-        TestFunctions::randomValue(flss, gen);
+        TestFunctions::randomize(flss, gen);
         TestFunctions::binaryIOSerialization(flss);
     }
     {
         FwdListStruct fls;
-        fls.fillRandom(gen);
+        fls.randomize(gen);
         TestFunctions::binaryIOSerialization(fls);
     }
     {
         AnotherStruct as;
-        as.fillRandom(gen);
+        as.randomize(gen);
         TestFunctions::binaryIOSerialization(as);
     }
 }

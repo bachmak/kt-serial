@@ -20,7 +20,7 @@ template <class Type> void binaryIOSerialization(const Type& t) {
         KtSerial::BinaryOstreamArchive oa(stream);
         oa(t);
         oa << t;
-        oa& t;
+        oa & t;
     }
 
     Type t1, t2, t3;
@@ -29,7 +29,7 @@ template <class Type> void binaryIOSerialization(const Type& t) {
         KtSerial::BinaryIstreamArchive ia(stream);
         ia(t1);
         ia >> t2;
-        ia& t3;
+        ia & t3;
     }
 
     EXPECT_EQ(t1, t);
@@ -45,7 +45,7 @@ std::size_t randomSize(std::size_t maxSize, std::mt19937& gen) {
 template <class T, typename std::enable_if<std::is_integral<T>::value &&
                                                !std::is_same<T, bool>::value,
                                            bool>::type = true>
-void randomValue(T& t, std::mt19937& gen) {
+void randomize(T& t, std::mt19937& gen) {
     std::uniform_int_distribution<T> distr(std::numeric_limits<T>::min(),
                                            std::numeric_limits<T>::max());
     t = distr(gen);
@@ -53,7 +53,7 @@ void randomValue(T& t, std::mt19937& gen) {
 
 template <class T, typename std::enable_if<std::is_floating_point<T>::value,
                                            bool>::type = true>
-void randomValue(T& t, std::mt19937& gen) {
+void randomize(T& t, std::mt19937& gen) {
     std::uniform_real_distribution<T> distr(std::numeric_limits<T>::min(),
                                             std::numeric_limits<T>::max());
     t = distr(gen);
@@ -61,25 +61,25 @@ void randomValue(T& t, std::mt19937& gen) {
 
 template <class T, typename std::enable_if<std::is_same<T, bool>::value,
                                            bool>::type = true>
-void randomValue(T& t, std::mt19937& gen) {
+void randomize(T& t, std::mt19937& gen) {
     std::uniform_int_distribution<int> distr(0, 1);
     t = static_cast<bool>(distr(gen));
 }
 
 template <class T>
-auto randomValue(T& t, std::mt19937& gen)
-    -> decltype(t.fillRandom(std::declval<std::mt19937&>())) {
-    t.fillRandom(gen);
+auto randomize(T& t, std::mt19937& gen)
+    -> decltype(t.randomize(std::declval<std::mt19937&>())) {
+    t.randomize(gen);
 }
 
 template <class T, typename std::enable_if<
                        std::is_same<typename T::value_type, bool>::value,
                        bool>::type = true>
-auto randomValue(T& arr, std::mt19937& gen)
+auto randomize(T& arr, std::mt19937& gen)
     -> decltype(arr.fill(std::declval<typename T::value_type>())) {
     for (auto&& item : arr) {
         bool val;
-        randomValue(val, gen);
+        randomize(val, gen);
         item = val;
     }
 }
@@ -87,23 +87,23 @@ auto randomValue(T& arr, std::mt19937& gen)
 template <class T, typename std::enable_if<
                        !std::is_same<typename T::value_type, bool>::value,
                        bool>::type = true>
-auto randomValue(T& arr, std::mt19937& gen)
+auto randomize(T& arr, std::mt19937& gen)
     -> decltype(arr.fill(std::declval<typename T::value_type>())) {
     for (auto& value : arr) {
-        randomValue(value, gen);
+        randomize(value, gen);
     }
 }
 
 template <class T, typename std::enable_if<
                        std::is_same<typename T::value_type, bool>::value,
                        bool>::type = true>
-auto randomValue(T& seq, std::mt19937& gen)
+auto randomize(T& seq, std::mt19937& gen)
     -> decltype(seq.resize(std::declval<std::size_t>())) {
     seq.clear();
     seq.resize(randomSize(maxSize, gen));
     for (auto&& item : seq) {
         bool val;
-        randomValue(val, gen);
+        randomize(val, gen);
         item = val;
     }
 }
@@ -111,67 +111,25 @@ auto randomValue(T& seq, std::mt19937& gen)
 template <class T, typename std::enable_if<
                        !std::is_same<typename T::value_type, bool>::value,
                        bool>::type = true>
-auto randomValue(T& seq, std::mt19937& gen)
+auto randomize(T& seq, std::mt19937& gen)
     -> decltype(seq.resize(std::declval<std::size_t>())) {
     seq.clear();
     seq.resize(randomSize(maxSize, gen));
     for (auto& value : seq) {
-        randomValue(value, gen);
+        randomize(value, gen);
     }
 }
 
-template <class Type> void fillWithRandomValues(std::mt19937& gen, Type& t) {
-    randomValue(t, gen);
+template <class Type> void randomizeVariadic(std::mt19937& gen, Type& t) {
+    randomize(t, gen);
 }
 
 template <class Type, class... Types>
-void fillWithRandomValues(std::mt19937& gen, Type& t, Types&... ts) {
-    fillWithRandomValues(gen, t);
-    fillWithRandomValues(gen, ts...);
+void randomizeVariadic(std::mt19937& gen, Type& t, Types&... ts) {
+    randomizeVariadic(gen, t);
+    randomizeVariadic(gen, ts...);
 }
 
-template <class FwdIt>
-typename std::enable_if<
-    std::numeric_limits<
-        typename std::iterator_traits<FwdIt>::value_type>::is_integer &&
-    !std::is_same<typename std::iterator_traits<FwdIt>::value_type,
-                  bool>::value>::type
-fillWithRandomValues(FwdIt begin, FwdIt end) {
-    using Type = typename std::iterator_traits<FwdIt>::value_type;
-    std::mt19937 gen;
-    std::uniform_int_distribution<Type> distr(std::numeric_limits<Type>::min(),
-                                              std::numeric_limits<Type>::max());
-
-    while (begin != end) {
-        *begin++ = distr(gen);
-    }
-}
-
-template <class FwdIt>
-typename std::enable_if<std::numeric_limits<
-    typename std::iterator_traits<FwdIt>::value_type>::is_iec559>::type
-fillWithRandomValues(FwdIt begin, FwdIt end) {
-    using Type = typename std::iterator_traits<FwdIt>::value_type;
-    std::mt19937 gen;
-    std::uniform_real_distribution<Type> distr(
-        std::numeric_limits<Type>::min(), std::numeric_limits<Type>::max());
-
-    while (begin != end) {
-        *begin++ = distr(gen);
-    }
-}
-
-template <class FwdIt>
-typename std::enable_if<std::is_same<
-    typename std::iterator_traits<FwdIt>::value_type, bool>::value>::type
-fillWithRandomValues(FwdIt begin, FwdIt end) {
-    std::mt19937 gen;
-    std::uniform_int_distribution<int> distr(0, 1);
-
-    while (begin != end) {
-        *begin++ = static_cast<bool>(distr(gen));
-    }
-}
 #define TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, valueType, size)       \
     {                                                                          \
         TestFunctions::binaryIOSerialization(container<valueType>(             \

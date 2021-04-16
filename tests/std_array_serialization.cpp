@@ -76,35 +76,48 @@ TEST(StdArraySerialization, FloatTypes) {
 
 TEST(StdArraySerialization, Bool) {
     testStdArrayBinaryIOSerialization<bool, size>();
-    TestFunctions::binaryIOSerialization(std::array<bool, 6>({1, 0, 0, 1, 1, 0}));
+    TestFunctions::binaryIOSerialization(
+        std::array<bool, 6>({1, 0, 0, 1, 1, 0}));
 }
 
 template <class T> using StdArray100 = std::array<T, 100>;
 
 template <class T> using StdArray23 = std::array<T, 23>;
 
-template <class T> using StdArray1799 = std::array<T, 1799>;
+template <class T> using StdArray199 = std::array<T, 199>;
 
 GENERATE_STRUCT(SimpleStruct, int_fast64_t, uint16_t, wchar_t, bool, bool,
                 long double)
 
-GENERATE_STRUCT(ArrayStruct, StdArray100<SimpleStruct>, StdArray1799<wchar_t>,
-                StdArray23<bool>, StdArray1799<long double>)
+GENERATE_STRUCT(ArrayStruct, StdArray100<SimpleStruct>, StdArray199<wchar_t>,
+                StdArray23<bool>, StdArray199<StdArray23<long double>>, bool,
+                long double)
 
 GENERATE_STRUCT(DoubleNested, StdArray23<ArrayStruct>, bool, long double)
 
 TEST(StdArraySerialization, UserDefinedStructs) {
     std::mt19937 gen;
 
-    SimpleStruct ss;
-    ss.fillRandom(gen);
-    TestFunctions::binaryIOSerialization(ss);
+    {
+        SimpleStruct ss;
+        TestFunctions::binaryIOSerialization(ss);
+        ss.randomize(gen);
+        TestFunctions::binaryIOSerialization(ss);
+    }
 
-    ArrayStruct as;
-    as.fillRandom(gen);
-    TestFunctions::binaryIOSerialization(as);
+    {
+        ArrayStruct as;
+        TestFunctions::binaryIOSerialization(as);
+        as.randomize(gen);
+        TestFunctions::binaryIOSerialization(as);
+    }
 
-    DoubleNested dn;
-    dn.fillRandom(gen);
-    TestFunctions::binaryIOSerialization(dn);
+    {
+
+        DoubleNested dn;
+        // сериализация неинициализированной структуры DoubleNested некорректна
+        // (возможно, из-за несравниваемых значений полей - например, NaN)
+        dn.randomize(gen);
+        TestFunctions::binaryIOSerialization(dn);
+    }
 }

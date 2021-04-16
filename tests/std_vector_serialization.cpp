@@ -43,25 +43,28 @@ TEST(StdVectorSerialization, UserDefinedStructs) {
     std::mt19937 gen;
     {
         BoolStruct bs;
-        bs.fillRandom(gen);
+        TestFunctions::binaryIOSerialization(bs);
+        bs.randomize(gen);
         TestFunctions::binaryIOSerialization(bs);
     }
 
     {
         SimpleStruct ss;
-        ss.fillRandom(gen);
+        ss.randomize(gen);
         TestFunctions::binaryIOSerialization(ss);
     }
 
     {
         VectorStruct vs;
-        vs.fillRandom(gen);
+        TestFunctions::binaryIOSerialization(vs);
+        vs.randomize(gen);
         TestFunctions::binaryIOSerialization(vs);
     }
 
     {
         std::vector<VectorStruct> vec;
-        TestFunctions::randomValue(vec, gen);
+        TestFunctions::binaryIOSerialization(vec);
+        TestFunctions::randomize(vec, gen);
         TestFunctions::binaryIOSerialization(vec);
     }
 }

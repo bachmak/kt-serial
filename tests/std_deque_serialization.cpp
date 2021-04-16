@@ -41,27 +41,32 @@ TEST(StdDequeSerialization, UserDefinedStructs) {
     std::mt19937 gen;
     {
         std::deque<SimpleStruct> dss;
-        TestFunctions::randomValue(dss, gen);
+        TestFunctions::binaryIOSerialization(dss);
+        TestFunctions::randomize(dss, gen);
         TestFunctions::binaryIOSerialization(dss);
     }
     {
         std::deque<std::deque<SimpleStruct>> ddss;
-        TestFunctions::randomValue(ddss, gen);
+        TestFunctions::binaryIOSerialization(ddss);
+        TestFunctions::randomize(ddss, gen);
         TestFunctions::binaryIOSerialization(ddss);
     }
     {
         DequeStruct ds;
-        ds.fillRandom(gen);
+        TestFunctions::binaryIOSerialization(ds);
+        ds.randomize(gen);
         TestFunctions::binaryIOSerialization(ds);
     }
     {
         std::deque<DequeStruct> dds;
-        TestFunctions::randomValue(dds, gen);
+        TestFunctions::binaryIOSerialization(dds);
+        TestFunctions::randomize(dds, gen);
         TestFunctions::binaryIOSerialization(dds);
     }
     {
         std::deque<CharStruct> dcs;
-        TestFunctions::randomValue(dcs, gen);
+        TestFunctions::binaryIOSerialization(dcs);
+        TestFunctions::randomize(dcs, gen);
         TestFunctions::binaryIOSerialization(dcs);
     }
 }

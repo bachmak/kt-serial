@@ -71,8 +71,8 @@
             ar(COMMA_SEPARATED(GET_NAMES(typesAndNames)));                     \
         }                                                                      \
                                                                                \
-        void fillRandom(std::mt19937& gen) {                                   \
-            TestFunctions::fillWithRandomValues(                               \
+        void randomize(std::mt19937& gen) {                                    \
+            TestFunctions::randomizeVariadic(                                  \
                 gen, COMMA_SEPARATED(GET_NAMES(typesAndNames)));               \
         }                                                                      \
     };
