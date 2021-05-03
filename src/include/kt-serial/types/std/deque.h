@@ -3,6 +3,7 @@
 #include <deque>
 
 #include "kt-serial/types/common.h"
+#include "kt-serial/types/std/concepts/resizable_sequence.h"
 
 namespace KtSerial {
 /**
@@ -18,11 +19,7 @@ namespace KtSerial {
  */
 template <class T, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::deque<T, Alloc>& deq) {
-    ar << makeSizeWrapper(deq.size());
-
-    for (const auto& elem : deq) {
-        ar << elem;
-    }
+    saveResizableSequence(ar, deq);
 }
 
 /**
@@ -38,12 +35,6 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::deque<T, Alloc>& deq) {
  */
 template <class T, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::deque<T, Alloc>& deq) {
-    SizeType size;
-    ar >> makeSizeWrapper(size);
-    deq.resize(size);
-
-    for (auto& elem : deq) {
-        ar >> elem;
-    }
+    loadResizableSequence(ar, deq);
 }
 } // namespace KtSerial

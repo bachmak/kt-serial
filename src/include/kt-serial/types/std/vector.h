@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "kt-serial/types/common.h"
+#include "kt-serial/types/std/concepts/resizable_sequence.h"
 
 namespace KtSerial {
 /**
@@ -44,11 +45,7 @@ template <class T, class Alloc, class Archive,
               !std::is_arithmetic<T>::value,
               Traits::HasExactlyOneOutputHandler<T, Archive>::value> = true>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::vector<T, Alloc>& vec) {
-    ar << makeSizeWrapper(vec.size());
-
-    for (const auto& value : vec) {
-        ar << value;
-    }
+    saveResizableSequence(ar, vec);
 }
 
 /**
@@ -110,13 +107,7 @@ template <class T, class Alloc, class Archive,
               !std::is_arithmetic<T>::value,
               Traits::HasExactlyOneInputHandler<T, Archive>::value> = true>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::vector<T, Alloc>& vec) {
-    SizeType size;
-    ar >> makeSizeWrapper(size);
-    vec.resize(size);
-
-    for (auto& value : vec) {
-        ar >> value;
-    }
+    loadResizableSequence(ar, vec);
 }
 
 /**

@@ -3,6 +3,7 @@
 #include <forward_list>
 
 #include "kt-serial/types/common.h"
+#include "kt-serial/types/std/concepts/resizable_sequence.h"
 
 namespace KtSerial {
 /**
@@ -17,11 +18,7 @@ namespace KtSerial {
 template <class T, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar,
                             const std::forward_list<T, Alloc>& lst) {
-    ar << makeSizeWrapper(std::distance(lst.begin(), lst.end()));
-
-    for (const auto& elem : lst) {
-        ar << elem;
-    }
+    saveResizableSequence(ar, lst);
 }
 
 /**
@@ -35,13 +32,6 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
  */
 template <class T, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::forward_list<T, Alloc>& lst) {
-    SizeType size;
-    ar >> makeSizeWrapper(size);
-    lst.resize(size);
-
-    for (auto& elem : lst) {
-        ar >> elem;
-    }
+    loadResizableSequence(ar, lst);
 }
-
 } // namespace KtSerial
