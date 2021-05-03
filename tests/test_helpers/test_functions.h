@@ -120,6 +120,19 @@ auto randomize(T& seq, std::mt19937& gen)
     }
 }
 
+template <class T>
+auto randomize(T& set, std::mt19937& gen)
+    -> decltype(set.insert(std::declval<typename T::value_type>()),
+                void()) {
+    set.clear();
+
+    for (size_t i = 0; i < maxSize; i++) {
+        typename T::value_type value;
+        randomize(value, gen);
+        set.insert(std::move(value));
+    }
+}
+
 template <class Type> void randomizeVariadic(std::mt19937& gen, Type& t) {
     randomize(t, gen);
 }
