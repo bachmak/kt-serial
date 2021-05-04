@@ -37,8 +37,8 @@ template <class Type> void binaryIOSerialization(const Type& t) {
     EXPECT_EQ(t3, t);
 }
 
-std::size_t randomSize(std::size_t maxSize, std::mt19937& gen) {
-    std::uniform_int_distribution<std::size_t> distr(0, maxSize);
+std::size_t randomSize(std::size_t max, std::mt19937& gen) {
+    std::uniform_int_distribution<std::size_t> distr(0, max);
     return distr(gen);
 }
 
@@ -46,17 +46,17 @@ template <class T, typename std::enable_if<std::is_integral<T>::value &&
                                                !std::is_same<T, bool>::value,
                                            bool>::type = true>
 void randomize(T& t, std::mt19937& gen) {
-    std::uniform_int_distribution<T> distr(std::numeric_limits<T>::min(),
-                                           std::numeric_limits<T>::max());
-    t = distr(gen);
+    std::uniform_int_distribution<long long> distr(std::numeric_limits<T>::min(),
+                                                   std::numeric_limits<T>::max());
+    t = static_cast<T>(distr(gen));
 }
 
 template <class T, typename std::enable_if<std::is_floating_point<T>::value,
                                            bool>::type = true>
 void randomize(T& t, std::mt19937& gen) {
-    std::uniform_real_distribution<T> distr(std::numeric_limits<T>::min(),
-                                            std::numeric_limits<T>::max());
-    t = distr(gen);
+    std::uniform_real_distribution<long double> distr(std::numeric_limits<T>::min(),
+                                                      std::numeric_limits<T>::max());
+    t = static_cast<T>(distr(gen));
 }
 
 template <class T, typename std::enable_if<std::is_same<T, bool>::value,
@@ -188,7 +188,7 @@ void randomizeVariadic(std::mt19937& gen, Type& t, Types&... ts) {
 
 #define TEST_BINARY_IO_SERIALIZATION_UINT_TYPES(container, size)               \
     {                                                                          \
-        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint, size);           \
+        TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, unsigned, size);       \
         TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint8_t, size);        \
         TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint16_t, size);       \
         TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, uint32_t, size);       \

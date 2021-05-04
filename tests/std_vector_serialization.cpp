@@ -36,7 +36,7 @@ GENERATE_STRUCT(BoolStruct, bool, bool, bool, bool, bool, bool)
 
 GENERATE_STRUCT(SimpleStruct, int, unsigned, char, float, double, bool)
 
-GENERATE_STRUCT(VectorStruct, std::vector<int>, std::vector<uint>,
+GENERATE_STRUCT(VectorStruct, std::vector<int>, std::vector<unsigned>,
                 std::vector<SimpleStruct>, std::vector<bool>, char, double)
 
 TEST(StdVectorSerialization, UserDefinedStructs) {

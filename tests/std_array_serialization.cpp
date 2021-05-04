@@ -48,7 +48,7 @@ TEST(StdArraySerialization, IntTypes) {
 }
 
 TEST(StdArraySerialization, UintTypes) {
-    testStdArrayBinaryIOSerialization<uint, size>();
+    testStdArrayBinaryIOSerialization<unsigned, size>();
     testStdArrayBinaryIOSerialization<uint8_t, size>();
     testStdArrayBinaryIOSerialization<uint16_t, size>();
     testStdArrayBinaryIOSerialization<uint32_t, size>();
