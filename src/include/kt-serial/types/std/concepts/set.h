@@ -2,10 +2,19 @@
 
 #include "kt-serial/types/common.h"
 
-namespace KtSerial
-{
-template <class Archive, class Set>
-void saveSet(Archive& ar, const Set& set) {
+namespace KtSerial {
+namespace Concepts {
+/**
+ * @brief ќбобщенна€ перегрузка функции дл€ сериализации ассоциативных
+ * контейнеров стандартной библиотеки, реализующих структуру типа множество
+ * (set, multiset).
+ *
+ * @tparam Archive тип выходного архива
+ * @tparam Set тип сериализуемого контейнера (std::set или std::multiset)
+ * @param ar ссылка на выходной архив
+ * @param seq ссылка на сериализуемый контейнер
+ */
+template <class Archive, class Set> void saveSet(Archive& ar, const Set& set) {
     ar << makeSizeWrapper(set.size());
 
     for (const auto& elem : set) {
@@ -13,8 +22,17 @@ void saveSet(Archive& ar, const Set& set) {
     }
 }
 
-template <class Archive, class Set>
-void loadSet(Archive& ar, Set& set) {
+/**
+ * @brief ќбобщенна€ перегрузка функции дл€ десериализации ассоциативных
+ * контейнеров стандартной библиотеки, реализующих структуру типа множество
+ * (set, multiset).
+ *
+ * @tparam Archive тип входного архива
+ * @tparam Set тип десериализуемого контейнера (std::set или std::multiset)
+ * @param ar ссылка на входной архив
+ * @param seq ссылка на десериализуемый контейнер
+ */
+template <class Archive, class Set> void loadSet(Archive& ar, Set& set) {
     SizeType size;
     ar >> makeSizeWrapper(size);
     set.clear();
@@ -26,4 +44,6 @@ void loadSet(Archive& ar, Set& set) {
         hint = set.insert(hint, std::move(elem));
     }
 }
+} // namespace Concepts
 } // namespace KtSerial
+

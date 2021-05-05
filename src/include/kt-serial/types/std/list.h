@@ -17,7 +17,7 @@ namespace KtSerial {
  */
 template <class T, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::list<T, Alloc>& lst) {
-    saveResizableSequence(ar, lst);
+    Concepts::saveResizableSequence(ar, lst);
 }
 
 /**
@@ -31,7 +31,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::list<T, Alloc>& lst) {
  */
 template <class T, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::list<T, Alloc>& lst) {
-    loadResizableSequence(ar, lst);
+    Concepts::loadResizableSequence(ar, lst);
 }
 
 } // namespace KtSerial
