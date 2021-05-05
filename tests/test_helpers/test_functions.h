@@ -37,6 +37,12 @@ template <class Type> void binaryIOSerialization(const Type& t) {
     EXPECT_EQ(t3, t);
 }
 
+template <class Type, class... Types>
+void binaryIOSerialization(const Type& t, const Types&... ts) {
+    binaryIOSerialization(t);
+    binaryIOSerialization(ts...);
+}
+
 std::size_t randomSize(std::size_t max, std::mt19937& gen) {
     std::uniform_int_distribution<std::size_t> distr(0, max);
     return distr(gen);
