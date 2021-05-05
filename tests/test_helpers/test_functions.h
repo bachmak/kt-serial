@@ -11,7 +11,7 @@
 #include "kt-serial/archives/binary_ostream_archive.h"
 
 namespace TestFunctions {
-const std::size_t maxSize = 100;
+std::size_t maxSize = 100;
 
 template <class Type> void binaryIOSerialization(const Type& t) {
     std::stringstream stream;
@@ -130,8 +130,9 @@ template <class T>
 auto randomize(T& set, std::mt19937& gen)
     -> decltype(set.insert(std::declval<typename T::value_type>()), void()) {
     set.clear();
+    size_t size = randomSize(maxSize, gen);
 
-    for (size_t i = 0; i < maxSize; i++) {
+    for (size_t i = 0; i < size; i++) {
         typename T::value_type value;
         randomize(value, gen);
         set.insert(std::move(value));
@@ -141,6 +142,12 @@ auto randomize(T& set, std::mt19937& gen)
 template <class T1, class T2>
 void randomize(std::pair<T1, T2>& p, std::mt19937& gen) {
     randomize(p.first, gen);
+    randomize(p.second, gen);
+}
+
+template <class T1, class T2>
+void randomize(std::pair<const T1, T2>& p, std::mt19937& gen) {
+    randomize(*const_cast<T1*>(&p.first), gen);
     randomize(p.second, gen);
 }
 
