@@ -52,16 +52,16 @@ template <class T, typename std::enable_if<std::is_integral<T>::value &&
                                                !std::is_same<T, bool>::value,
                                            bool>::type = true>
 void randomize(T& t, std::mt19937& gen) {
-    std::uniform_int_distribution<long long> distr(std::numeric_limits<T>::min(),
-                                                   std::numeric_limits<T>::max());
+    std::uniform_int_distribution<long long> distr(
+        std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
     t = static_cast<T>(distr(gen));
 }
 
 template <class T, typename std::enable_if<std::is_floating_point<T>::value,
                                            bool>::type = true>
 void randomize(T& t, std::mt19937& gen) {
-    std::uniform_real_distribution<long double> distr(std::numeric_limits<T>::min(),
-                                                      std::numeric_limits<T>::max());
+    std::uniform_real_distribution<long double> distr(
+        std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
     t = static_cast<T>(distr(gen));
 }
 
@@ -128,8 +128,7 @@ auto randomize(T& seq, std::mt19937& gen)
 
 template <class T>
 auto randomize(T& set, std::mt19937& gen)
-    -> decltype(set.insert(std::declval<typename T::value_type>()),
-                void()) {
+    -> decltype(set.insert(std::declval<typename T::value_type>()), void()) {
     set.clear();
 
     for (size_t i = 0; i < maxSize; i++) {
@@ -137,6 +136,12 @@ auto randomize(T& set, std::mt19937& gen)
         randomize(value, gen);
         set.insert(std::move(value));
     }
+}
+
+template <class T1, class T2>
+void randomize(std::pair<T1, T2>& p, std::mt19937& gen) {
+    randomize(p.first, gen);
+    randomize(p.second, gen);
 }
 
 template <class Type> void randomizeVariadic(std::mt19937& gen, Type& t) {
