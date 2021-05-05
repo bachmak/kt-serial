@@ -41,20 +41,11 @@ GENERATE_STRUCT(AnotherStruct, float, long double, double, float,
                 std::forward_list<std::forward_list<SimpleStruct>>)
 
 TEST(StdForwardListSerialization, UserDefinedStructs) {
+    using TestFunctions::createInstanceAndTestIOSerialization;
+
     std::mt19937 gen;
-    {
-        std::forward_list<SimpleStruct> flss;
-        TestFunctions::randomize(flss, gen);
-        TestFunctions::binaryIOSerialization(flss);
-    }
-    {
-        FwdListStruct fls;
-        fls.randomize(gen);
-        TestFunctions::binaryIOSerialization(fls);
-    }
-    {
-        AnotherStruct as;
-        as.randomize(gen);
-        TestFunctions::binaryIOSerialization(as);
-    }
+
+    createInstanceAndTestIOSerialization<std::forward_list<SimpleStruct>>(gen);
+    createInstanceAndTestIOSerialization<FwdListStruct>(gen);
+    createInstanceAndTestIOSerialization<AnotherStruct>(gen);
 }

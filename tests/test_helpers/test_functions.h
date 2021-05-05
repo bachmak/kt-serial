@@ -154,6 +154,14 @@ void randomizeVariadic(std::mt19937& gen, Type& t, Types&... ts) {
     randomizeVariadic(gen, ts...);
 }
 
+template <class Type>
+void createInstanceAndTestIOSerialization(std::mt19937& gen) {
+    Type t;
+    binaryIOSerialization(t);
+    randomize(t, gen);
+    binaryIOSerialization(t);
+}
+
 #define TEST_BINARY_IO_SERIALIZATION_MIN_MAX(container, valueType, size)       \
     {                                                                          \
         TestFunctions::binaryIOSerialization(container<valueType>(             \

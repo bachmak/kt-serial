@@ -38,35 +38,14 @@ GENERATE_STRUCT(DequeStruct, std::deque<SimpleStruct>, std::deque<bool>,
 GENERATE_STRUCT(CharStruct, char, wchar_t, char16_t, char32_t, char)
 
 TEST(StdDequeSerialization, UserDefinedStructs) {
+    using TestFunctions::createInstanceAndTestIOSerialization;
+
     std::mt19937 gen;
-    {
-        std::deque<SimpleStruct> dss;
-        TestFunctions::binaryIOSerialization(dss);
-        TestFunctions::randomize(dss, gen);
-        TestFunctions::binaryIOSerialization(dss);
-    }
-    {
-        std::deque<std::deque<SimpleStruct>> ddss;
-        TestFunctions::binaryIOSerialization(ddss);
-        TestFunctions::randomize(ddss, gen);
-        TestFunctions::binaryIOSerialization(ddss);
-    }
-    {
-        DequeStruct ds;
-        TestFunctions::binaryIOSerialization(ds);
-        ds.randomize(gen);
-        TestFunctions::binaryIOSerialization(ds);
-    }
-    {
-        std::deque<DequeStruct> dds;
-        TestFunctions::binaryIOSerialization(dds);
-        TestFunctions::randomize(dds, gen);
-        TestFunctions::binaryIOSerialization(dds);
-    }
-    {
-        std::deque<CharStruct> dcs;
-        TestFunctions::binaryIOSerialization(dcs);
-        TestFunctions::randomize(dcs, gen);
-        TestFunctions::binaryIOSerialization(dcs);
-    }
+
+    createInstanceAndTestIOSerialization<std::deque<SimpleStruct>>(gen);
+    createInstanceAndTestIOSerialization<std::deque<std::deque<SimpleStruct>>>(
+        gen);
+    createInstanceAndTestIOSerialization<DequeStruct>(gen);
+    createInstanceAndTestIOSerialization<std::deque<DequeStruct>>(gen);
+    createInstanceAndTestIOSerialization<std::deque<CharStruct>>(gen);
 }

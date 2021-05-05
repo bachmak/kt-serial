@@ -130,12 +130,7 @@ DoubleNested doubleNested, emptyDoubleNested;
 TEST(StdArraySerialization, UserDefinedStructs) {
     std::mt19937 gen;
 
-    {
-        SimpleStruct simpleStruct;
-        TestFunctions::binaryIOSerialization(simpleStruct);
-        simpleStruct.randomize(gen);
-        TestFunctions::binaryIOSerialization(simpleStruct);
-    }
+    TestFunctions::createInstanceAndTestIOSerialization<SimpleStruct>(gen);
 
     {
         testStdArrayStructBinaryIOSerialization(arrayStruct, emptyArrayStruct);

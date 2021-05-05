@@ -40,31 +40,12 @@ GENERATE_STRUCT(VectorStruct, std::vector<int>, std::vector<unsigned>,
                 std::vector<SimpleStruct>, std::vector<bool>, char, double)
 
 TEST(StdVectorSerialization, UserDefinedStructs) {
+    using TestFunctions::createInstanceAndTestIOSerialization;
+
     std::mt19937 gen;
-    {
-        BoolStruct bs;
-        TestFunctions::binaryIOSerialization(bs);
-        bs.randomize(gen);
-        TestFunctions::binaryIOSerialization(bs);
-    }
 
-    {
-        SimpleStruct ss;
-        ss.randomize(gen);
-        TestFunctions::binaryIOSerialization(ss);
-    }
-
-    {
-        VectorStruct vs;
-        TestFunctions::binaryIOSerialization(vs);
-        vs.randomize(gen);
-        TestFunctions::binaryIOSerialization(vs);
-    }
-
-    {
-        std::vector<VectorStruct> vec;
-        TestFunctions::binaryIOSerialization(vec);
-        TestFunctions::randomize(vec, gen);
-        TestFunctions::binaryIOSerialization(vec);
-    }
+    createInstanceAndTestIOSerialization<std::vector<BoolStruct>>(gen);
+    createInstanceAndTestIOSerialization<std::vector<SimpleStruct>>(gen);
+    createInstanceAndTestIOSerialization<VectorStruct>(gen);
+    createInstanceAndTestIOSerialization<std::vector<VectorStruct>>(gen);
 }

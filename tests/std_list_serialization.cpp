@@ -38,22 +38,11 @@ GENERATE_STRUCT(AnotherStruct, bool, bool, float, int16_t,
                 std::list<ListStruct>, std::list<std::list<bool>>)
 
 TEST(StdListSerialization, UserDefinedStructs) {
+    using TestFunctions::createInstanceAndTestIOSerialization;
+
     std::mt19937 gen;
-    {
-        std::list<SimpleStruct> lss;
-        TestFunctions::binaryIOSerialization(lss);
-        TestFunctions::randomize(lss, gen);
-    }
-    {
-        ListStruct ls;
-        TestFunctions::binaryIOSerialization(ls);
-        ls.randomize(gen);
-        TestFunctions::binaryIOSerialization(ls);
-    }
-    {
-        AnotherStruct as;
-        TestFunctions::binaryIOSerialization(as);
-        as.randomize(gen);
-        TestFunctions::binaryIOSerialization(as);
-    }
+
+    createInstanceAndTestIOSerialization<std::list<SimpleStruct>>(gen);
+    createInstanceAndTestIOSerialization<ListStruct>(gen);
+    createInstanceAndTestIOSerialization<AnotherStruct>(gen);
 }
