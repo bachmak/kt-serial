@@ -143,6 +143,7 @@ template <class Key, class Value> struct KeyValueWrapper {
  */
 template <class Key, class Value>
 KeyValueWrapper<Key, Value> makeKeyValueWrapper(Key&& key, Value&& value) {
-    return {std::forward<Key>(name), std::forward<Value>(value)};
+    return {std::forward<Key>(key), std::forward<Value>(value)};
 }
 } // namespace KtSerial
+
