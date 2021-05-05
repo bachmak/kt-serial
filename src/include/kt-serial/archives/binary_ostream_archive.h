@@ -93,4 +93,19 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
     SizeType size = static_cast<SizeType>(sizeWrapper.size);
     ar.writeData(reinterpret_cast<const void*>(&size), sizeof(size));
 }
+
+/**
+ * @brief Перегрузка функции для сериализации именованных объектов с
+ * использованием бинарного выходного архива. Бинарный архив не сериализует
+ * название объекта.
+ *
+ * @tparam Type тип именованного объекта
+ * @param ar ссылка на бинарный выходной архив
+ * @param nameValue объекта-обертка над именем и ссылкой на сериализуемый объект
+ */
+template <class Type>
+void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
+                            const NameValueWrapper<Type>& nameValue) {
+    ar << nameValue.value;
+}
 } // namespace KtSerial
