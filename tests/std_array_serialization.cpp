@@ -9,6 +9,33 @@
 
 const std::size_t size = 1000;
 
+template <class Type>
+void testStdArrayStructBinaryIOSerialization(const Type& t1, Type& t2) {
+    std::stringstream stream;
+
+    {
+        KtSerial::BinaryOstreamArchive oa(stream);
+        oa(t1);
+        oa << t1;
+        oa & t1;
+    }
+    {
+        KtSerial::BinaryIstreamArchive ia(stream);
+        ia(t2);
+        EXPECT_EQ(t2, t1);
+    }
+    {
+        KtSerial::BinaryIstreamArchive ia(stream);
+        ia >> t2;
+        EXPECT_EQ(t2, t1);
+    }
+    {
+        KtSerial::BinaryIstreamArchive ia(stream);
+        ia & t2;
+        EXPECT_EQ(t2, t1);
+    }
+}
+
 template <class Type, std::size_t Size>
 void testStdArrayBinaryIOSerializationMinMax(std::array<Type, Size>& arr) {
     arr.fill(std::numeric_limits<Type>::max());
@@ -95,29 +122,32 @@ GENERATE_STRUCT(ArrayStruct, StdArray100<SimpleStruct>, StdArray199<wchar_t>,
 
 GENERATE_STRUCT(DoubleNested, StdArray23<ArrayStruct>, bool, long double)
 
+// переменные созданы как глобальные для избежания создания их на стеке в блоке
+// try/catch (ошибка C2712)
+ArrayStruct arrayStruct, emptyArrayStruct;
+DoubleNested doubleNested, emptyDoubleNested;
+
 TEST(StdArraySerialization, UserDefinedStructs) {
     std::mt19937 gen;
 
     {
-        SimpleStruct ss;
-        TestFunctions::binaryIOSerialization(ss);
-        ss.randomize(gen);
-        TestFunctions::binaryIOSerialization(ss);
+        SimpleStruct simpleStruct;
+        TestFunctions::binaryIOSerialization(simpleStruct);
+        simpleStruct.randomize(gen);
+        TestFunctions::binaryIOSerialization(simpleStruct);
     }
 
     {
-        ArrayStruct as;
-        TestFunctions::binaryIOSerialization(as);
-        as.randomize(gen);
-        TestFunctions::binaryIOSerialization(as);
+        testStdArrayStructBinaryIOSerialization(arrayStruct, emptyArrayStruct);
+        arrayStruct.randomize(gen);
+        testStdArrayStructBinaryIOSerialization(arrayStruct, emptyArrayStruct);
     }
 
     {
-
-        DoubleNested dn;
         // сериализация неинициализированной структуры DoubleNested некорректна
         // (возможно, из-за несравниваемых значений полей - например, NaN)
-        dn.randomize(gen);
-        TestFunctions::binaryIOSerialization(dn);
+        doubleNested.randomize(gen);
+        testStdArrayStructBinaryIOSerialization(doubleNested,
+                                                emptyDoubleNested);
     }
 }
