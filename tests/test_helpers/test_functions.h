@@ -34,6 +34,18 @@ std::size_t hash_value(const std::forward_list<T, A>& t) {
     std::vector<T> temp(t.begin(), t.end());
     return hash_value(temp);
 }
+
+template <class T, class H, class E, class A>
+std::size_t hash_value(const std::unordered_set<T, H, E, A>& set) {
+    std::vector<T> temp(set.begin(), set.end());
+    return hash_value(temp);
+}
+
+template <class T, class H, class E, class A>
+std::size_t hash_value(const std::unordered_multiset<T, H, E, A>& set) {
+    std::vector<T> temp(set.begin(), set.end());
+    return hash_value(temp);
+}
 } // namespace boost
 
 namespace TestFunctions {
