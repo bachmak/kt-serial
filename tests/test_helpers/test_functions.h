@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/functional/hash.hpp>
+#include <forward_list>
 #include <gtest/gtest.h>
 #include <iterator>
 #include <limits>
@@ -9,6 +11,14 @@
 
 #include "kt-serial/archives/binary_istream_archive.h"
 #include "kt-serial/archives/binary_ostream_archive.h"
+
+namespace boost {
+template <class T, class A>
+std::size_t hash_value(const std::forward_list<T, A>& t) {
+    std::vector<T> temp(t.begin(), t.end());
+    return hash_value(temp);
+}
+} // namespace boost
 
 namespace TestFunctions {
 std::size_t maxSize = 100;
@@ -159,6 +169,26 @@ template <class Type, class... Types>
 void randomizeVariadic(std::mt19937& gen, Type& t, Types&... ts) {
     randomizeVariadic(gen, t);
     randomizeVariadic(gen, ts...);
+}
+
+std::size_t pow(std::size_t x, std::size_t y) {
+    if (y == 1) {
+        return x;
+    }
+    if (y == 0) {
+        return 1;
+    }
+    return x * pow(x, y - 1);
+}
+
+template <class T> std::size_t hashCode(const T& t) {
+    return boost::hash_value(t);
+}
+
+template <class Type, class... Types>
+std::size_t hashCode(const Type& t, const Types&... ts) {
+    std::size_t p = sizeof...(Types) + 1;
+    return hashCode(t) * pow(997u, p) + hashCode(ts...);
 }
 
 template <class Type>

@@ -75,7 +75,20 @@
             TestFunctions::randomizeVariadic(                                  \
                 gen, COMMA_SEPARATED(GET_NAMES(typesAndNames)));               \
         }                                                                      \
-    };
+                                                                               \
+        std::size_t hashCode() const {                                         \
+            return TestFunctions::hashCode(                                    \
+                COMMA_SEPARATED(GET_NAMES(typesAndNames)));                    \
+        }                                                                      \
+    };                                                                         \
+                                                                               \
+    namespace boost {                                                          \
+    template <> struct hash<structName> {                                      \
+        std::size_t operator()(const structName& sn) const noexcept {          \
+            return sn.hashCode();                                              \
+        }                                                                      \
+    };                                                                         \
+    }
 
 #define ADD_NAME(r, _, i, elem)                                                \
     BOOST_PP_TUPLE_PUSH_BACK(elem, BOOST_PP_CAT(field, i))
