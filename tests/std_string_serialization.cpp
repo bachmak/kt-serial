@@ -6,10 +6,11 @@
 #include "kt-serial/types/std/string.h"
 #include "test_helpers/test_functions.h"
 
-const std::size_t maxSize = 1000;
 const std::size_t iterCount = 100;
 
 TEST(StdStringSerialization, CharString) {
+    TestFunctions::maxSize = 1000;
+
     TestFunctions::binaryIOSerialization(std::string("  abcdefgh  "));
     TestFunctions::binaryIOSerialization(std::string(""));
     TestFunctions::binaryIOSerialization(std::string("a"));
