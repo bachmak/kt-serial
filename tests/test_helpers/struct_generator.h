@@ -83,6 +83,10 @@
     };                                                                         \
                                                                                \
     namespace boost {                                                          \
+    std::size_t hash_value(const structName& sn) { return sn.hashCode(); }     \
+    }                                                                          \
+                                                                               \
+    namespace std {                                                            \
     template <> struct hash<structName> {                                      \
         std::size_t operator()(const structName& sn) const noexcept {          \
             return sn.hashCode();                                              \
