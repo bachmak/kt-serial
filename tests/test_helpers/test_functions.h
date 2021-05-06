@@ -1,52 +1,15 @@
 #pragma once
 
 #include <boost/functional/hash.hpp>
-#include <forward_list>
 #include <gtest/gtest.h>
 #include <iterator>
 #include <limits>
 #include <random>
 #include <sstream>
 #include <type_traits>
-#include <unordered_set>
 
 #include "kt-serial/archives/binary_istream_archive.h"
 #include "kt-serial/archives/binary_ostream_archive.h"
-
-namespace std {
-template <class T, class H, class C, class A>
-bool operator<(const std::unordered_set<T, H, C, A>& lhs,
-               const std::unordered_set<T, H, C, A>& rhs) {
-    return std::vector<T>(lhs.begin(), lhs.end()) <
-           std::vector<T>(rhs.begin(), rhs.end());
-}
-template <class T, class H, class C, class A>
-bool operator<(const std::unordered_multiset<T, H, C, A>& lhs,
-               const std::unordered_multiset<T, H, C, A>& rhs) {
-    return std::vector<T>(lhs.begin(), lhs.end()) <
-           std::vector<T>(rhs.begin(), rhs.end());
-}
-} // namespace std
-
-namespace boost {
-template <class T, class A>
-std::size_t hash_value(const std::forward_list<T, A>& t) {
-    std::vector<T> temp(t.begin(), t.end());
-    return hash_value(temp);
-}
-
-template <class T, class H, class E, class A>
-std::size_t hash_value(const std::unordered_set<T, H, E, A>& set) {
-    std::vector<T> temp(set.begin(), set.end());
-    return hash_value(temp);
-}
-
-template <class T, class H, class E, class A>
-std::size_t hash_value(const std::unordered_multiset<T, H, E, A>& set) {
-    std::vector<T> temp(set.begin(), set.end());
-    return hash_value(temp);
-}
-} // namespace boost
 
 namespace TestFunctions {
 std::size_t maxSize = 100;
