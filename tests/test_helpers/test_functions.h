@@ -14,7 +14,7 @@
 namespace TestFunctions {
 std::size_t maxSize = 100;
 
-template <class Type> void binaryIOSerialization(const Type& t) {
+template <class Type> void binaryIOSerialization(Type&& t) {
     std::stringstream stream;
 
     {
@@ -24,7 +24,7 @@ template <class Type> void binaryIOSerialization(const Type& t) {
         oa & t;
     }
 
-    Type t1, t2, t3;
+    typename std::remove_reference<Type>::type t1, t2, t3;
 
     {
         KtSerial::BinaryIstreamArchive ia(stream);
@@ -39,9 +39,9 @@ template <class Type> void binaryIOSerialization(const Type& t) {
 }
 
 template <class Type, class... Types>
-void binaryIOSerialization(const Type& t, const Types&... ts) {
-    binaryIOSerialization(t);
-    binaryIOSerialization(ts...);
+void binaryIOSerialization(Type&& t, Types&&... ts) {
+    binaryIOSerialization(std::forward<Type>(t));
+    binaryIOSerialization(std::forward<Types>(ts)...);
 }
 
 std::size_t randomSize(std::size_t max, std::mt19937& gen) {
