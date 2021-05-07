@@ -111,38 +111,21 @@ template <class T> using StdArray100 = std::array<T, 100>;
 
 template <class T> using StdArray23 = std::array<T, 23>;
 
-template <class T> using StdArray199 = std::array<T, 199>;
+template <class T> using StdArray19 = std::array<T, 19>;
 
 GENERATE_STRUCT(SimpleStruct, int_fast64_t, uint16_t, wchar_t, bool, bool,
                 long double)
 
-GENERATE_STRUCT(ArrayStruct, StdArray100<SimpleStruct>, StdArray199<wchar_t>,
-                StdArray23<bool>, StdArray199<StdArray23<long double>>, bool,
+GENERATE_STRUCT(ArrayStruct, StdArray100<SimpleStruct>, StdArray19<wchar_t>,
+                StdArray23<bool>, StdArray19<StdArray23<long double>>, bool,
                 long double)
 
 GENERATE_STRUCT(DoubleNested, StdArray23<ArrayStruct>, bool, long double)
-
-// переменные созданы как глобальные для избежания создания их на стеке в блоке
-// try/catch (ошибка C2712)
-ArrayStruct arrayStruct, emptyArrayStruct;
-DoubleNested doubleNested, emptyDoubleNested;
 
 TEST(StdArraySerialization, UserDefinedStructs) {
     std::mt19937 gen;
 
     TestFunctions::createInstanceAndTestIOSerialization<SimpleStruct>(gen);
-
-    {
-        testStdArrayStructBinaryIOSerialization(arrayStruct, emptyArrayStruct);
-        arrayStruct.randomize(gen);
-        testStdArrayStructBinaryIOSerialization(arrayStruct, emptyArrayStruct);
-    }
-
-    {
-        // сериализация неинициализированной структуры DoubleNested некорректна
-        // (возможно, из-за несравниваемых значений полей - например, NaN)
-        doubleNested.randomize(gen);
-        testStdArrayStructBinaryIOSerialization(doubleNested,
-                                                emptyDoubleNested);
-    }
+    TestFunctions::createInstanceAndTestIOSerialization<ArrayStruct>(gen);
+    TestFunctions::createInstanceAndTestIOSerialization<DoubleNested>(gen);
 }
