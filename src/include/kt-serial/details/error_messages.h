@@ -31,3 +31,7 @@
 /* Сообщение об ошибке чтения из потока*/
 #define KTSERIAL_ERROR_STREAM_READ_FAILURE                                     \
     "Error: failed to read from the input stream"
+
+/* Сообщение об ошибочном приведении типа наследника к базовому типу */
+#define KTSERIAL_ERROR_INVALID_UPCAST                                   \
+    "Error: could not cast the given derived type to the base type"

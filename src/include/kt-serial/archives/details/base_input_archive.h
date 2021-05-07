@@ -4,6 +4,7 @@
 
 #include "kt-serial/details/error_messages.h"
 #include "kt-serial/details/serializable_traits.h"
+#include "kt-serial/details/wrappers.h"
 
 #ifdef KTSERIAL_TEST_MODE
 #include <stdexcept>
@@ -119,6 +120,20 @@ template <class DerivedArchive> class BaseInputArchive {
     void handleSequence(Type&& t, Types&&... ts) {
         archive.handleSequence(std::forward<Type>(t));
         archive.handleSequence(std::forward<Types>(ts)...);
+    }
+
+    /**
+     * @brief Метод, обрабатывающий случай десериализации базового типа через
+     * объект производного типа с помощью класса-обертки BaseObjectWrapper.
+     *
+     * @tparam Type тип базового класса
+     * @param t обертка над десериализуемым объектом, содержащая указатель на
+     * его базовый класс
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
+    template <class Type>
+    inline DerivedArchive& handle(BaseObjectWrapper<Type> t) {
+        return archive.handle(*t.baseObject);
     }
 
 /**

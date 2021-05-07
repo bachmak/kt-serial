@@ -4,6 +4,7 @@
 
 #include "kt-serial/details/error_messages.h"
 #include "kt-serial/details/serializable_traits.h"
+#include "kt-serial/details/wrappers.h"
 
 #ifdef KTSERIAL_TEST_MODE
 #include <stdexcept>
@@ -121,6 +122,20 @@ template <class DerivedArchive> class BaseOutputArchive {
         archive.handleSequence(std::forward<Types>(ts)...);
     }
 
+    /**
+     * @brief Метод, обрабатывающий случай сериализации базового типа через
+     * объект производного типа с помощью класса-обертки BaseObjectWrapper.
+     *
+     * @tparam Type тип базового класса
+     * @param t обертка над сериализуемым объектом, содержащая указатель на
+     * его базовый класс
+     * @return DerivedArchive& ссылка на архив-наследник
+     */
+    template <class Type>
+    inline DerivedArchive& handle(BaseObjectWrapper<Type> t) {
+        return archive.handle(*t.baseObject);
+    }
+
 /**
  * @brief Макрос для выбора перегрузок метода для перенаправления вызова.
  * Перегрузка метода подставляется, если для типа Type существует
@@ -199,7 +214,15 @@ template <class DerivedArchive> class BaseOutputArchive {
     template <class Type,
               Traits::ConjunctiveEnableIf<!Traits::HasExactlyOneOutputHandler<
                   Type, DerivedArchive>::value> = true>
-    DerivedArchive& handle(const Type&) {
+    DerivedArchive& handle(const Type& t) {
+        int a = Traits::HasSerializeMethod<Type, DerivedArchive>::value;
+        int b = Traits::HasSerializeFunction<Type, DerivedArchive>::value;
+        int c = Traits::HasSaveMethod<Type, DerivedArchive>::value;
+        int d = Traits::HasSaveFunction<Type, DerivedArchive>::value;
+
+        if ((a + b + c + d) * 0) {
+            archive.handle(t);
+        }
 /* В тестовом режиме бросаем исключения*/
 #if defined(KTSERIAL_TEST_MODE)
         if (!Traits::HasAtLeastOneOutputHandler<Type, DerivedArchive>::value) {
