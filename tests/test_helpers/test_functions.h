@@ -50,10 +50,21 @@ std::size_t randomSize(std::size_t max, std::mt19937& gen) {
 }
 
 template <class T, typename std::enable_if<std::is_integral<T>::value &&
-                                               !std::is_same<T, bool>::value,
+                                               !std::is_same<T, bool>::value &&
+                                               std::is_signed<T>::value,
                                            bool>::type = true>
 void randomize(T& t, std::mt19937& gen) {
     std::uniform_int_distribution<long long> distr(
+        std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
+    t = static_cast<T>(distr(gen));
+}
+
+template <class T, typename std::enable_if<std::is_integral<T>::value &&
+                                               !std::is_same<T, bool>::value &&
+                                               !std::is_signed<T>::value,
+                                           bool>::type = true>
+void randomize(T& t, std::mt19937& gen) {
+    std::uniform_int_distribution<unsigned long long> distr(
         std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
     t = static_cast<T>(distr(gen));
 }
