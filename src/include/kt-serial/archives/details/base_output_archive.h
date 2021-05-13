@@ -214,15 +214,7 @@ template <class DerivedArchive> class BaseOutputArchive {
     template <class Type,
               Traits::ConjunctiveEnableIf<!Traits::HasExactlyOneOutputHandler<
                   Type, DerivedArchive>::value> = true>
-    DerivedArchive& handle(const Type& t) {
-        int a = Traits::HasSerializeMethod<Type, DerivedArchive>::value;
-        int b = Traits::HasSerializeFunction<Type, DerivedArchive>::value;
-        int c = Traits::HasSaveMethod<Type, DerivedArchive>::value;
-        int d = Traits::HasSaveFunction<Type, DerivedArchive>::value;
-
-        if ((a + b + c + d) * 0) {
-            archive.handle(t);
-        }
+    DerivedArchive& handle(const Type&) {
 /* В тестовом режиме бросаем исключения*/
 #if defined(KTSERIAL_TEST_MODE)
         if (!Traits::HasAtLeastOneOutputHandler<Type, DerivedArchive>::value) {

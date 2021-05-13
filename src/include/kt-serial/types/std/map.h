@@ -7,15 +7,15 @@
 
 namespace KtSerial {
 /**
- * @brief Перегрузка функции для сериализации контейнера std::map.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::map.
  * 
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип выходного архива
- * @param ar ссылка на архив
- * @param map сериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС‹С…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar,
@@ -24,15 +24,15 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
 }
 
 /**
- * @brief Перегрузка функции для сериализации контейнера std::multimap.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::multimap.
  * 
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип выходного архива
- * @param ar ссылка на архив
- * @param map сериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС‹С…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar,
@@ -41,15 +41,15 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::map.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::map.
  * 
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип входного архива
- * @param ar ссылка на архив
- * @param map десериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map РґРµСЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar,
@@ -58,15 +58,15 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar,
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::multimap.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::multimap.
  * 
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип входного архива
- * @param ar ссылка на архив
- * @param map десериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map РґРµСЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar,

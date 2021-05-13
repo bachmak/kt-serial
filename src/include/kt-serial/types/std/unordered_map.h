@@ -7,16 +7,16 @@
 
 namespace KtSerial {
 /**
- * @brief Перегрузка функции для сериализации контейнера std::unordered_map.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::unordered_map.
  *
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип выходного архива
- * @param ar ссылка на архив
- * @param map сериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС‹С…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Hash, class KeyEqual, class Alloc,
           class Archive>
@@ -26,17 +26,17 @@ void KTSERIAL_SAVE_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для сериализации контейнера
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР°
  * std::unordered_multimap.
  *
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип выходного архива
- * @param ar ссылка на архив
- * @param map сериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС‹С…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Hash, class KeyEqual, class Alloc,
           class Archive>
@@ -47,16 +47,16 @@ void KTSERIAL_SAVE_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::unordered_map.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::unordered_map.
  *
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип входного архива
- * @param ar ссылка на архив
- * @param map десериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map РґРµСЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Hash, class KeyEqual, class Alloc,
           class Archive>
@@ -66,17 +66,17 @@ void KTSERIAL_LOAD_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР°
  * std::unordered_multimap.
  *
- * @tparam Key тип ключа элементов контейнера
- * @tparam T тип значения элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип входного архива
- * @param ar ссылка на архив
- * @param map десериализуемый контейнер
+ * @tparam Key С‚РёРї РєР»СЋС‡Р° СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam T С‚РёРї Р·РЅР°С‡РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param map РґРµСЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class T, class Hash, class KeyEqual, class Alloc,
           class Archive>

@@ -7,15 +7,15 @@
 
 namespace KtSerial {
 /**
- * @brief Перегрузка функции для сериализации контейнера std::unordered_set.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::unordered_set.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип выходного архива
- * @param ar ссылка на архив
- * @param set сериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС‹С…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(
@@ -24,15 +24,15 @@ void KTSERIAL_SAVE_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для сериализации контейнера std::unordered_multiset.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::unordered_multiset.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип выходного архива
- * @param ar ссылка на архив
- * @param set сериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС‹С…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(
@@ -42,15 +42,15 @@ void KTSERIAL_SAVE_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::unordered_set.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::unordered_set.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип входного архива
- * @param ar ссылка на архив
- * @param set сериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(
@@ -59,15 +59,15 @@ void KTSERIAL_LOAD_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::unordered_multiset.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::unordered_multiset.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Hash хэш-функция
- * @tparam KeyEqual компаратор
- * @tparam Alloc аллокатор
- * @tparam Archive тип входного архива
- * @param ar ссылка на архив
- * @param set сериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Hash С…СЌС€-С„СѓРЅРєС†РёСЏ
+ * @tparam KeyEqual РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @tparam Archive С‚РёРї РІС…РѕРґРЅРѕРіРѕ Р°СЂС…РёРІР°
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(

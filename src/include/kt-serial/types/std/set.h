@@ -7,13 +7,13 @@
 
 namespace KtSerial {
 /**
- * @brief Перегрузка функции для сериализации контейнера std::set.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::set.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @param ar ссылка на архив
- * @param set сериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::set<Key, Compare, Alloc>& set) {
@@ -21,13 +21,13 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::set<Key, Compare, Alloc>& se
 }
 
 /**
- * @brief Перегрузка функции для сериализации контейнера std::multiset.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ СЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::multiset.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @param ar ссылка на архив
- * @param set сериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set СЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::multiset<Key, Compare, Alloc>& set) {
@@ -35,13 +35,13 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::multiset<Key, Compare, Alloc
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::set.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::set.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @param ar ссылка на архив
- * @param set десериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set РґРµСЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::set<Key, Compare, Alloc>& set) {
@@ -49,13 +49,13 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::set<Key, Compare, Alloc>& set) {
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::multiset.
+ * @brief РџРµСЂРµРіСЂСѓР·РєР° С„СѓРЅРєС†РёРё РґР»СЏ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё РєРѕРЅС‚РµР№РЅРµСЂР° std::multiset.
  * 
- * @tparam Key тип элементов контейнера
- * @tparam Compare компаратор
- * @tparam Alloc аллокатор
- * @param ar ссылка на архив
- * @param set десериализуемый контейнер
+ * @tparam Key С‚РёРї СЌР»РµРјРµРЅС‚РѕРІ РєРѕРЅС‚РµР№РЅРµСЂР°
+ * @tparam Compare РєРѕРјРїР°СЂР°С‚РѕСЂ
+ * @tparam Alloc Р°Р»Р»РѕРєР°С‚РѕСЂ
+ * @param ar СЃСЃС‹Р»РєР° РЅР° Р°СЂС…РёРІ
+ * @param set РґРµСЃРµСЂРёР°Р»РёР·СѓРµРјС‹Р№ РєРѕРЅС‚РµР№РЅРµСЂ
  */
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::multiset<Key, Compare, Alloc>& set) {

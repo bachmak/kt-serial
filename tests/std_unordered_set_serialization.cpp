@@ -5,7 +5,6 @@
 #include "kt-serial/types/std/unordered_set.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"
-#include "test_helpers/unordered_specific.h"
 
 using TestFunctions::createInstanceAndTestIOSerialization;
 
@@ -42,8 +41,6 @@ TEST(StdUnorderedSetSerialization, UserDefinedStructs) {
     createInstanceAndTestIOSerialization<std::unordered_multiset<SimpleStruct>>(
         gen);
 
-    // сериализация std::unordered_set<NestedStruct> и т.д. осуществляется
-    // неправильно из-за коллизий (но это не точно)
     createInstanceAndTestIOSerialization<NestedStruct>(gen);
     createInstanceAndTestIOSerialization<UnorderedSetStruct>(gen);
     createInstanceAndTestIOSerialization<AnotherStruct>(gen);
