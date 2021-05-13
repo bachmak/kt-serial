@@ -59,12 +59,14 @@
 // ############################################################################
 
 #define __GENERATE_GET_KEY_METHOD(fieldNames)                                  \
-    auto getKey() const {                                                      \
+    auto getKey()                                                              \
+        const->decltype(std::make_tuple(__COMMA_SEPARATED(fieldNames))) {      \
         return std::make_tuple(__COMMA_SEPARATED(fieldNames));                 \
     }
 
 #define __GENERATE_DERIVED_GET_KEY_METHOD(baseStructName, fieldNames)          \
-    auto getKey() const {                                                      \
+    auto getKey() const->decltype(std::make_tuple(                             \
+        baseStructName::getKey(), __COMMA_SEPARATED(fieldNames))) {            \
         return std::make_tuple(baseStructName::getKey(),                       \
                                __COMMA_SEPARATED(fieldNames));                 \
     }
