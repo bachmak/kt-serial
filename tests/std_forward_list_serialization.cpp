@@ -5,9 +5,8 @@
 #include "kt-serial/types/std/forward_list.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"
-#include "test_helpers/unordered_specific.h"
 
-const std::size_t maxSize = 100;
+using TestFunctions::maxSize;
 
 TEST(StdForwardListSerialization, IntTypes) {
     TEST_BINARY_IO_SERIALIZATION_INT_TYPES(std::forward_list, maxSize);

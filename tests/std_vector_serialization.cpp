@@ -6,7 +6,7 @@
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"
 
-const std::size_t maxSize = 100;
+using TestFunctions::maxSize;
 
 TEST(StdVectorSerialization, IntTypes) {
     TEST_BINARY_IO_SERIALIZATION_INT_TYPES(std::vector, maxSize);
