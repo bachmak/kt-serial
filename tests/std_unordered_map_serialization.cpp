@@ -2,6 +2,8 @@
 #include <random>
 #include <unordered_map>
 
+#include "test_helpers/unordered_specific.h"
+
 #include "kt-serial/types/std/unordered_map.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"

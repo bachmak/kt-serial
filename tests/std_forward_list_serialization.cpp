@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include <random>
 
+#include "test_helpers/unordered_specific.h"
+
 #include "kt-serial/types/std/forward_list.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"

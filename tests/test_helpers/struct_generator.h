@@ -65,8 +65,9 @@
     }
 
 #define __GENERATE_DERIVED_GET_KEY_METHOD(baseStructName, fieldNames)          \
-    auto getKey() const->decltype(std::make_tuple(                             \
-        baseStructName::getKey(), __COMMA_SEPARATED(fieldNames))) {            \
+    auto getKey() const->decltype(                                             \
+        std::make_tuple(static_cast<const baseStructName&>(*this).getKey(),    \
+                        __COMMA_SEPARATED(fieldNames))) {                      \
         return std::make_tuple(baseStructName::getKey(),                       \
                                __COMMA_SEPARATED(fieldNames));                 \
     }

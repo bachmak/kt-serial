@@ -2,6 +2,8 @@
 #include <random>
 #include <unordered_set>
 
+#include "test_helpers/unordered_specific.h"
+
 #include "kt-serial/types/std/unordered_set.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"
