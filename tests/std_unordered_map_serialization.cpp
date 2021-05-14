@@ -2,8 +2,6 @@
 #include <random>
 #include <unordered_map>
 
-#include "test_helpers/unordered_specific.h"
-
 #include "kt-serial/types/std/unordered_map.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"
@@ -11,24 +9,21 @@
 using TestFunctions::createInstanceAndTestIOSerialization;
 
 TEST(StdUnorderedMapSerialization, ArithmeticTypes) {
-    std::mt19937 gen;
     TestFunctions::maxSize = 10000;
 
-    createInstanceAndTestIOSerialization<std::unordered_map<int, int>>(gen);
-    createInstanceAndTestIOSerialization<std::unordered_map<double, int>>(gen);
-    createInstanceAndTestIOSerialization<std::unordered_map<bool, char32_t>>(
-        gen);
-    createInstanceAndTestIOSerialization<std::unordered_map<long double, bool>>(
-        gen);
+    createInstanceAndTestIOSerialization<std::unordered_map<int, int>>();
+    createInstanceAndTestIOSerialization<std::unordered_map<double, int>>();
+    createInstanceAndTestIOSerialization<std::unordered_map<bool, char32_t>>();
+    createInstanceAndTestIOSerialization<
+        std::unordered_map<long double, bool>>();
 
     createInstanceAndTestIOSerialization<
-        std::unordered_multimap<wchar_t, int_fast8_t>>(gen);
-    createInstanceAndTestIOSerialization<std::unordered_multimap<float, bool>>(
-        gen);
-    createInstanceAndTestIOSerialization<std::unordered_multimap<bool, bool>>(
-        gen);
+        std::unordered_multimap<wchar_t, int_fast8_t>>();
     createInstanceAndTestIOSerialization<
-        std::unordered_multimap<bool, long double>>(gen);
+        std::unordered_multimap<float, bool>>();
+    createInstanceAndTestIOSerialization<std::unordered_multimap<bool, bool>>();
+    createInstanceAndTestIOSerialization<
+        std::unordered_multimap<bool, long double>>();
 }
 
 template <class Key>
@@ -51,17 +46,14 @@ GENERATE_STRUCT(UnorderedMapStruct, StdDoubleValUnorderedMap<SimpleStruct>,
                 StdBoolKeyUnorderedMultimap<bool>)
 
 TEST(StdUnorderedMapSerialization, UserDefinedStructs) {
-    std::mt19937 gen;
     TestFunctions::maxSize = 200;
 
     createInstanceAndTestIOSerialization<
-        std::unordered_map<SimpleStruct, SimpleStruct>>(gen);
+        std::unordered_map<SimpleStruct, SimpleStruct>>();
     createInstanceAndTestIOSerialization<
-        std::unordered_multimap<int, SimpleStruct>>(gen);
+        std::unordered_multimap<int, SimpleStruct>>();
 
-    createInstanceAndTestIOSerialization<UnorderedMapStruct>(gen);
-    createInstanceAndTestIOSerialization<
-        std::unordered_map<SimpleStruct, UnorderedMapStruct>>(gen);
+    createInstanceAndTestIOSerialization<UnorderedMapStruct>();
     createInstanceAndTestIOSerialization<
         std::unordered_multimap<UnorderedMapStruct, SimpleStruct>>(gen);
 }

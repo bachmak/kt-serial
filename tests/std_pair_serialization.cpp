@@ -7,12 +7,11 @@
 #include "test_helpers/test_functions.h"
 
 TEST(StdPairSerialization, SimpleTypes) {
-    std::mt19937 gen;
     std::pair<char, int> a;
     std::pair<bool, char32_t> b;
     std::pair<long double, bool> c;
     std::pair<float, int32_t> d;
-    TestFunctions::randomizeVariadic(gen, a);
+    TestFunctions::randomizeVariadic(a, b, c, d);
 
     TestFunctions::binaryIOSerialization(a, b, c, d);
 }
@@ -33,10 +32,8 @@ GENERATE_STRUCT(NestedStruct, StdIntKeyPair<SimpleStruct>,
 TEST(StdPairSerialization, UserDefinedStructs) {
     using TestFunctions::createInstanceAndTestIOSerialization;
 
-    std::mt19937 gen;
-
-    createInstanceAndTestIOSerialization<SimpleStruct>(gen);
-    createInstanceAndTestIOSerialization<NestedStruct>(gen);
-    createInstanceAndTestIOSerialization<std::pair<SimpleStruct, NestedStruct>>(
-        gen);
+    createInstanceAndTestIOSerialization<SimpleStruct>();
+    createInstanceAndTestIOSerialization<NestedStruct>();
+    createInstanceAndTestIOSerialization<
+        std::pair<SimpleStruct, NestedStruct>>();
 }

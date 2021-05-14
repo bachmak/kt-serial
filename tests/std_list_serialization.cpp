@@ -40,9 +40,7 @@ GENERATE_STRUCT(AnotherStruct, bool, bool, float, int16_t,
 TEST(StdListSerialization, UserDefinedStructs) {
     using TestFunctions::createInstanceAndTestIOSerialization;
 
-    std::mt19937 gen;
-
-    createInstanceAndTestIOSerialization<std::list<SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<ListStruct>(gen);
-    createInstanceAndTestIOSerialization<AnotherStruct>(gen);
+    createInstanceAndTestIOSerialization<std::list<SimpleStruct>>();
+    createInstanceAndTestIOSerialization<ListStruct>();
+    createInstanceAndTestIOSerialization<AnotherStruct>();
 }

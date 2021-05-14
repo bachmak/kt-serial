@@ -2,8 +2,6 @@
 #include <random>
 #include <unordered_set>
 
-#include "test_helpers/unordered_specific.h"
-
 #include "kt-serial/types/std/unordered_set.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"
@@ -11,18 +9,16 @@
 using TestFunctions::createInstanceAndTestIOSerialization;
 
 TEST(StdUnorderedSetSerialization, ArithmeticTypes) {
-    std::mt19937 gen;
     TestFunctions::maxSize = 10000;
 
-    createInstanceAndTestIOSerialization<std::unordered_set<int>>(gen);
-    createInstanceAndTestIOSerialization<std::unordered_set<double>>(gen);
-    createInstanceAndTestIOSerialization<std::unordered_set<bool>>(gen);
+    createInstanceAndTestIOSerialization<std::unordered_set<int>>();
+    createInstanceAndTestIOSerialization<std::unordered_set<double>>();
+    createInstanceAndTestIOSerialization<std::unordered_set<bool>>();
 
-    createInstanceAndTestIOSerialization<std::unordered_multiset<char32_t>>(
-        gen);
+    createInstanceAndTestIOSerialization<std::unordered_multiset<char32_t>>();
     createInstanceAndTestIOSerialization<
-        std::unordered_multiset<uint_fast16_t>>(gen);
-    createInstanceAndTestIOSerialization<std::unordered_multiset<bool>>(gen);
+        std::unordered_multiset<uint_fast16_t>>();
+    createInstanceAndTestIOSerialization<std::unordered_multiset<bool>>();
 }
 
 GENERATE_STRUCT(SimpleStruct, int, char32_t, bool, double, long double)
@@ -37,13 +33,12 @@ GENERATE_STRUCT(AnotherStruct, std::unordered_set<double>,
                 std::unordered_set<char32_t>)
 
 TEST(StdUnorderedSetSerialization, UserDefinedStructs) {
-    std::mt19937 gen;
     TestFunctions::maxSize = 10000;
-    createInstanceAndTestIOSerialization<std::unordered_set<SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<std::unordered_multiset<SimpleStruct>>(
-        gen);
+    createInstanceAndTestIOSerialization<std::unordered_set<SimpleStruct>>();
+    createInstanceAndTestIOSerialization<
+        std::unordered_multiset<SimpleStruct>>();
 
-    createInstanceAndTestIOSerialization<NestedStruct>(gen);
-    createInstanceAndTestIOSerialization<UnorderedSetStruct>(gen);
-    createInstanceAndTestIOSerialization<AnotherStruct>(gen);
+    createInstanceAndTestIOSerialization<NestedStruct>();
+    createInstanceAndTestIOSerialization<UnorderedSetStruct>();
+    createInstanceAndTestIOSerialization<AnotherStruct>();
 }

@@ -9,21 +9,20 @@
 using TestFunctions::createInstanceAndTestIOSerialization;
 
 TEST(StdMapSerialization, ArithmeticTypes) {
-    std::mt19937 gen;
 	TestFunctions::maxSize = 10000;
 
-    createInstanceAndTestIOSerialization<std::map<int, int>>(gen);
-    createInstanceAndTestIOSerialization<std::map<int, double>>(gen);
-    createInstanceAndTestIOSerialization<std::map<bool, char16_t>>(gen);
-    createInstanceAndTestIOSerialization<std::map<int_fast64_t, bool>>(gen);
-    createInstanceAndTestIOSerialization<std::map<long double, bool>>(gen);
+    createInstanceAndTestIOSerialization<std::map<int, int>>();
+    createInstanceAndTestIOSerialization<std::map<int, double>>();
+    createInstanceAndTestIOSerialization<std::map<bool, char16_t>>();
+    createInstanceAndTestIOSerialization<std::map<int_fast64_t, bool>>();
+    createInstanceAndTestIOSerialization<std::map<long double, bool>>();
 
-    createInstanceAndTestIOSerialization<std::multimap<int, int>>(gen);
-    createInstanceAndTestIOSerialization<std::multimap<unsigned, double>>(gen);
-    createInstanceAndTestIOSerialization<std::multimap<uint8_t, int8_t>>(gen);
-    createInstanceAndTestIOSerialization<std::multimap<bool, char16_t>>(gen);
-    createInstanceAndTestIOSerialization<std::multimap<char32_t, bool>>(gen);
-    createInstanceAndTestIOSerialization<std::multimap<long double, bool>>(gen);
+    createInstanceAndTestIOSerialization<std::multimap<int, int>>();
+    createInstanceAndTestIOSerialization<std::multimap<unsigned, double>>();
+    createInstanceAndTestIOSerialization<std::multimap<uint8_t, int8_t>>();
+    createInstanceAndTestIOSerialization<std::multimap<bool, char16_t>>();
+    createInstanceAndTestIOSerialization<std::multimap<char32_t, bool>>();
+    createInstanceAndTestIOSerialization<std::multimap<long double, bool>>();
 }
 
 template <class T> using StdIntKeyMap = std::map<int, T>;
@@ -48,13 +47,12 @@ GENERATE_STRUCT(DoubleNestedStruct, StdDoubleValueMultimap<NestedStruct>,
                 StdIntKeyMultimap<bool>, double, StdIntKeyMap<SimpleStruct>)
 
 TEST(StdMapSerialization, UserDefinedStructs) {
-    std::mt19937 gen;
     TestFunctions::maxSize = 100;
 
-    createInstanceAndTestIOSerialization<std::map<int, SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<std::multimap<SimpleStruct, bool>>(gen);
-    createInstanceAndTestIOSerialization<std::multimap<bool, SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<NestedStruct>(gen);
-    createInstanceAndTestIOSerialization<DoubleNestedStruct>(gen);
-    createInstanceAndTestIOSerialization<std::map<DoubleNestedStruct, bool>>(gen);
+    createInstanceAndTestIOSerialization<std::map<int, SimpleStruct>>();
+    createInstanceAndTestIOSerialization<std::multimap<SimpleStruct, bool>>();
+    createInstanceAndTestIOSerialization<std::multimap<bool, SimpleStruct>>();
+    createInstanceAndTestIOSerialization<NestedStruct>();
+    createInstanceAndTestIOSerialization<DoubleNestedStruct>();
+    createInstanceAndTestIOSerialization<std::map<DoubleNestedStruct, bool>>();
 }

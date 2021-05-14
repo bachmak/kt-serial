@@ -42,10 +42,8 @@ GENERATE_STRUCT(VectorStruct, std::vector<int>, std::vector<unsigned>,
 TEST(StdVectorSerialization, UserDefinedStructs) {
     using TestFunctions::createInstanceAndTestIOSerialization;
 
-    std::mt19937 gen;
-
-    createInstanceAndTestIOSerialization<std::vector<BoolStruct>>(gen);
-    createInstanceAndTestIOSerialization<std::vector<SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<VectorStruct>(gen);
-    createInstanceAndTestIOSerialization<std::vector<VectorStruct>>(gen);
+    createInstanceAndTestIOSerialization<std::vector<BoolStruct>>();
+    createInstanceAndTestIOSerialization<std::vector<SimpleStruct>>();
+    createInstanceAndTestIOSerialization<VectorStruct>();
+    createInstanceAndTestIOSerialization<std::vector<VectorStruct>>();
 }

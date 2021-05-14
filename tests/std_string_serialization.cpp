@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include <string>
 #include <random>
+#include <string>
 
 #include "kt-serial/types/std/string.h"
 #include "test_helpers/test_functions.h"
@@ -15,9 +15,8 @@ TEST(StdStringSerialization, CharString) {
     TestFunctions::binaryIOSerialization(std::string(""));
     TestFunctions::binaryIOSerialization(std::string("a"));
 
-    std::mt19937 gen;
     for (size_t i = 0; i < iterCount; i++) {
-		TestFunctions::createInstanceAndTestIOSerialization<std::string>(gen);
+        TestFunctions::createInstanceAndTestIOSerialization<std::string>();
     }
 }
 
@@ -27,9 +26,8 @@ TEST(StdStringSerialization, WideCharString) {
     TestFunctions::binaryIOSerialization(std::wstring(L""));
     TestFunctions::binaryIOSerialization(std::wstring(L"Я"));
 
-	std::mt19937 gen;
     for (size_t i = 0; i < iterCount; i++) {
-		TestFunctions::createInstanceAndTestIOSerialization<std::wstring>(gen);
+        TestFunctions::createInstanceAndTestIOSerialization<std::wstring>();
     }
 }
 
@@ -38,9 +36,8 @@ TEST(StdStringSerialization, Char32String) {
     TestFunctions::binaryIOSerialization(std::u32string(U""));
     TestFunctions::binaryIOSerialization(std::u32string(U" "));
 
-    std::mt19937 gen;
     for (size_t i = 0; i < iterCount; i++) {
-		TestFunctions::createInstanceAndTestIOSerialization<std::u32string>(gen);
+        TestFunctions::createInstanceAndTestIOSerialization<std::u32string>();
     }
 }
 
@@ -49,8 +46,7 @@ TEST(StdStringSerialization, Char16String) {
     TestFunctions::binaryIOSerialization(std::u16string(u""));
     TestFunctions::binaryIOSerialization(std::u16string(u" "));
 
-	std::mt19937 gen;
     for (size_t i = 0; i < iterCount; i++) {
-		TestFunctions::createInstanceAndTestIOSerialization<std::u16string>(gen);
+        TestFunctions::createInstanceAndTestIOSerialization<std::u16string>();
     }
 }

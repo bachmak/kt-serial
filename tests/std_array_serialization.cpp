@@ -123,9 +123,7 @@ GENERATE_STRUCT(ArrayStruct, StdArray100<SimpleStruct>, StdArray19<wchar_t>,
 GENERATE_STRUCT(DoubleNested, StdArray23<ArrayStruct>, bool, long double)
 
 TEST(StdArraySerialization, UserDefinedStructs) {
-    std::mt19937 gen;
-
-    TestFunctions::createInstanceAndTestIOSerialization<SimpleStruct>(gen);
-    TestFunctions::createInstanceAndTestIOSerialization<ArrayStruct>(gen);
-    TestFunctions::createInstanceAndTestIOSerialization<DoubleNested>(gen);
+    TestFunctions::createInstanceAndTestIOSerialization<SimpleStruct>();
+    TestFunctions::createInstanceAndTestIOSerialization<ArrayStruct>();
+    TestFunctions::createInstanceAndTestIOSerialization<DoubleNested>();
 }

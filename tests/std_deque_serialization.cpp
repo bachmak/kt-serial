@@ -40,12 +40,10 @@ GENERATE_STRUCT(CharStruct, char, wchar_t, char16_t, char32_t, char)
 TEST(StdDequeSerialization, UserDefinedStructs) {
     using TestFunctions::createInstanceAndTestIOSerialization;
 
-    std::mt19937 gen;
-
-    createInstanceAndTestIOSerialization<std::deque<SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<std::deque<std::deque<SimpleStruct>>>(
-        gen);
-    createInstanceAndTestIOSerialization<DequeStruct>(gen);
-    createInstanceAndTestIOSerialization<std::deque<DequeStruct>>(gen);
-    createInstanceAndTestIOSerialization<std::deque<CharStruct>>(gen);
+    createInstanceAndTestIOSerialization<std::deque<SimpleStruct>>();
+    createInstanceAndTestIOSerialization<
+        std::deque<std::deque<SimpleStruct>>>();
+    createInstanceAndTestIOSerialization<DequeStruct>();
+    createInstanceAndTestIOSerialization<std::deque<DequeStruct>>();
+    createInstanceAndTestIOSerialization<std::deque<CharStruct>>();
 }

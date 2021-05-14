@@ -7,8 +7,6 @@
 #include "test_helpers/test_functions.h"
 
 TEST(StdSetSerialization, ArithmeticTypes) {
-    std::mt19937 gen;
-
     std::set<int> a;
     std::multiset<char32_t> b;
     std::set<double> c;
@@ -16,7 +14,7 @@ TEST(StdSetSerialization, ArithmeticTypes) {
     std::multiset<bool> e;
 
     TestFunctions::binaryIOSerialization(a, b, c, d, e);
-    TestFunctions::randomizeVariadic(gen, a, b, c, d, e);
+    TestFunctions::randomizeVariadic(a, b, c, d, e);
     TestFunctions::binaryIOSerialization(a, b, c, d, e);
 }
 
@@ -26,10 +24,8 @@ GENERATE_STRUCT(NestedStruct, std::set<SimpleStruct>,
 TEST(StdSetSerialization, UserDefinedStructs) {
     using TestFunctions::createInstanceAndTestIOSerialization;
     
-    std::mt19937 gen;
-
-    createInstanceAndTestIOSerialization<std::set<SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<NestedStruct>(gen);
-    createInstanceAndTestIOSerialization<std::set<NestedStruct>>(gen);
-    createInstanceAndTestIOSerialization<std::multiset<NestedStruct>>(gen);
+    createInstanceAndTestIOSerialization<std::set<SimpleStruct>>();
+    createInstanceAndTestIOSerialization<NestedStruct>();
+    createInstanceAndTestIOSerialization<std::set<NestedStruct>>();
+    createInstanceAndTestIOSerialization<std::multiset<NestedStruct>>();
 }

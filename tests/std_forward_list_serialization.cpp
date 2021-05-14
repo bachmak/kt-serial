@@ -2,8 +2,6 @@
 #include <gtest/gtest.h>
 #include <random>
 
-#include "test_helpers/unordered_specific.h"
-
 #include "kt-serial/types/std/forward_list.h"
 #include "test_helpers/struct_generator.h"
 #include "test_helpers/test_functions.h"
@@ -45,9 +43,7 @@ GENERATE_STRUCT(AnotherStruct, float, long double, double, float,
 TEST(StdForwardListSerialization, UserDefinedStructs) {
     using TestFunctions::createInstanceAndTestIOSerialization;
 
-    std::mt19937 gen;
-
-    createInstanceAndTestIOSerialization<std::forward_list<SimpleStruct>>(gen);
-    createInstanceAndTestIOSerialization<FwdListStruct>(gen);
-    createInstanceAndTestIOSerialization<AnotherStruct>(gen);
+    createInstanceAndTestIOSerialization<std::forward_list<SimpleStruct>>();
+    createInstanceAndTestIOSerialization<FwdListStruct>();
+    createInstanceAndTestIOSerialization<AnotherStruct>();
 }

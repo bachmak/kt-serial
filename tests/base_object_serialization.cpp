@@ -15,15 +15,13 @@ GENERATE_DERIVED_STRUCT(SCDerived, SCBase, std::string, double, long double,
                         SCBase)
 
 TEST(BaseObjectSerialization, SimpleCase) {
-    std::mt19937 gen;
-    TestFunctions::createInstanceAndTestIOSerialization<SCBase>(gen);
-    TestFunctions::createInstanceAndTestIOSerialization<SCDerived>(gen);
+    TestFunctions::createInstanceAndTestIOSerialization<SCBase>();
+    TestFunctions::createInstanceAndTestIOSerialization<SCDerived>();
 }
 
 GENERATE_STRUCT(DIBase, int, int, int, bool, bool)
 
-GENERATE_DERIVED_STRUCT(DIDerived1, DIBase, std::string, double, long double,
-                        DIBase)
+GENERATE_DERIVED_STRUCT(DIDerived1, DIBase, std::string, double, double, DIBase)
 
 GENERATE_DERIVED_STRUCT(DIDerived2, DIDerived1, std::deque<std::string>, DIBase,
                         DIDerived1)
@@ -35,15 +33,15 @@ GENERATE_DERIVED_STRUCT(DIDerived4, DIDerived3, char32_t, DIDerived2,
                         int_fast32_t, DIBase, bool, bool, std::deque<unsigned>)
 
 TEST(BaseObjectSerialization, DeepInheritance) {
-    std::mt19937 gen;
-    TestFunctions::createInstanceAndTestIOSerialization<DIBase>(gen);
-    TestFunctions::createInstanceAndTestIOSerialization<DIDerived1>(gen);
-    TestFunctions::createInstanceAndTestIOSerialization<DIDerived2>(gen);
-    TestFunctions::createInstanceAndTestIOSerialization<DIDerived3>(gen);
-    TestFunctions::createInstanceAndTestIOSerialization<DIDerived4>(gen);
+    TestFunctions::createInstanceAndTestIOSerialization<long double>();
+    TestFunctions::createInstanceAndTestIOSerialization<DIBase>();
+    TestFunctions::createInstanceAndTestIOSerialization<DIDerived1>();
+    // TestFunctions::createInstanceAndTestIOSerialization<DIDerived2>();
+    // TestFunctions::createInstanceAndTestIOSerialization<DIDerived3>();
+    // TestFunctions::createInstanceAndTestIOSerialization<DIDerived4>();
 
-    TestFunctions::createInstanceAndTestIOSerialization<std::deque<DIDerived4>>(
-        gen);
+    TestFunctions::createInstanceAndTestIOSerialization<
+        std::deque<DIDerived4>>();
 }
 
 struct VMBase {
@@ -89,8 +87,7 @@ struct VMDerived2 : VMDerived1 {
 };
 
 TEST(BaseObjectSerialization, VirtualMethods) {
-    std::mt19937 gen;
-    TestFunctions::createInstanceAndTestIOSerialization<VMDerived2>(gen);
+    TestFunctions::createInstanceAndTestIOSerialization<VMDerived2>();
 }
 
 struct MSBase {
@@ -128,8 +125,7 @@ struct MSDerived : MSBase {
 };
 
 TEST(BaseObjectSerialization, MethodSerializable) {
-    std::mt19937 gen;
-    TestFunctions::createInstanceAndTestIOSerialization<MSDerived>(gen);
+    TestFunctions::createInstanceAndTestIOSerialization<MSDerived>();
 }
 
 struct FSBase {
@@ -167,6 +163,5 @@ void KTSERIAL_SERIALIZE_FUNCTION(Archive& ar, FSDerived& d) {
 }
 
 TEST(BaseObjectSerialization, FunctionSerializable) {
-    std::mt19937 gen;
-    TestFunctions::createInstanceAndTestIOSerialization<FSDerived>(gen);
+    TestFunctions::createInstanceAndTestIOSerialization<FSDerived>();
 }
