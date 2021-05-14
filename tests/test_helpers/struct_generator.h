@@ -65,9 +65,9 @@
     }
 
 #define __GENERATE_DERIVED_GET_KEY_METHOD(baseStructName, fieldNames)          \
-    auto getKey() const->decltype(                                             \
-        std::make_tuple(static_cast<const baseStructName&>(*this).getKey(),    \
-                        __COMMA_SEPARATED(fieldNames))) {                      \
+    auto getKey() const->decltype(std::make_tuple(                             \
+        static_cast<const baseStructName*>(this)->getKey(),                    \
+        __COMMA_SEPARATED(fieldNames))) {                                      \
         return std::make_tuple(baseStructName::getKey(),                       \
                                __COMMA_SEPARATED(fieldNames));                 \
     }
@@ -111,15 +111,23 @@
 // ############################################################################
 
 #define __GENERATE_RANDOMIZE_METHOD(fieldNames)                                \
-    void randomize(std::mt19937& gen) {                                        \
-        TestFunctions::randomizeVariadic(gen, __COMMA_SEPARATED(fieldNames));  \
+    void randomize() {                                                         \
+        TestFunctions::randomizeVariadic(__COMMA_SEPARATED(fieldNames));       \
+    }                                                                          \
+                                                                               \
+    void clear() {                                                             \
+        TestFunctions::clearVariadic(__COMMA_SEPARATED(fieldNames));           \
     }
 
 #define __GENERATE_DERIVED_RANDOMIZE_METHOD(baseStructName, fieldNames)        \
-    void randomize(std::mt19937& gen) {                                        \
-        TestFunctions::randomizeVariadic(gen,                                  \
-                                         static_cast<baseStructName&>(*this),  \
+    void randomize() {                                                         \
+        TestFunctions::randomizeVariadic(static_cast<baseStructName&>(*this),  \
                                          __COMMA_SEPARATED(fieldNames));       \
+    }                                                                          \
+                                                                               \
+    void clear() {                                                             \
+        TestFunctions::clearVariadic(static_cast<baseStructName&>(*this),      \
+                                     __COMMA_SEPARATED(fieldNames));           \
     }
 
 #define GENERATE_RANDOMIZE_METHOD(...)                                         \
@@ -135,17 +143,8 @@
         return TestFunctions::hashCode(__COMMA_SEPARATED(fieldNames));         \
     }
 
-#define __GENERATE_DERIVED_HASH_CODE_METHOD(baseStructName, fieldNames)        \
-    std::size_t hashCode() const {                                             \
-        return TestFunctions::hashCode(static_cast<baseStructName>(*this),     \
-                                       __COMMA_SEPARATED(fieldNames));         \
-    }
-
 #define GENERATE_HASH_CODE_METHOD(...)                                         \
     __GENERATE_HASH_CODE_METHOD(__MAKE_SEQ(__VA_ARGS__))
-
-#define GENERATE_DERIVED_HASH_CODE_METHOD(baseStructName, ...)                 \
-    __GENERATE_DERIVED_HASH_CODE_METHOD(baseStructName, __MAKE_SEQ(__VA_ARGS__))
 
 // ############################################################################
 
@@ -179,9 +178,7 @@
 // ############################################################################
 
 #define GENERATE_HASH_FUNCTIONS(structName)                                    \
-    namespace boost {                                                          \
     std::size_t hash_value(const structName& sn) { return sn.hashCode(); }     \
-    }                                                                          \
                                                                                \
     namespace std {                                                            \
     template <> struct hash<structName> {                                      \
@@ -205,8 +202,6 @@
     __GENERATE_DERIVED_COMPARATORS(baseStructName, __GET_NAMES(typesAndNames)) \
     __GENERATE_DERIVED_RANDOMIZE_METHOD(baseStructName,                        \
                                         __GET_NAMES(typesAndNames))            \
-    __GENERATE_DERIVED_HASH_CODE_METHOD(baseStructName,                        \
-                                        __GET_NAMES(typesAndNames))            \
     __GENERATE_DERIVED_SAVE_LOAD_METHODS(baseStructName,                       \
                                          __GET_NAMES(typesAndNames))
 
@@ -222,9 +217,7 @@
 #define __GENERATE_DERIVED_STRUCT(structName, baseStructName, typesAndNames)   \
     struct structName : baseStructName {                                       \
         __GENERATE_DERIVED_STRUCT_BODY(baseStructName, typesAndNames)          \
-    };                                                                         \
-                                                                               \
-    GENERATE_HASH_FUNCTIONS(structName)
+    };
 
 #define GENERATE_STRUCT(structName, ...)                                       \
     __GENERATE_STRUCT(structName, __ADD_NAMES(__MAKE_SEQ(__VA_ARGS__)))
