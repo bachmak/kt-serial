@@ -4,12 +4,13 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <utility>
 
 namespace TestFunctions {
 
 template <class T> struct HasHashCodeMethod {
     template <class U>
-    static auto check(int) -> decltype(std::declval<U&>.hashCode(), std::true_type{});
+    static auto check(int) -> decltype(std::declval<U&>().hashCode(), std::true_type{});
 
     template <class U>
     static std::false_type check(...);
