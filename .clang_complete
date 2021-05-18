@@ -1,0 +1,4 @@
+-DDEBUG
+-I./src/include/
+-I./tests/
+-I/usr/include/c++/10/
