@@ -1,6 +1,7 @@
 #pragma once
 
 #include "kt-serial/types/common.h"
+#include "kt-serial/details/wrappers/key_value_wrapper.h"
 
 namespace KtSerial {
 namespace Concepts {
@@ -54,3 +55,4 @@ void loadUnorderedMap(Archive& ar, UnorderedMap& map) {
 }
 } // namespace Concepts
 } // namespace KtSerial
+

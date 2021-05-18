@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kt-serial/details/wrappers.h"
+#include "kt-serial/details/wrappers/base_object_wrapper.h"
 
 namespace KtSerial {
 /**
@@ -20,3 +20,4 @@ BaseObjectWrapper<Base> baseObject(const Derived* derived) {
     return makeBaseObjectWrapper<Base>(derived);
 }
 } // namespace KtSerial
+

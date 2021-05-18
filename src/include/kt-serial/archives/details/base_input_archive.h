@@ -4,7 +4,7 @@
 
 #include "kt-serial/details/error_messages.h"
 #include "kt-serial/details/serializable_traits.h"
-#include "kt-serial/details/wrappers.h"
+#include "kt-serial/details/wrappers/base_object_wrapper.h"
 
 #ifdef KTSERIAL_TEST_MODE
 #include <stdexcept>

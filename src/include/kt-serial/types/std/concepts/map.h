@@ -1,6 +1,7 @@
 #pragma once
 
 #include "kt-serial/types/common.h"
+#include "kt-serial/details/wrappers/key_value_wrapper.h"
 
 namespace KtSerial {
 namespace Concepts {
@@ -50,3 +51,4 @@ template <class Archive, class Map> void loadMap(Archive& ar, Map& map) {
 }
 } // namespace Concepts
 } // namespace KtSerial
+

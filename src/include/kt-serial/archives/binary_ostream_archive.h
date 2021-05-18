@@ -4,9 +4,12 @@
 #include <stdexcept>
 
 #include "kt-serial/archives/details/base_output_archive.h"
-#include "kt-serial/details/basic_traits.h"
-#include "kt-serial/details/wrappers.h"
 #include "kt-serial/macros.h"
+
+#include "kt-serial/details/basic_traits.h"
+#include "kt-serial/details/common.h"
+#include "kt-serial/details/common_wrappers.h"
+// #include "kt-serial/details/polymorphic/registration_macros.h"
 
 namespace KtSerial {
 /**
@@ -109,3 +112,6 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
     ar << nameValue.value;
 }
 } // namespace KtSerial
+
+// KTSERIAL_REGISTER_ARCHIVE(KtSerial::BinaryOstreamArchive)
+
