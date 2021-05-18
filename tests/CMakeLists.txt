@@ -43,3 +43,4 @@ foreach(test_source ${test_sources})
     target_include_directories(${test_name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${Boost_INCLUDE_DIRS})
     gtest_discover_tests(${test_name})
 endforeach()
+
