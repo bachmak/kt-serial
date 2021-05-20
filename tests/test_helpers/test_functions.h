@@ -5,8 +5,8 @@
 #include <sstream>
 #include <type_traits>
 
-#include "kt-serial/archives/binary_istream_archive.h"
-#include "kt-serial/archives/binary_ostream_archive.h"
+#include "kt-serial/archives/output_archive.h"
+#include "kt-serial/archives/input_archive.h"
 
 #include "test_helpers/random.h"
 #include "test_helpers/hash.h"
@@ -18,7 +18,7 @@ template <class Type> void binaryIOSerialization(Type&& t) {
     std::stringstream stream;
 
     {
-        KtSerial::BinaryOstreamArchive oa(stream);
+        KtSerial::OutputArchive oa(stream);
         oa(t);
         oa << t;
         oa & t;
@@ -27,7 +27,7 @@ template <class Type> void binaryIOSerialization(Type&& t) {
     typename std::remove_reference<Type>::type t1, t2, t3;
 
     {
-        KtSerial::BinaryIstreamArchive ia(stream);
+        KtSerial::InputArchive ia(stream);
         ia(t1);
         ia >> t2;
         ia & t3;

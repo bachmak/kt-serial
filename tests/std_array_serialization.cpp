@@ -14,23 +14,23 @@ void testStdArrayStructBinaryIOSerialization(const Type& t1, Type& t2) {
     std::stringstream stream;
 
     {
-        KtSerial::BinaryOstreamArchive oa(stream);
+        KtSerial::OutputArchive oa(stream);
         oa(t1);
         oa << t1;
         oa & t1;
     }
     {
-        KtSerial::BinaryIstreamArchive ia(stream);
+        KtSerial::InputArchive ia(stream);
         ia(t2);
         EXPECT_EQ(t2, t1);
     }
     {
-        KtSerial::BinaryIstreamArchive ia(stream);
+        KtSerial::InputArchive ia(stream);
         ia >> t2;
         EXPECT_EQ(t2, t1);
     }
     {
-        KtSerial::BinaryIstreamArchive ia(stream);
+        KtSerial::InputArchive ia(stream);
         ia & t2;
         EXPECT_EQ(t2, t1);
     }

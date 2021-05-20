@@ -1,15 +1,15 @@
 #include <gtest/gtest.h>
 #include <sstream>
 
-#include "kt-serial/archives/binary_ostream_archive.h"
-#include "kt-serial/archives/binary_istream_archive.h"
+#include "kt-serial/archives/output_archive.h"
+#include "kt-serial/archives/input_archive.h"
 
 TEST(BinaryStreamArchives, ArithmeticTypes) {
     using namespace KtSerial;
 
     {
         std::ostringstream os;
-        BinaryOstreamArchive ar(os);
+        OutputArchive ar(os);
         ar << 'a' << 'b' << 'c' << 'd' << 'e' << 'f';
         ar & 'a' & 'b' & 'c' & 'd' & 'e' & 'f';
         EXPECT_EQ(os.str(), "abcdefabcdef");
@@ -17,7 +17,7 @@ TEST(BinaryStreamArchives, ArithmeticTypes) {
 
     {
         std::istringstream is("abcdef");
-        BinaryIstreamArchive ar(is);
+        InputArchive ar(is);
         char a, b, c, d, e, f;
         ar >> a >> b >> c >> d >> e >> f;
         EXPECT_EQ(a, 'a');
@@ -30,7 +30,7 @@ TEST(BinaryStreamArchives, ArithmeticTypes) {
 
     {
         std::istringstream is("abcdef");
-        BinaryIstreamArchive ar(is);
+        InputArchive ar(is);
         char a, b, c, d, e, f;
         ar & a & b & c & d & e & f;
         EXPECT_EQ(a, 'a');

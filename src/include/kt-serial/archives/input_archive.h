@@ -14,20 +14,19 @@ namespace KtSerial {
  * @brief Класс архива, реализующий десериализацию данных из входного потока в
  * бинарном виде.
  */
-class BinaryIstreamArchive
-    : public Details::BaseInputArchive<BinaryIstreamArchive> {
+class InputArchive : public Details::BaseInputArchive<InputArchive> {
   public:
     /**
      * @brief Конструктор класса
      * @param is ссылка на входной поток для десериализации данных
      */
-    explicit BinaryIstreamArchive(std::istream& is)
-        : Details::BaseInputArchive<BinaryIstreamArchive>(*this), stream(is) {}
+    explicit InputArchive(std::istream& is)
+        : Details::BaseInputArchive<InputArchive>(*this), stream(is) {}
 
     /**
      * @brief Деструктор класса
      */
-    ~BinaryIstreamArchive() override = default;
+    ~InputArchive() override = default;
 
     /**
      * @brief Метод для побайтового чтения данных из потока.
@@ -52,6 +51,7 @@ class BinaryIstreamArchive
     std::istream& stream; /** ссылка на входной поток для чтения */
 };
 
+namespace Details {
 /**
  * @brief Перегрузка функции для десериализации арифметических типов
  * (https://en.cppreference.com/w/cpp/types/is_arithmetic) с использованием
@@ -61,8 +61,9 @@ class BinaryIstreamArchive
  * @param ar ссылка на бинарный входной архив
  * @param t десериализуемые данные
  */
-template <class Type, Details::Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
-void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Type& t) {
+template <class Type,
+          Details::Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
+void KTSERIAL_LOAD_FUNCTION(InputArchive& ar, Type& t) {
     ar.readData(reinterpret_cast<void*>(std::addressof(t)), sizeof(t));
 }
 
@@ -77,7 +78,7 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Type& t) {
  * @param data объект-обертка над десериализуемыми данными
  */
 template <class Type>
-void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Details::DataWrapper<Type> data) {
+void KTSERIAL_LOAD_FUNCTION(InputArchive& ar, Details::DataWrapper<Type> data) {
     ar.readData(data.data, static_cast<std::streamsize>(data.size));
 }
 
@@ -92,10 +93,12 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Details::DataWrapper<Type>
  * @param size объект-обертка над размером контейнера
  */
 template <class SizeT>
-void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar,
+void KTSERIAL_LOAD_FUNCTION(InputArchive& ar,
                             Details::SizeWrapper<SizeT> sizeWrapper) {
     SizeType size;
     ar.readData(reinterpret_cast<void*>(&size), sizeof(size));
-    sizeWrapper.size = static_cast<typename Details::SizeWrapper<SizeT>::SizeType>(size);
+    sizeWrapper.size =
+        static_cast<typename Details::SizeWrapper<SizeT>::SizeType>(size);
 }
+} // namespace Details
 } // namespace KtSerial

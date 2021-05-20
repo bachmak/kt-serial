@@ -15,20 +15,19 @@ namespace KtSerial {
  * @brief Класс архива, реализующий сериализацию данных в выходной поток в
  * бинарном виде.
  */
-class BinaryOstreamArchive
-    : public Details::BaseOutputArchive<BinaryOstreamArchive> {
+class OutputArchive : public Details::BaseOutputArchive<OutputArchive> {
   public:
     /**
      * @brief Конструктор класса
      * @param os ссылка на выходной поток для сериализации данных
      */
-    explicit BinaryOstreamArchive(std::ostream& os)
-        : Details::BaseOutputArchive<BinaryOstreamArchive>(*this), stream(os) {}
+    explicit OutputArchive(std::ostream& os)
+        : Details::BaseOutputArchive<OutputArchive>(*this), stream(os) {}
 
     /**
      * @brief Деструктор класса
      */
-    ~BinaryOstreamArchive() override = default;
+    ~OutputArchive() override = default;
 
     /**
      * @brief Метод для побайтовой записи данных в поток.
@@ -53,6 +52,7 @@ class BinaryOstreamArchive
     std::ostream& stream; /** ссылка на выходной поток для записи */
 };
 
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации арифметических типов
  * (https://en.cppreference.com/w/cpp/types/is_arithmetic) с использованием
@@ -62,8 +62,9 @@ class BinaryOstreamArchive
  * @param ar ссылка на бинарный выходной архив
  * @param t сериализуемые данные
  */
-template <class Type, Details::Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
-void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar, const Type& t) {
+template <class Type,
+          Details::Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
+void KTSERIAL_SAVE_FUNCTION(OutputArchive& ar, const Type& t) {
     ar.writeData(reinterpret_cast<const void*>(std::addressof(t)), sizeof(t));
 }
 
@@ -76,7 +77,7 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar, const Type& t) {
  * @param data объект-обертка над сериализуемыми данными
  */
 template <class Type>
-void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
+void KTSERIAL_SAVE_FUNCTION(OutputArchive& ar,
                             const Details::DataWrapper<Type>& data) {
     ar.writeData(data.data, static_cast<std::streamsize>(data.size));
 }
@@ -91,9 +92,10 @@ void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
  * @param size объект-обертка над размером контейнера
  */
 template <class SizeT>
-void KTSERIAL_SAVE_FUNCTION(BinaryOstreamArchive& ar,
+void KTSERIAL_SAVE_FUNCTION(OutputArchive& ar,
                             const Details::SizeWrapper<SizeT>& sizeWrapper) {
     SizeType size = static_cast<SizeType>(sizeWrapper.size);
     ar.writeData(reinterpret_cast<const void*>(&size), sizeof(size));
 }
+} // namespace Details
 } // namespace KtSerial
