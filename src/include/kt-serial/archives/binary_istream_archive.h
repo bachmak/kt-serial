@@ -8,7 +8,6 @@
 
 #include "kt-serial/details/basic_traits.h"
 #include "kt-serial/details/common_wrappers.h"
-// #include "kt-serial/details/polymorphic/registration_macros.h"
 
 namespace KtSerial {
 /**
@@ -98,24 +97,4 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar,
     ar.readData(reinterpret_cast<void*>(&size), sizeof(size));
     sizeWrapper.size = static_cast<typename SizeWrapper<SizeT>::SizeType>(size);
 }
-
-/**
- * @brief Перегрузка функции для десериализации именованных объектов с
- * использованием бинарного входного архива. NameValueWrapper передается по
- * значению для возможности использования move-семантики
- * (ar >> makeNameValueWrapper(...);). Бинарный архив не десериализует название
- * объекта.
- *
- * @tparam Type тип именованного объекта
- * @param ar ссылка на бинарный входной архив
- * @param nameValue объекта-обертка над именем и ссылкой на десериализуемый
- * объект
- */
-template <class Type>
-void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar,
-                            NameValueWrapper<Type> nameValue) {
-    ar >> nameValue.value;
-}
 } // namespace KtSerial
-
-// KTSERIAL_REGISTER_ARCHIVE(KtSerial::BinaryIstreamArchive)

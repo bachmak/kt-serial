@@ -3,7 +3,6 @@
 #include <utility>
 
 #include "kt-serial/details/basic_traits.h"
-#include "kt-serial/details/wrappers/name_value_wrapper.h"
 #include "kt-serial/macros.h"
 
 namespace KtSerial {
@@ -32,8 +31,7 @@ template <class Key, class Value> struct KeyValueWrapper {
      * объектов KeyValueWrapper через функцию makeKeyValueWrapper(...).
      */
     template <class Archive> void KTSERIAL_SERIALIZE_METHOD(Archive& ar) {
-        ar(makeNameValueWrapper("key", key),
-           makeNameValueWrapper("value", value));
+        ar(key, value);
     }
 };
 

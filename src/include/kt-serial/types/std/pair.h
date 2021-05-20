@@ -17,8 +17,7 @@ namespace KtSerial {
  */
 template <class T1, class T2, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::pair<T1, T2>& p) {
-    ar << makeNameValueWrapper("first", p.first)
-       << makeNameValueWrapper("second", p.second);
+    ar << p.first << p.second;
 }
 
 /**
@@ -33,7 +32,6 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::pair<T1, T2>& p) {
  */
 template <class Archive, class T1, class T2>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::pair<T1, T2>& p) {
-    ar >> makeNameValueWrapper("first", p.first) >>
-        makeNameValueWrapper("second", p.second);
+	ar >> p.first >> p.second;
 }
 } // namespace KtSerial
