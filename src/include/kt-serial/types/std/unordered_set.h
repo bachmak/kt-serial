@@ -2,7 +2,6 @@
 
 #include <unordered_set>
 
-#include "kt-serial/types/common.h"
 #include "kt-serial/types/std/concepts/unordered_set.h"
 
 namespace KtSerial {

@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "kt-serial/types/common.h"
+#include "kt-serial/types/details/common.h"
 #include "kt-serial/types/std/concepts/const_size_sequence.h"
 
 namespace KtSerial {

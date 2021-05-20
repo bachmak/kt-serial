@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kt-serial/types/common.h"
+#include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
 namespace Concepts {

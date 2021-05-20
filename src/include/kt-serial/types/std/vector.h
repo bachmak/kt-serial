@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "kt-serial/types/common.h"
+#include "kt-serial/types/details/common.h"
 #include "kt-serial/types/std/concepts/resizable_sequence.h"
 
 namespace KtSerial {

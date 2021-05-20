@@ -2,7 +2,6 @@
 
 #include <set>
 
-#include "kt-serial/types/common.h"
 #include "kt-serial/types/std/concepts/set.h"
 
 namespace KtSerial {

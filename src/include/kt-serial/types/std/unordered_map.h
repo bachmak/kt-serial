@@ -2,7 +2,6 @@
 
 #include <unordered_map>
 
-#include "kt-serial/types/common.h"
 #include "kt-serial/types/std/concepts/unordered_map.h"
 
 namespace KtSerial {

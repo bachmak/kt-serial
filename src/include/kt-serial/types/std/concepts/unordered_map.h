@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kt-serial/types/common.h"
+#include "kt-serial/types/details/common.h"
 #include "kt-serial/details/wrappers/key_value_wrapper.h"
 
 namespace KtSerial {

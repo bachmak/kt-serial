@@ -2,7 +2,6 @@
 
 #include <map>
 
-#include "kt-serial/types/common.h"
 #include "kt-serial/types/std/concepts/map.h"
 
 namespace KtSerial {
