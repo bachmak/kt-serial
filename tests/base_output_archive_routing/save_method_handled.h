@@ -6,9 +6,9 @@
 #include "kt-serial/archives/details/base_output_archive.h"
 
 namespace SaveMethodHandled {
-class Archive : public KtSerial::BaseOutputArchive<Archive> {
+class Archive : public KtSerial::Details::BaseOutputArchive<Archive> {
   public:
-    Archive() : KtSerial::BaseOutputArchive<Archive>(*this) {}
+    Archive() : KtSerial::Details::BaseOutputArchive<Archive>(*this) {}
     Archive(const Archive&) = delete;
 };
 

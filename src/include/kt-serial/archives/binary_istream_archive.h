@@ -14,14 +14,15 @@ namespace KtSerial {
  * @brief Класс архива, реализующий десериализацию данных из входного потока в
  * бинарном виде.
  */
-class BinaryIstreamArchive : public BaseInputArchive<BinaryIstreamArchive> {
+class BinaryIstreamArchive
+    : public Details::BaseInputArchive<BinaryIstreamArchive> {
   public:
     /**
      * @brief Конструктор класса
      * @param is ссылка на входной поток для десериализации данных
      */
     explicit BinaryIstreamArchive(std::istream& is)
-        : BaseInputArchive<BinaryIstreamArchive>(*this), stream(is) {}
+        : Details::BaseInputArchive<BinaryIstreamArchive>(*this), stream(is) {}
 
     /**
      * @brief Деструктор класса
@@ -60,7 +61,7 @@ class BinaryIstreamArchive : public BaseInputArchive<BinaryIstreamArchive> {
  * @param ar ссылка на бинарный входной архив
  * @param t десериализуемые данные
  */
-template <class Type, Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
+template <class Type, Details::Traits::EnableIf<std::is_arithmetic<Type>::value> = true>
 void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Type& t) {
     ar.readData(reinterpret_cast<void*>(std::addressof(t)), sizeof(t));
 }
@@ -76,7 +77,7 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Type& t) {
  * @param data объект-обертка над десериализуемыми данными
  */
 template <class Type>
-void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, DataWrapper<Type> data) {
+void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, Details::DataWrapper<Type> data) {
     ar.readData(data.data, static_cast<std::streamsize>(data.size));
 }
 
@@ -92,9 +93,9 @@ void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar, DataWrapper<Type> data) {
  */
 template <class SizeT>
 void KTSERIAL_LOAD_FUNCTION(BinaryIstreamArchive& ar,
-                            SizeWrapper<SizeT> sizeWrapper) {
+                            Details::SizeWrapper<SizeT> sizeWrapper) {
     SizeType size;
     ar.readData(reinterpret_cast<void*>(&size), sizeof(size));
-    sizeWrapper.size = static_cast<typename SizeWrapper<SizeT>::SizeType>(size);
+    sizeWrapper.size = static_cast<typename Details::SizeWrapper<SizeT>::SizeType>(size);
 }
 } // namespace KtSerial

@@ -6,6 +6,7 @@
 #include "kt-serial/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Класс-обертка над значением размера сериализуемых контейнеров.
  * Используется для унификации передачи данных о размере контейнера из функций,
@@ -31,5 +32,5 @@ template <class Type> struct SizeWrapper {
 template <class Type> SizeWrapper<Type> makeSizeWrapper(Type&& size) {
     return {std::forward<Type>(size)};
 }
+} // namespace Details
 } // namespace KtSerial
-

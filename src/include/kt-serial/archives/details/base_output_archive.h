@@ -10,6 +10,7 @@
 #endif
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Базовый класс архива для сериализации. Осуществляет проверки
  * сериализуемых типов на возможность сериализации, передает управление
@@ -227,4 +228,5 @@ template <class DerivedArchive> class BaseOutputArchive {
   private:
     DerivedArchive& archive; /** ссылка на архив наследника */
 };
+} // namespace Details
 } // namespace KtSerial

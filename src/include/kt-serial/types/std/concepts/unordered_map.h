@@ -1,9 +1,10 @@
 #pragma once
 
-#include "kt-serial/types/details/common.h"
 #include "kt-serial/details/wrappers/key_value_wrapper.h"
+#include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 namespace Concepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации неупорядоченных
@@ -54,5 +55,5 @@ void loadUnorderedMap(Archive& ar, UnorderedMap& map) {
     }
 }
 } // namespace Concepts
+} // namespace Details
 } // namespace KtSerial
-

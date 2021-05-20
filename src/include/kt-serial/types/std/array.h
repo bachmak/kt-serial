@@ -6,6 +6,7 @@
 #include "kt-serial/types/std/concepts/const_size_sequence.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации контейнера std::array, элементы
  * которого удовлетворяют условию std::is_arithmetic (при условии, что для
@@ -88,3 +89,4 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::array<T, N>& arr) {
     Concepts::loadConstSizeSequence(ar, arr);
 }
 } // namespace KtSerial
+} // namespace Details

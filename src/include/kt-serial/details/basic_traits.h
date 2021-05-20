@@ -5,6 +5,7 @@
 #include "kt-serial/access.h"
 
 namespace KtSerial {
+namespace Details {
 namespace Traits {
 /**
  * Сокращение для распространенного случая использования
@@ -138,4 +139,5 @@ using DecayIfNotLvalueReference =
     typename std::conditional<std::is_lvalue_reference<Type>::value, Type,
                               typename std::decay<Type>::type>::type;
 } // namespace Traits
+} // namespace Details
 } // namespace KtSerial

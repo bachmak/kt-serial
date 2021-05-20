@@ -11,7 +11,7 @@
 
 TEST(HasExactlyOneHandler,
      ChecksIfClassesHaveExactlyOneSerializeMethodOrFunction) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace UnambiguouslySerializable;
 
     bool onlyMethodSerializable =
@@ -40,7 +40,7 @@ TEST(HasExactlyOneHandler,
 }
 
 TEST(HasExactlyOneHandler, ChecksIfClassesHaveExactlyOneSaveMethodOrFunction) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace UnambiguouslySavable;
 
     bool saveMethodSavable =
@@ -61,7 +61,7 @@ TEST(HasExactlyOneHandler, ChecksIfClassesHaveExactlyOneSaveMethodOrFunction) {
 }
 
 TEST(HasExactlyOneHandler, ChecksIfClassesHaveExactlyOneLoadMethodOrFunction) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace UnambiguouslyLoadable;
 
     bool loadMethodLoadable =
@@ -82,7 +82,7 @@ TEST(HasExactlyOneHandler, ChecksIfClassesHaveExactlyOneLoadMethodOrFunction) {
 }
 
 TEST(HasExactlyOneHandler, ChecksIfClassesHaveExactlyOneSaveLoadPair) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace UnambiguouslySavableLoadable;
 
     bool saveLoadMethodSavable =
@@ -123,7 +123,7 @@ TEST(HasExactlyOneHandler, ChecksIfClassesHaveExactlyOneSaveLoadPair) {
 }
 
 TEST(HasMultipleHandlers, ChecksIfSavableClassesHaveAtLeastOneOutputHandler) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace AmbiguouslySerializable;
 
     bool serializeMethodFunctionSavable =
@@ -208,7 +208,7 @@ TEST(HasMultipleHandlers, ChecksIfSavableClassesHaveAtLeastOneOutputHandler) {
 }
 
 TEST(HasMultipleHandlers, ChecksIfLoadableClassesHaveAtLeastOneOutputHandler) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace AmbiguouslyDeserializable;
 
     bool serializeMethodFunctionSavable =

@@ -3,7 +3,7 @@
 #include "kt-serial/details/basic_traits.h"
 
 TEST(BasicTraits, ChecksConstants) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
 
     EXPECT_TRUE(BoolConstant<true>::value);
     EXPECT_FALSE(BoolConstant<false>::value);
@@ -17,7 +17,7 @@ TEST(BasicTraits, ChecksConstants) {
 }
 
 TEST(BasicTraits, LogicalOperations) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
 
     const bool conjunction1 = Conjunction<1, 1, 1, 1, 1>::value;
     EXPECT_TRUE(conjunction1);
@@ -45,7 +45,7 @@ TEST(BasicTraits, LogicalOperations) {
 }
 
 TEST(BasicTraits, PoinerTypes) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
 
     const bool sameType =
         std::is_same<typename RemovePointer<int>::type, int>::value;

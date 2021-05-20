@@ -1,15 +1,16 @@
 #pragma once
 
-#include "kt-serial/types/details/common.h"
 #include "kt-serial/details/wrappers/key_value_wrapper.h"
+#include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 namespace Concepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации ассоциативных
  * контейнеров стандартной бибиотеки, реализующих структуру типа словарь (map,
  * multimap).
- * 
+ *
  * @tparam Archive тип выходного архива
  * @tparam Map тип сериализуемого контейнера (std::map или std::multimap)
  * @param ar ссылка на выходной архив
@@ -28,7 +29,7 @@ template <class Archive, class Map> void saveMap(Archive& ar, const Map& map) {
  * @brief Обобщенная перегрузка функции для десериализации ассоциативных
  * контейнеров стандартной бибиотеки, реализующих структуру типа словарь (map,
  * multimap).
- * 
+ *
  * @tparam Archive тип входного архива
  * @tparam Map тип десериализуемого контейнера (std::map или std::multimap)
  * @param ar ссылка на входной архив
@@ -50,5 +51,5 @@ template <class Archive, class Map> void loadMap(Archive& ar, Map& map) {
     }
 }
 } // namespace Concepts
+} // namespace Details
 } // namespace KtSerial
-

@@ -5,6 +5,7 @@
 #include "kt-serial/types/std/concepts/resizable_sequence.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации контейнера std::deque. Так как
  * std::deque не хранится в памяти непрерывно, элементы сериализуются по
@@ -36,4 +37,5 @@ template <class T, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::deque<T, Alloc>& deq) {
     Concepts::loadResizableSequence(ar, deq);
 }
+} // namespace Details
 } // namespace KtSerial

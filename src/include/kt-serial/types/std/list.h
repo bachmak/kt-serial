@@ -5,9 +5,10 @@
 #include "kt-serial/types/std/concepts/resizable_sequence.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации контейнера std::list.
- * 
+ *
  * @tparam T тип элементов контейнера
  * @tparam Alloc аллокатор
  * @tparam Archive класс архива для сериализации
@@ -21,7 +22,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::list<T, Alloc>& lst) {
 
 /**
  * @brief Перегрузка функции для десериализации контейнера std::list.
- * 
+ *
  * @tparam T тип элементов контейнера
  * @tparam Alloc аллокатор
  * @tparam Archive класс архива для десериализации
@@ -33,4 +34,5 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::list<T, Alloc>& lst) {
     Concepts::loadResizableSequence(ar, lst);
 }
 
+} // namespace Details
 } // namespace KtSerial

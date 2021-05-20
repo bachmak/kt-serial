@@ -5,6 +5,7 @@
 #include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации пар стандартной библиотеки
  * std::pair.
@@ -32,6 +33,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::pair<T1, T2>& p) {
  */
 template <class Archive, class T1, class T2>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::pair<T1, T2>& p) {
-	ar >> p.first >> p.second;
+    ar >> p.first >> p.second;
 }
+} // namespace Details
 } // namespace KtSerial

@@ -6,6 +6,7 @@
 #include "kt-serial/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Класс-обертка над бинарными данными, которые можно сериализовать как
  * непрерывную байтовую последовательность. Используется для передачи данных
@@ -44,5 +45,5 @@ template <class Type>
 DataWrapper<Type> makeDataWrapper(Type&& data, std::size_t size) {
     return DataWrapper<Type>(std::forward<Type>(data), size);
 }
+} // namespace Details
 } // namespace KtSerial
-

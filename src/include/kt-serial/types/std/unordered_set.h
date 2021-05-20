@@ -5,9 +5,10 @@
 #include "kt-serial/types/std/concepts/unordered_set.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации контейнера std::unordered_set.
- * 
+ *
  * @tparam Key тип элементов контейнера
  * @tparam Hash хэш-функция
  * @tparam KeyEqual компаратор
@@ -23,8 +24,9 @@ void KTSERIAL_SAVE_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для сериализации контейнера std::unordered_multiset.
- * 
+ * @brief Перегрузка функции для сериализации контейнера
+ * std::unordered_multiset.
+ *
  * @tparam Key тип элементов контейнера
  * @tparam Hash хэш-функция
  * @tparam KeyEqual компаратор
@@ -42,7 +44,7 @@ void KTSERIAL_SAVE_FUNCTION(
 
 /**
  * @brief Перегрузка функции для десериализации контейнера std::unordered_set.
- * 
+ *
  * @tparam Key тип элементов контейнера
  * @tparam Hash хэш-функция
  * @tparam KeyEqual компаратор
@@ -58,8 +60,9 @@ void KTSERIAL_LOAD_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для десериализации контейнера std::unordered_multiset.
- * 
+ * @brief Перегрузка функции для десериализации контейнера
+ * std::unordered_multiset.
+ *
  * @tparam Key тип элементов контейнера
  * @tparam Hash хэш-функция
  * @tparam KeyEqual компаратор
@@ -70,9 +73,8 @@ void KTSERIAL_LOAD_FUNCTION(
  */
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(
-    Archive& ar,
-    std::unordered_multiset<Key, Hash, KeyEqual, Alloc>& set) {
+    Archive& ar, std::unordered_multiset<Key, Hash, KeyEqual, Alloc>& set) {
     Concepts::loadUnorderedSet(ar, set);
 }
+} // namespace Details
 } // namespace KtSerial
-

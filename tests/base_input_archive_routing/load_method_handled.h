@@ -6,9 +6,9 @@
 #include "kt-serial/archives/details/base_input_archive.h"
 
 namespace LoadMethodHandled {
-class Archive : public KtSerial::BaseInputArchive<Archive> {
+class Archive : public KtSerial::Details::BaseInputArchive<Archive> {
   public:
-    Archive() : KtSerial::BaseInputArchive<Archive>(*this) {}
+    Archive() : KtSerial::Details::BaseInputArchive<Archive>(*this) {}
     Archive(const Archive&) = delete;
 };
 

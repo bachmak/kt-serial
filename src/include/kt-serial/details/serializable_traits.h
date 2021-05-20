@@ -6,6 +6,7 @@
 #include "kt-serial/details/basic_traits.h"
 
 namespace KtSerial {
+namespace Details {
 namespace Traits {
 
 //                                Проверки на наличие методов для сериализации
@@ -240,4 +241,5 @@ struct HasExactlyOneInputHandler
     : BoolConstant<InputHandlerCount<Type, InputArchive>::value == 1> {};
 
 } // namespace Traits
+} // namespace Details
 } // namespace KtSerial

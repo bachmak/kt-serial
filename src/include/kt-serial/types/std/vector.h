@@ -6,6 +6,7 @@
 #include "kt-serial/types/std/concepts/resizable_sequence.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации контейнера std::vector, элементы
  * которого удовлетворяют условию std::is_arithmetic (при условии, что для
@@ -131,4 +132,5 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::vector<bool, Alloc>& vec) {
         value = boolValue;
     }
 }
+} // namespace Details
 } // namespace KtSerial

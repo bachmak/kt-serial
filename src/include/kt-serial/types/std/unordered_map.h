@@ -5,6 +5,7 @@
 #include "kt-serial/types/std/concepts/unordered_map.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Перегрузка функции для сериализации контейнера std::unordered_map.
  *
@@ -83,4 +84,5 @@ void KTSERIAL_LOAD_FUNCTION(
     Archive& ar, std::unordered_multimap<Key, T, Hash, KeyEqual, Alloc>& map) {
     Concepts::loadUnorderedMap(ar, map);
 }
+} // namespace Details
 } // namespace KtSerial

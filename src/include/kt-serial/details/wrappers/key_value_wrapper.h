@@ -6,6 +6,7 @@
 #include "kt-serial/macros.h"
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Класс-обертка над кортежами "ключ-значение".
  * Используется для унификации передачи keyvalue-пар и элементов словарей в
@@ -48,4 +49,5 @@ template <class Key, class Value>
 KeyValueWrapper<Key, Value> makeKeyValueWrapper(Key&& key, Value&& value) {
     return {std::forward<Key>(key), std::forward<Value>(value)};
 }
+} // namespace Details
 } // namespace KtSerial

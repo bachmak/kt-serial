@@ -9,7 +9,7 @@
 #include "serializable_checks/serialize_method_checks.h"
 
 TEST(SerializableClasses, ChecksSerializeMethod) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace SerializeMethodChecks;
 
     bool publicSerializable =
@@ -41,7 +41,7 @@ TEST(SerializableClasses, ChecksSerializeMethod) {
 }
 
 TEST(SerializableClasses, ChecksSerializeFunction) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace SerializeFunctionChecks;
 
     bool simpleSerializable =
@@ -74,7 +74,7 @@ TEST(SerializableClasses, ChecksSerializeFunction) {
 }
 
 TEST(SerializableClasses, ChecksSaveMethod) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace SaveMethodChecks;
 
     bool publicSavable = HasSaveMethod<PublicSavable, Archive>::value;
@@ -98,7 +98,7 @@ TEST(SerializableClasses, ChecksSaveMethod) {
 }
 
 TEST(SerializableClasses, ChecksSaveFunction) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace SaveFunctionChecks;
 
     bool simpleSavable = HasSaveFunction<Savable, Archive>::value;
@@ -139,7 +139,7 @@ TEST(SerializableClasses, ChecksSaveFunction) {
 }
 
 TEST(SerializableClasses, ChecksLoadMethod) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace LoadMethodChecks;
 
     bool publicLoadable = HasLoadMethod<PublicLoadable, Archive>::value;
@@ -163,7 +163,7 @@ TEST(SerializableClasses, ChecksLoadMethod) {
 }
 
 TEST(SerializableClasses, ChecksLoadFunction) {
-    using namespace KtSerial::Traits;
+    using namespace KtSerial::Details::Traits;
     using namespace LoadFunctionChecks;
 
     bool simpleLoadable = HasLoadFunction<Loadable, Archive>::value;

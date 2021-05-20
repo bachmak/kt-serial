@@ -10,6 +10,7 @@
 #endif
 
 namespace KtSerial {
+namespace Details {
 /**
  * @brief Базовый класс архива для десериализации. Осуществляет проверки
  * десериализуемых типов на возможность десериализации, передает управление
@@ -225,4 +226,5 @@ template <class DerivedArchive> class BaseInputArchive {
   private:
     DerivedArchive& archive; /** ссылка на архив наследника */
 };
+} // namespace Details
 } // namespace KtSerial

@@ -5,11 +5,12 @@
 #include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 /**
- * @brief Перегрузка функции для сериализации строк стандартной библиотеки: 
+ * @brief Перегрузка функции для сериализации строк стандартной библиотеки:
  * string, wstring, u8string и т.д.
  * (https://en.cppreference.com/w/cpp/string/basic_string)
- * 
+ *
  * @tparam CharT тип символа строки
  * @tparam TraitsT шаблонный тип, определяющий операции с типом CharT
  * @tparam AllocT аллокатор
@@ -29,11 +30,11 @@ void KTSERIAL_SAVE_FUNCTION(
 }
 
 /**
- * @brief Перегрузка функции для десериализации строк стандартной библиотеки: 
+ * @brief Перегрузка функции для десериализации строк стандартной библиотеки:
  * string, wstring, u8string и т.д.
  * (https://en.cppreference.com/w/cpp/string/basic_string)
- * 
- * @tparam CharT тип символа строки 
+ *
+ * @tparam CharT тип символа строки
  * @tparam TraitsT шаблонный тип, определяющий операции с типом CharT
  * @tparam AllocT аллокатор
  * @tparam Archive класс архива для десериализации
@@ -52,4 +53,5 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar,
     str.resize(size);
     ar >> makeDataWrapper(const_cast<CharT*>(str.data()), str.size());
 }
+} // namespace Details
 } // namespace KtSerial

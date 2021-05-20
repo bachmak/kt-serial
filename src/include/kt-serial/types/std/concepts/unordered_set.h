@@ -3,6 +3,7 @@
 #include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 namespace Concepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации неупорядоченных
@@ -51,4 +52,5 @@ void loadUnorderedSet(Archive& ar, UnorderedSet& set) {
     }
 }
 } // namespace Concepts
+} // namespace Details
 } // namespace KtSerial

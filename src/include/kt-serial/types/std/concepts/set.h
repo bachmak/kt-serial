@@ -3,6 +3,7 @@
 #include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
+namespace Details {
 namespace Concepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации ассоциативных
@@ -45,5 +46,5 @@ template <class Archive, class Set> void loadSet(Archive& ar, Set& set) {
     }
 }
 } // namespace Concepts
+} // namespace Details
 } // namespace KtSerial
-
