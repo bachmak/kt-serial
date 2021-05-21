@@ -9,10 +9,10 @@ namespace KtSerial {
 namespace Details {
 template <class Key, class T, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QMap<Key, T>& map) {
-    ar << makeDataWrapper(map.size());
+    ar << makeSizeWrapper(map.size());
 
-    for (const auto& item : map) {
-        auto wrapper = makeKeyValueWrapper(item.first, item.second);
+    for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
+        auto wrapper = makeKeyValueWrapper(it.key(), it.value());
         ar << wrapper;
     }
 }
