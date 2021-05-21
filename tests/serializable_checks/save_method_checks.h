@@ -1,7 +1,7 @@
 #pragma once
 
 #include "kt-serial/access.h"
-#include "kt-serial/macros.h"
+#include "kt-serial/details/macros.h"
 
 namespace SaveMethodChecks {
 class Archive {

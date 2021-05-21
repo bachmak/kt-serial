@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 #include "kt-serial/archives/details/base_input_archive.h"
-#include "kt-serial/macros.h"
+#include "kt-serial/details/macros.h"
 
 #include "kt-serial/details/basic_traits.h"
 #include "kt-serial/details/common_wrappers.h"

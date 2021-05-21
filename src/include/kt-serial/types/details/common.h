@@ -4,5 +4,5 @@
 
 #include "kt-serial/details/common_wrappers.h"
 #include "kt-serial/details/serializable_traits.h"
-#include "kt-serial/macros.h"
+#include "kt-serial/details/macros.h"
 

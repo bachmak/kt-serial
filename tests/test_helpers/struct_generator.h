@@ -11,7 +11,7 @@
 #include <random>
 #include <tuple>
 
-#include "kt-serial/macros.h"
+#include "kt-serial/details/macros.h"
 #include "test_helpers/test_functions.h"
 
 #define __GENERATE_FIELD(r, _, typeAndName)                                    \

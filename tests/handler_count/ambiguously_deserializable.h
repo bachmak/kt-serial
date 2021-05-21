@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kt-serial/macros.h"
+#include "kt-serial/details/macros.h"
 
 namespace AmbiguouslyDeserializable {
 class Archive {

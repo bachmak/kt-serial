@@ -3,7 +3,7 @@
 #include <utility>
 
 #include "kt-serial/details/basic_traits.h"
-#include "kt-serial/macros.h"
+#include "kt-serial/details/macros.h"
 
 namespace KtSerial {
 namespace Details {
