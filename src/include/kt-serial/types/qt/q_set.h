@@ -2,7 +2,7 @@
 
 #include <QSet>
 
-#include "kt-serial/types/details/commmon.h"
+#include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
 namespace Details {
