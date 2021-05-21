@@ -15,7 +15,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QVector<T>& vec) {
     }
 }
 
-template <class T, Archive>
+template <class T, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, QVector<T>& vec) {
     SizeType size;
     ar >> makeSizeWrapper(size);
