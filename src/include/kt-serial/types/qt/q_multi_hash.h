@@ -11,8 +11,8 @@ template <class Key, class T, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QMultiHash<Key, T>& hash) {
     ar << makeSizeWrapper(hash.size());
 
-    for (const auto& item : hash) {
-        auto wrapper = makeKeyValueWrapper(item.first, item.second);
+    for (auto it = hash.constBegin(); it != hash.constEnd(); ++it) {
+        auto wrapper = makeKeyValueWrapper(it.key(), it.value());
         ar << wrapper;
     }
 }
@@ -30,7 +30,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, QMultiHash<Key, T>& hash) {
         T value;
         auto wrapper = makeKeyValueWrapper(key, value);
         ar >> wrapper;
-        map.insert(key, value);
+        hash.insert(key, value);
     }
 }
 } // namespace Details
