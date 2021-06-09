@@ -45,7 +45,7 @@ template <class T, std::size_t N, class Archive,
               !std::is_arithmetic<T>::value,
               Traits::HasExactlyOneOutputHandler<T, Archive>::value> = true>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::array<T, N>& arr) {
-    Concepts::saveConstSizeSequence(ar, arr);
+    StdConcepts::saveConstSizeSequence(ar, arr);
 }
 
 /**
@@ -86,7 +86,7 @@ template <class T, std::size_t N, class Archive,
               !std::is_arithmetic<T>::value,
               Traits::HasExactlyOneInputHandler<T, Archive>::value> = true>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::array<T, N>& arr) {
-    Concepts::loadConstSizeSequence(ar, arr);
+    StdConcepts::loadConstSizeSequence(ar, arr);
 }
-} // namespace KtSerial
 } // namespace Details
+} // namespace KtSerial

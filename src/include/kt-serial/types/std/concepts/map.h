@@ -5,7 +5,7 @@
 
 namespace KtSerial {
 namespace Details {
-namespace Concepts {
+namespace StdConcepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации ассоциативных
  * контейнеров стандартной бибиотеки, реализующих структуру типа словарь (map,
@@ -50,6 +50,6 @@ template <class Archive, class Map> void loadMap(Archive& ar, Map& map) {
             map.insert(hint, std::make_pair(std::move(key), std::move(value))));
     }
 }
-} // namespace Concepts
+} // namespace StdConcepts
 } // namespace Details
 } // namespace KtSerial

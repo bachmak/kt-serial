@@ -4,7 +4,7 @@
 
 namespace KtSerial {
 namespace Details {
-namespace Concepts {
+namespace StdConcepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации последовательных
  * контейнеров стандартной библиотеки, имеющих переменную длину.
@@ -42,6 +42,6 @@ void loadResizableSequence(Archive& ar, Sequence& seq) {
         ar >> value;
     }
 }
-} // namespace Concepts
+} // namespace StdConcepts
 } // namespace Details
 } // namespace KtSerial

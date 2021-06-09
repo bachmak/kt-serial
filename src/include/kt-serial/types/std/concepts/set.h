@@ -4,7 +4,7 @@
 
 namespace KtSerial {
 namespace Details {
-namespace Concepts {
+namespace StdConcepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации ассоциативных
  * контейнеров стандартной библиотеки, реализующих структуру типа множество
@@ -45,6 +45,6 @@ template <class Archive, class Set> void loadSet(Archive& ar, Set& set) {
         hint = set.insert(hint, std::move(elem));
     }
 }
-} // namespace Concepts
+} // namespace StdConcepts
 } // namespace Details
 } // namespace KtSerial

@@ -20,7 +20,7 @@ namespace Details {
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(
     Archive& ar, const std::unordered_set<Key, Hash, KeyEqual, Alloc>& set) {
-    Concepts::saveUnorderedSet(ar, set);
+    StdConcepts::saveUnorderedSet(ar, set);
 }
 
 /**
@@ -39,7 +39,7 @@ template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(
     Archive& ar,
     const std::unordered_multiset<Key, Hash, KeyEqual, Alloc>& set) {
-    Concepts::saveUnorderedSet(ar, set);
+    StdConcepts::saveUnorderedSet(ar, set);
 }
 
 /**
@@ -56,7 +56,7 @@ void KTSERIAL_SAVE_FUNCTION(
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(
     Archive& ar, std::unordered_set<Key, Hash, KeyEqual, Alloc>& set) {
-    Concepts::loadUnorderedSet(ar, set);
+    StdConcepts::loadUnorderedSet(ar, set);
 }
 
 /**
@@ -74,7 +74,7 @@ void KTSERIAL_LOAD_FUNCTION(
 template <class Key, class Hash, class KeyEqual, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(
     Archive& ar, std::unordered_multiset<Key, Hash, KeyEqual, Alloc>& set) {
-    Concepts::loadUnorderedSet(ar, set);
+    StdConcepts::loadUnorderedSet(ar, set);
 }
 } // namespace Details
 } // namespace KtSerial

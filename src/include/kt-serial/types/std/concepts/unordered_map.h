@@ -5,7 +5,7 @@
 
 namespace KtSerial {
 namespace Details {
-namespace Concepts {
+namespace StdConcepts {
 /**
  * @brief Обобщенная перегрузка функции для сериализации неупорядоченных
  * ассоциативных контейнеров стандартной библиотеки, реализующих структуру типа
@@ -54,6 +54,6 @@ void loadUnorderedMap(Archive& ar, UnorderedMap& map) {
         map.insert(std::make_pair(std::move(key), std::move(value)));
     }
 }
-} // namespace Concepts
+} // namespace StdConcepts
 } // namespace Details
 } // namespace KtSerial

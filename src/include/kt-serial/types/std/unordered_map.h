@@ -22,7 +22,7 @@ template <class Key, class T, class Hash, class KeyEqual, class Alloc,
           class Archive>
 void KTSERIAL_SAVE_FUNCTION(
     Archive& ar, const std::unordered_map<Key, T, Hash, KeyEqual, Alloc>& map) {
-    Concepts::saveUnorderedMap(ar, map);
+    StdConcepts::saveUnorderedMap(ar, map);
 }
 
 /**
@@ -43,7 +43,7 @@ template <class Key, class T, class Hash, class KeyEqual, class Alloc,
 void KTSERIAL_SAVE_FUNCTION(
     Archive& ar,
     const std::unordered_multimap<Key, T, Hash, KeyEqual, Alloc>& map) {
-    Concepts::saveUnorderedMap(ar, map);
+    StdConcepts::saveUnorderedMap(ar, map);
 }
 
 /**
@@ -62,7 +62,7 @@ template <class Key, class T, class Hash, class KeyEqual, class Alloc,
           class Archive>
 void KTSERIAL_LOAD_FUNCTION(
     Archive& ar, std::unordered_map<Key, T, Hash, KeyEqual, Alloc>& map) {
-    Concepts::loadUnorderedMap(ar, map);
+    StdConcepts::loadUnorderedMap(ar, map);
 }
 
 /**
@@ -82,7 +82,7 @@ template <class Key, class T, class Hash, class KeyEqual, class Alloc,
           class Archive>
 void KTSERIAL_LOAD_FUNCTION(
     Archive& ar, std::unordered_multimap<Key, T, Hash, KeyEqual, Alloc>& map) {
-    Concepts::loadUnorderedMap(ar, map);
+    StdConcepts::loadUnorderedMap(ar, map);
 }
 } // namespace Details
 } // namespace KtSerial

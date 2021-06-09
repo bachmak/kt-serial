@@ -20,7 +20,7 @@ namespace Details {
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar,
                             const std::map<Key, T, Compare, Alloc>& map) {
-    Concepts::saveMap(ar, map);
+    StdConcepts::saveMap(ar, map);
 }
 
 /**
@@ -37,7 +37,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar,
                             const std::multimap<Key, T, Compare, Alloc>& map) {
-    Concepts::saveMap(ar, map);
+    StdConcepts::saveMap(ar, map);
 }
 
 /**
@@ -54,7 +54,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar,
                             std::map<Key, T, Compare, Alloc>& map) {
-    Concepts::loadMap(ar, map);
+    StdConcepts::loadMap(ar, map);
 }
 
 /**
@@ -71,7 +71,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar,
 template <class Key, class T, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar,
                             std::multimap<Key, T, Compare, Alloc>& map) {
-    Concepts::loadMap(ar, map);
+    StdConcepts::loadMap(ar, map);
 }
 } // namespace Details
 } // namespace KtSerial

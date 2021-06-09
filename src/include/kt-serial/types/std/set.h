@@ -18,7 +18,7 @@ namespace Details {
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar,
                             const std::set<Key, Compare, Alloc>& set) {
-    Concepts::saveSet(ar, set);
+    StdConcepts::saveSet(ar, set);
 }
 
 /**
@@ -33,7 +33,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar,
                             const std::multiset<Key, Compare, Alloc>& set) {
-    Concepts::saveSet(ar, set);
+    StdConcepts::saveSet(ar, set);
 }
 
 /**
@@ -47,7 +47,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
  */
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::set<Key, Compare, Alloc>& set) {
-    Concepts::loadSet(ar, set);
+    StdConcepts::loadSet(ar, set);
 }
 
 /**
@@ -62,7 +62,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::set<Key, Compare, Alloc>& set) {
 template <class Key, class Compare, class Alloc, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar,
                             std::multiset<Key, Compare, Alloc>& set) {
-    Concepts::loadSet(ar, set);
+    StdConcepts::loadSet(ar, set);
 }
 } // namespace Details
 } // namespace KtSerial

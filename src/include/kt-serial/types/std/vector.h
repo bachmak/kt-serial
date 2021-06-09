@@ -46,7 +46,7 @@ template <class T, class Alloc, class Archive,
               !std::is_arithmetic<T>::value,
               Traits::HasExactlyOneOutputHandler<T, Archive>::value> = true>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const std::vector<T, Alloc>& vec) {
-    Concepts::saveResizableSequence(ar, vec);
+    StdConcepts::saveResizableSequence(ar, vec);
 }
 
 /**
@@ -108,7 +108,7 @@ template <class T, class Alloc, class Archive,
               !std::is_arithmetic<T>::value,
               Traits::HasExactlyOneInputHandler<T, Archive>::value> = true>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::vector<T, Alloc>& vec) {
-    Concepts::loadResizableSequence(ar, vec);
+    StdConcepts::loadResizableSequence(ar, vec);
 }
 
 /**
