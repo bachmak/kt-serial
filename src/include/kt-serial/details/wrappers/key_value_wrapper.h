@@ -25,15 +25,6 @@ template <class Key, class Value> struct KeyValueWrapper {
 
     KeyType key;     /** ключ */
     ValueType value; /** значение */
-
-    /**
-     * @brief Метод, описывающий сериализацию объектов KeyValueWrapper.
-     * Метод не является константным, так как подразумевается сериализация
-     * объектов KeyValueWrapper через функцию makeKeyValueWrapper(...).
-     */
-    template <class Archive> void KTSERIAL_SERIALIZE_METHOD(Archive& ar) {
-        ar(key, value);
-    }
 };
 
 /**

@@ -8,7 +8,7 @@
 
 #include "kt-serial/details/basic_traits.h"
 #include "kt-serial/details/common.h"
-#include "kt-serial/details/common_wrappers.h"
+#include "kt-serial/details/wrappers.h"
 
 namespace KtSerial {
 /**
@@ -97,5 +97,22 @@ void KTSERIAL_SAVE_FUNCTION(OutputArchive& ar,
     SizeType size = static_cast<SizeType>(sizeWrapper.size);
     ar.writeData(reinterpret_cast<const void*>(&size), sizeof(size));
 }
+
+/**
+ * @brief Перегрузка функции для сериализации адаптера над парой ключ-значение с
+ * использованием бинарного выходного архива.
+ *
+ * @tparam Key тип для хранения ключа в KeyValueWrapper (ссылка или
+ * значение)
+ * @tparam Value тип для хранения значения в KeyValueWrapper (ссылка или
+ * значение)
+ * @param ar ссылка на бинарный выходной архив
+ * @param keyValue объект-обертка над парой ключ-значение
+ */
+template <class Key, class Value>
+void KTSERIAL_SAVE_FUNCTION(OutputArchive& ar, const Details::KeyValueWrapper<Key, Value>& keyValue) {
+	ar(keyValue.key, keyValue.value);
+}
+
 } // namespace Details
 } // namespace KtSerial

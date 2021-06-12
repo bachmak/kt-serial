@@ -7,7 +7,7 @@
 #include "kt-serial/details/macros.h"
 
 #include "kt-serial/details/basic_traits.h"
-#include "kt-serial/details/common_wrappers.h"
+#include "kt-serial/details/wrappers.h"
 
 namespace KtSerial {
 /**
@@ -99,6 +99,25 @@ void KTSERIAL_LOAD_FUNCTION(InputArchive& ar,
     ar.readData(reinterpret_cast<void*>(&size), sizeof(size));
     sizeWrapper.size =
         static_cast<typename Details::SizeWrapper<SizeT>::SizeType>(size);
+}
+
+/**
+ * @brief Перегрузка функции для десериализации адаптера над парой ключ-значение
+ * с использованием бинарного входного архива. KeyValueWrapper передается по
+ * значению для возможности использования move-семантики (ar >>
+ * makeKeyValueWrapper(...);)
+ *
+ * @tparam Key тип для хранения ключа в KeyValueWrapper (ссылка или
+ * значение)
+ * @tparam Value тип для хранения значения в KeyValueWrapper (ссылка или
+ * значение)
+ * @param ar ссылка на бинарный входной архив
+ * @param keyValue объект-обертка над парой ключ-значение
+ */
+template <class Key, class Value>
+void KTSERIAL_LOAD_FUNCTION(InputArchive& ar,
+                            Details::KeyValueWrapper<Key, Value> keyValue) {
+    ar(keyValue.key, keyValue.value);
 }
 } // namespace Details
 } // namespace KtSerial
