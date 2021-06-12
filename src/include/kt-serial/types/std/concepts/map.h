@@ -1,6 +1,5 @@
 #pragma once
 
-#include "kt-serial/details/wrappers/key_value_wrapper.h"
 #include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
@@ -20,8 +19,7 @@ template <class Archive, class Map> void saveMap(Archive& ar, const Map& map) {
     ar << makeSizeWrapper(map.size());
 
     for (const auto& item : map) {
-        auto wrapper = makeKeyValueWrapper(item.first, item.second);
-        ar << wrapper;
+        ar << makeKeyValueWrapper(item.first, item.second);
     }
 }
 
@@ -44,8 +42,7 @@ template <class Archive, class Map> void loadMap(Archive& ar, Map& map) {
     for (SizeType i = 0; i < size; i++) {
         typename Map::key_type key;
         typename Map::mapped_type value;
-        auto wrapper = makeKeyValueWrapper(key, value);
-        ar >> wrapper;
+        ar >>  makeKeyValueWrapper(key, value);
         hint = std::next(
             map.insert(hint, std::make_pair(std::move(key), std::move(value))));
     }

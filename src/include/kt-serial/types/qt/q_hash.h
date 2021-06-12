@@ -2,7 +2,6 @@
 
 #include <QHash>
 
-#include "kt-serial/details/wrappers/key_value_wrapper.h"
 #include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
@@ -12,8 +11,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QHash<Key, T>& hash) {
     ar << makeSizeWrapper(hash.size());
 
     for (auto it = hash.constBegin(); it != hash.constEnd(); ++it) {
-        auto wrapper = makeKeyValueWrapper(it.key(), it.value());
-        ar << wrapper;
+        ar << makeKeyValueWrapper(it.key(), it.value());
     }
 }
 
@@ -28,8 +26,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, QHash<Key, T>& hash) {
     for (SizeType i = 0; i < size; ++i) {
         Key key;
         T value;
-        auto wrapper = makeKeyValueWrapper(key, value);
-        ar >> wrapper;
+		ar >> makeKeyValueWrapper(key, value);
         hash.insert(key, value);
     }
 }

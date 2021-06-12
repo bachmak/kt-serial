@@ -1,6 +1,5 @@
 #pragma once
 
-#include "kt-serial/details/wrappers/key_value_wrapper.h"
 #include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
@@ -22,8 +21,7 @@ void saveUnorderedMap(Archive& ar, const UnorderedMap& map) {
     ar << makeSizeWrapper(map.size()) << makeSizeWrapper(map.bucket_count());
 
     for (const auto& item : map) {
-        auto wrapper = makeKeyValueWrapper(item.first, item.second);
-        ar << wrapper;
+        ar << makeKeyValueWrapper(item.first, item.second);
     }
 }
 
@@ -49,8 +47,7 @@ void loadUnorderedMap(Archive& ar, UnorderedMap& map) {
     for (SizeType i = 0; i < size; i++) {
         typename UnorderedMap::key_type key;
         typename UnorderedMap::mapped_type value;
-        auto wrapper = makeKeyValueWrapper(key, value);
-        ar >> wrapper;
+        ar >> makeKeyValueWrapper(key, value);
         map.insert(std::make_pair(std::move(key), std::move(value)));
     }
 }

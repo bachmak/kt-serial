@@ -11,8 +11,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QMultiMap<Key, T>& map) {
     ar << makeSizeWrapper(map.size());
 
     for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-        auto wrapper = makeKeyValueWrapper(it.key(), it.value());
-        ar << wrapper;
+        ar << makeKeyValueWrapper(it.key(), it.value());
     }
 }
 
@@ -26,8 +25,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, QMultiMap<Key, T>& map) {
     for (SizeType i = 0; i < size; ++i) {
         Key key;
         T value;
-        auto wrapper = makeKeyValueWrapper(key, value);
-        ar >> wrapper;
+        ar >> makeKeyValueWrapper(key, value);
         hint = map.insert(hint, key, value);
     }
 }
