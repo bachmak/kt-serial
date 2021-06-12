@@ -31,6 +31,12 @@
         ia(__VA_ARGS__);                                                       \
     }
 
+#define SERIALIZABLE_VIRTUAL_EMPTY_OVERRIDE                                    \
+    virtual void KTSERIAL_SAVE_METHOD(::KtSerial::OutputArchive&)              \
+        const override {}                                                      \
+                                                                               \
+    virtual void KTSERIAL_LOAD_METHOD(::KtSerial::InputArchive&) override {}
+
 #define SERIALIZABLE_OVERRIDE(...)                                             \
     void KTSERIAL_SAVE_METHOD(::KtSerial::OutputArchive& oa) const override {  \
         oa(__VA_ARGS__);                                                       \
