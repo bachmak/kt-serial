@@ -86,9 +86,17 @@ auto randomize(T& seq)
     }
 }
 
+void randomize(QString& s) {
+    s.clear();
+    s.resize(randomSize());
+    for (auto& value : s) {
+        randomize(value.unicode());
+    }
+}
+
 template <class T, typename std::enable_if<
                        !std::is_same<typename T::value_type, bool>::value,
-                       bool>::type>
+                       bool>::type> 
 auto randomize(T& seq)
     -> decltype(seq.resize(std::declval<std::size_t>())) {
     seq.clear();

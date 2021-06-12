@@ -3,6 +3,8 @@
 #include <random>
 #include <type_traits>
 
+#include <QString>
+
 namespace TestFunctions {
 std::mt19937 gen;
 std::size_t maxSize = 100;
@@ -66,6 +68,8 @@ void randomize(std::pair<T1, T2>& p);
 
 template <class T1, class T2>
 void randomize(std::pair<const T1, T2>& p); 
+
+void randomize(QString& s);
 
 template <class Type> void randomizeVariadic(Type& t);
 
