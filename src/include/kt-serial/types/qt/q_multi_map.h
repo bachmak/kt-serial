@@ -2,7 +2,7 @@
 
 #include <QMultiMap>
 
-#include "Kt-serial/types/details/common.h"
+#include "kt-serial/types/details/common.h"
 
 namespace KtSerial {
 namespace Details {
