@@ -13,10 +13,10 @@ void saveContinuousContainer(Archive& ar, const Container& con) {
 
 template <class Container, class Archive>
 void loadContinuousContainer(Archive& ar, Container& con) {
-	SizeType size;
-	ar >> makeSizeWrapper(size);
-	con.resize(size);
-	ar >> makeDataWrapper(con.data(), static_cast<SizeType>(size));
+    SizeType size;
+    ar >> makeSizeWrapper(size);
+    con.resize(size);
+    ar >> makeDataWrapper(con.data(), static_cast<SizeType>(size));
 }
 } // namespace QtConcepts
 } // namespace Details

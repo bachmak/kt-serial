@@ -42,7 +42,7 @@ template <class Archive, class Map> void loadMap(Archive& ar, Map& map) {
     for (SizeType i = 0; i < size; i++) {
         typename Map::key_type key;
         typename Map::mapped_type value;
-        ar >>  makeKeyValueWrapper(key, value);
+        ar >> makeKeyValueWrapper(key, value);
         hint = std::next(
             map.insert(hint, std::make_pair(std::move(key), std::move(value))));
     }

@@ -31,4 +31,3 @@
 /* Сообщение об ошибке чтения из потока*/
 #define KTSERIAL_ERROR_STREAM_READ_FAILURE                                     \
     "Error: failed to read from the input stream"
-

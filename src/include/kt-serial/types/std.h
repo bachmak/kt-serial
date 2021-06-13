@@ -11,4 +11,3 @@
 #include "kt-serial/types/std/unordered_map.h"
 #include "kt-serial/types/std/unordered_set.h"
 #include "kt-serial/types/std/vector.h"
-

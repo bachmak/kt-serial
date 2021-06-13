@@ -9,7 +9,7 @@ namespace KtSerial {
 namespace Details {
 template <class T, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QSet<T>& set) {
-	QtConcepts::saveValueOnlyContainer(ar, set);
+    QtConcepts::saveValueOnlyContainer(ar, set);
 }
 
 template <class T, class Archive>
@@ -18,7 +18,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, QSet<T>& set) {
     ar >> makeSizeWrapper(size);
 
     set.clear();
-	set.reserve(size);
+    set.reserve(size);
 
     for (SizeType i = 0; i < size; ++i) {
         T elem;

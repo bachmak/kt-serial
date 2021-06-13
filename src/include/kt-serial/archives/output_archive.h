@@ -110,8 +110,9 @@ void KTSERIAL_SAVE_FUNCTION(OutputArchive& ar,
  * @param keyValue объект-обертка над парой ключ-значение
  */
 template <class Key, class Value>
-void KTSERIAL_SAVE_FUNCTION(OutputArchive& ar, const Details::KeyValueWrapper<Key, Value>& keyValue) {
-	ar(keyValue.key, keyValue.value);
+void KTSERIAL_SAVE_FUNCTION(
+    OutputArchive& ar, const Details::KeyValueWrapper<Key, Value>& keyValue) {
+    ar(keyValue.key, keyValue.value);
 }
 
 } // namespace Details
