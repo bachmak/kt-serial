@@ -5,6 +5,15 @@
 namespace KtSerial {
 namespace Details {
 namespace QtConcepts {
+/**
+ * @brief Обобщенная перегрузка для сериализации контейнеров Qt, хранящих
+ * значения в паре с соответствующими ключами.
+ *
+ * @tparam Container тип сериализуемого контейнера
+ * @tparam Archive тип выходного архива
+ * @param ar ссылка на выходной архив
+ * @param con ссылка на сериализуемый контейнер
+ */
 template <class Container, class Archive>
 void saveKeyValueContainer(Archive& ar, const Container& con) {
     ar << makeSizeWrapper(con.size());

@@ -5,6 +5,15 @@
 namespace KtSerial {
 namespace Details {
 namespace QtConcepts {
+/**
+ * @brief Обобщенная перегрузка функции для сериализации ассоциативных
+ * контейнеров бибиотеки Qt, реализующих структуру типа словарь.
+ *
+ * @tparam Map тип сериализуемого контейнера
+ * @tparam Archive тип выходного архива
+ * @param ar ссылка на выходной архив
+ * @param map ссылка на сериализуемый контейнер
+ */
 template <class Map, class Archive> void loadMap(Archive& ar, Map& map) {
     SizeType size;
     ar >> makeSizeWrapper(size);

@@ -7,11 +7,27 @@
 
 namespace KtSerial {
 namespace Details {
+/**
+ * @brief Перегрузка функции для сериализации контейнера QLinkedList.
+ *
+ * @tparam T тип элементов контейнера
+ * @tparam Archive класс архива для сериализации
+ * @param ar ссылка на архив
+ * @param lst сериализуемый контейнер
+ */
 template <class T, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QLinkedList<T>& lst) {
     QtConcepts::saveValueOnlyContainer(ar, lst);
 }
 
+/**
+ * @brief Перегрузка функции для десериализации контейнера QLinkedList.
+ *
+ * @tparam T тип элементов контейнера
+ * @tparam Archive класс архива для десериализации
+ * @param ar ссылка на архив
+ * @param lst десериализуемый контейнер
+ */
 template <class T, class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, QLinkedList<T>& lst) {
     SizeType size;

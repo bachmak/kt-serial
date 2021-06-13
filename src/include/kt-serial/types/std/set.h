@@ -12,6 +12,7 @@ namespace Details {
  * @tparam Key тип элементов контейнера
  * @tparam Compare компаратор
  * @tparam Alloc аллокатор
+ * @tparam Archive тип выходного архива
  * @param ar ссылка на архив
  * @param set сериализуемый контейнер
  */
@@ -27,6 +28,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
  * @tparam Key тип элементов контейнера
  * @tparam Compare компаратор
  * @tparam Alloc аллокатор
+ * @tparam Archive тип выходного архива
  * @param ar ссылка на архив
  * @param set сериализуемый контейнер
  */
@@ -42,6 +44,7 @@ void KTSERIAL_SAVE_FUNCTION(Archive& ar,
  * @tparam Key тип элементов контейнера
  * @tparam Compare компаратор
  * @tparam Alloc аллокатор
+ * @tparam Archive тип входного архива
  * @param ar ссылка на архив
  * @param set десериализуемый контейнер
  */
@@ -56,6 +59,7 @@ void KTSERIAL_LOAD_FUNCTION(Archive& ar, std::set<Key, Compare, Alloc>& set) {
  * @tparam Key тип элементов контейнера
  * @tparam Compare компаратор
  * @tparam Alloc аллокатор
+ * @tparam Archive тип входного архива
  * @param ar ссылка на архив
  * @param set десериализуемый контейнер
  */
