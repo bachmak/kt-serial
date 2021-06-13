@@ -189,7 +189,7 @@ void randomize(QVector<T>& v) {
 	v.resize(randomSize());
 
 	for (auto& elem : v) {
-		randomize(v);
+		randomize(elem);
 	}
 }
 
