@@ -5,3 +5,6 @@
 
 #include "kt-serial/access.h"
 #include "kt-serial/macros.h"
+
+#include "kt-serial/types/std.h"
+#include "kt-serial/types/qt.h"
