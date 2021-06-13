@@ -3,16 +3,13 @@
 #include <QList>
 
 #include "kt-serial/types/details/common.h"
+#include "kt-serial/types/qt/concepts/value_only_container.h"
 
 namespace KtSerial {
 namespace Details {
 template <class T, class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QList<T>& lst) {
-    ar << makeSizeWrapper(lst.size());
-
-    for (const auto& elem : lst) {
-        ar << elem;
-    }
+    QtConcepts::saveValueOnlyContainer(ar, lst);
 }
 
 template <class T, class Archive>

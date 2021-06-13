@@ -2,23 +2,18 @@
 
 #include <QString>
 
-#include "kt-serial/types/details/common.h"
+#include "kt-serial/types/qt/concepts/continuous_container.h"
 
 namespace KtSerial {
 namespace Details {
-
 template <class Archive>
 void KTSERIAL_SAVE_FUNCTION(Archive& ar, const QString& str) {
-    ar << makeSizeWrapper(str.size())
-       << makeDataWrapper(str.data(), static_cast<SizeType>(str.size()));
+	QtConcepts::saveContinuousContainer(ar, str);
 }
 
 template <class Archive>
 void KTSERIAL_LOAD_FUNCTION(Archive& ar, QString& str) {
-    SizeType size;
-    ar >> makeSizeWrapper(size);
-    str.resize(size);
-    ar >> makeDataWrapper(str.data(), static_cast<SizeType>(str.size()));
+	QtConcepts::loadContinuousContainer(ar, str);
 }
 } // namespace Details
 } // namespace KtSerial
