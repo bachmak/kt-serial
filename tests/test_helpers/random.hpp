@@ -94,6 +94,105 @@ void randomize(QString& s) {
     }
 }
 
+template <class K, class V>
+void randomize(QHash<K, V>& h) {
+	h.clear();
+	size_t size = randomSize();
+	
+	for (size_t i = 0; i < size; i++) {
+		K key;
+		V value;
+		randomize(key);
+		randomize(value);
+		h.insert(key, value);
+	}
+}
+
+
+template <class T>
+void randomize(QLinkedList<T>& ll) {
+	ll.clear();
+	auto size = randomSize();
+
+	for (size_t i = 0; i < size; i++) {
+		T value;
+		randomize(value);
+		ll.append(value);
+	}
+}
+
+template <class T>
+void randomize(QList<T>& l) {
+	l.clear();
+	auto size = randomSize();
+
+	for (size_t i = 0; i < size; i++) {
+		T value;
+		randomize(value);
+		l.append(value);
+	}
+}
+
+template <class K, class V>
+void randomize(QMap<K, V>& m) {
+	m.clear();
+	auto size = randomSize();
+
+	for (size_t i = 0; i < size; i++) {
+		K key;
+		V value;
+		randomizeVariadic(key, value);
+		m.insert(key, value);
+	}
+}
+
+template <class K, class V>
+void randomize(QMultiHash<K, V>& m) {
+	m.clear();
+	auto size = randomSize();
+
+	for (size_t i = 0; i < size; i++) {
+		K key;
+		V value;
+		randomizeVariadic(key, value);
+		m.insert(key, value);
+	}
+}
+
+template <class K, class V>
+void randomize(QMultiMap<K, V>& m) {
+	m.clear();
+	auto size = randomSize();
+
+	for (size_t i = 0; i < size; i++) {
+		K key;
+		V value;
+		randomizeVariadic(key, value);
+		m.insert(key, value);
+	}
+}
+
+template <class T>
+void randomize(QSet<T>& s) {
+	s.clear();
+	auto size = randomSize();
+
+	for (size_t i = 0; i < size; i++) {
+		T elem;
+		randomize(elem);
+		s.insert(elem);
+	}
+}
+
+template <class T>
+void randomize(QVector<T>& v) {
+	v.resize(randomSize());
+
+	for (auto& elem : v) {
+		randomize(v);
+	}
+}
+
 template <class T, typename std::enable_if<
                        !std::is_same<typename T::value_type, bool>::value,
                        bool>::type> 

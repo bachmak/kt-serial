@@ -3,7 +3,7 @@
 #include <random>
 #include <type_traits>
 
-#include <QString>
+#include <QtCore>
 
 namespace TestFunctions {
 std::mt19937 gen;
@@ -70,6 +70,30 @@ template <class T1, class T2>
 void randomize(std::pair<const T1, T2>& p); 
 
 void randomize(QString& s);
+
+template <class K, class V>
+void randomize(QHash<K, V>& h);
+
+template <class T>
+void randomize(QLinkedList<T>& ll);
+
+template <class T>
+void randomize(QList<T>& l);
+
+template <class K, class V>
+void randomize(QMap<K, V>& m);
+
+template <class K, class V>
+void randomize(QMultiHash<K, V>& mh);
+
+template <class K, class V>
+void randomize(QMultiMap<K, V>& mm);
+
+template <class T>
+void randomize(QSet<T>& s);
+
+template <class T>
+void randomize(QVector<T>& v);
 
 template <class Type> void randomizeVariadic(Type& t);
 
