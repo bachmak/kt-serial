@@ -7,4 +7,7 @@
 #include "kt-serial/macros.h"
 
 #include "kt-serial/types/std.h"
+
+#ifdef QT_VERSION
 #include "kt-serial/types/qt.h"
+#endif
